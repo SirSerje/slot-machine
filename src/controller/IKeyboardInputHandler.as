@@ -1,4 +1,4 @@
-package {
+package controller {
 import flash.events.KeyboardEvent;
 
 public interface IKeyboardInputHandler {

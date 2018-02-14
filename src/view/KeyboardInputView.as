@@ -1,8 +1,20 @@
-package {
+package view {
+import Decorator.AbstractComponent;
+import Decorator.ConcreteComponent;
+import Decorator.ConcreteDecoratorRules;
+import Decorator.ConcreteDecoratorMultiplier;
+import Decorator.ConcreteDecoratorReels;
+
+import controller.IKeyboardInputHandler;
+
+import flash.display.ActionScriptVersion;
 import flash.display.Stage;
 import flash.events.Event;
 import flash.events.KeyboardEvent;
 import flash.text.TextField;
+
+import model.AbstractDisplay;
+import model.IModel;
 
 public class KeyboardInputView extends CompositeView {
     private var target:Stage;
@@ -24,7 +36,17 @@ public class KeyboardInputView extends CompositeView {
 
     override public function update(event:Event = null):void {
         trace("ключ:",model.getKey());
-        trace("веса", model.getItems());
+        var a:AbstractDisplay = model.getItems();
+        trace("вес:", a);
+        var rules:Object = model.getRules()
+        //getTotalMultyplies
+
+//        var testComponent:AbstractComponent = new ConcreteComponent("SPIN");
+//        testComponent = new ConcreteDecoratorReels(testComponent, "S");
+//        testComponent = new ConcreteDecoratorRules(testComponent);
+//        testComponent = new ConcreteDecoratorMultiplier(testComponent);
+//
+//        trace(testComponent.getInformation())
         super.update(event);
     }
 
@@ -41,7 +63,7 @@ public class KeyboardInputView extends CompositeView {
         tF.border = true
         addChild(tF);
 
-        update(); //TODO раскоментить потом
+        //update(); //TODO раскоментить потом
     }
 }
 }

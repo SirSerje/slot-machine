@@ -1,6 +1,10 @@
 package {
 import flash.events.Event;
 
+import model.IModel;
+
+import view.ComponentView;
+
 public class View extends ComponentView {
 
 

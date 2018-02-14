@@ -1,4 +1,4 @@
-package {
+package controller {
 import flash.events.MouseEvent;
 
 public interface IMouseInputHandler {

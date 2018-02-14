@@ -1,4 +1,4 @@
-package {
+package view {
 import flash.events.Event;
 
 public class CompositeView extends ComponentView {

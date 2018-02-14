@@ -1,5 +1,7 @@
-package {
+package controller {
 import flash.events.KeyboardEvent;
+
+import model.IModel;
 
 public class Controller implements IKeyboardInputHandler {
 

@@ -1,4 +1,4 @@
-package reel {
+package model {
 public interface IReel {
 }
 }

@@ -1,7 +1,13 @@
 package {
 
+import controller.IKeyboardInputHandler;
+
 import flash.display.Sprite;
 import flash.events.Event;
+
+import model.IModel;
+
+import view.CompositeView;
 
 public class Main extends Sprite {
 

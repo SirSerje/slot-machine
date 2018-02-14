@@ -1,4 +1,4 @@
-package {
+package model {
 import flash.events.IEventDispatcher;
 
 public interface IModel extends IEventDispatcher {
@@ -16,6 +16,7 @@ public interface IModel extends IEventDispatcher {
      * Получаем рандомные символы на барабанах
      * @return
      */
-    function getItems():Array
+    function getItems():AbstractDisplay
+    function getRules():String
 }
 }
