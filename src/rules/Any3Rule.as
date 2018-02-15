@@ -17,11 +17,8 @@ public class Any3Rule extends AbstractRule implements IRule {
                 total++
             }
             previous = current;
-
-
         }
 
-        trace("total matched: ")
         return total == value.length;
     }
 

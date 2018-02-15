@@ -52,25 +52,44 @@ public class Display extends AbstractDisplay {
         var currentLine:Array = [];
         for each(var currentLineType:String in possibleLines) {
             switch (currentLineType) {
+
+
                 case LineType.ALL_HORIZONTAL:
                     for (var i:int = 0; i < reels.length; i++) {
                         currentLine = [];
                         var b:Reel = reels[i];
                         for (var j:int = 0; j < b.getDisplaySize(); j++) {
-                            var a:String = reels[j].getItemAt(i);
-                            currentLine.push(a)
+                            var item:String = reels[j].getItemAt(i);
+                            currentLine.push(item)
                         }
                         all.push(currentLine);
                     }
                     break;
+
+
                 case LineType.SQUARE_DIAGONAL:
                     currentLine = [];
+                    //TODO: add square validation somewhere upper
                     for (var i:int = 0; i < reels.length; i++) {
-                        var a:String = reels[i].getItemAt(i);
-                        currentLine.push(a)
+                        var item:String = reels[i].getItemAt(i);
+                        currentLine.push(item)
+                    }
+                    all.push(currentLine);
+                    var m:int = 0
+                    currentLine = [];
+                    for (var i:int = 0; i < reels.length; i++) {
+                        var b:Reel = reels[i];
+                        for (var j:int = b.getDisplaySize() - 1; j >= 0; j--) {
+                            var item:String = reels[i].getItemAt(j - m);
+                            currentLine.push(item)
+                            m++
+                            break
+                        }
                     }
                     all.push(currentLine);
                     break;
+
+
                 default:
                     throw new Error("NOT IMPLEMENTED DEFAULT LINE at avaliableLines");
                     break;

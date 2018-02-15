@@ -65,30 +65,11 @@ public class Model extends EventDispatcher implements IModel {
         trace(display.getAvailableLineTypes())
         var  a = ruleSet.matchByCurrentRules(display.availableLines());
         trace(a);
-        //проверить прямые
-/*
-        display.getLine(0)
-        display.getLine(1)
-        display.getLine(2)
-        //проверить диагонали
-        display.getDiagonal(true)
-        display.getDiagonal(false)
-        //проверить на скаттеры
-        display.getScatters
-        display.hasBonus
 
-        display.getAllLines()
-*/
-
-        //РулСет знает о добавленных в него правилах и получает на вход текущее состояние айтемов на экране
-        //Дисплей несет в себе линии
-        //Когда рулсет выполнит мач бай рулс он получиит на вход список айтемов и текущее доступные линии
-        //TODO подумать насчет того стоит передавать отедльной айтемы и линии или просто набор айтемов из линий
-
-                //Подумать насчет компоновки паттерна
+        //------------------------------------------------------------
         return ""
-
     }
+
     //TODO реализовать загрузку из Config
     private function initializeFromConfig():void {
         reelWeights = {
@@ -137,7 +118,6 @@ public class Model extends EventDispatcher implements IModel {
             result.push(currentItem);
             itemCounter += 1;
         }
-//---------------------------------------
 
         return result;
     }
