@@ -1,7 +1,6 @@
 package rules {
 import folder_defauklts.RuleType;
 
-import folder_models.AbstractReel;
 
 //TODO подумать над наличием абстракции
 public class RuleSet {
@@ -14,6 +13,10 @@ public class RuleSet {
         }
     }
 
+    /**
+     * Задействованные правила
+     * @return
+     */
     public function availableRules():Array {
         return _availableRules;
     }
@@ -29,7 +32,7 @@ public class RuleSet {
         var winComboName:Array = [];
         for each(var line:Array in itemOnLines) {
             for each (var rule:IRule in _availableRules) {
-                trace("Проверяем", line, "по правилу", rule)
+                trace("Проверяем", line, "по правилу", rule);
                 if(rule.checkWinOnLine(line)) {
                     winComboName.push(rule.getName());
                 }
@@ -38,7 +41,7 @@ public class RuleSet {
         return winComboName;
     }
 
-    //TODO фабрике тут место быть
+    //TODO фабрике тут место быть?
     private function createNewRule(i:String):AbstractRule {
         switch (i) {
             case RuleType.ANY_3:
@@ -51,7 +54,14 @@ public class RuleSet {
                 throw new Error("NOT IMPLEMENTED DEFAULT RULE at createNewRule");
                 break;
         }
-        return null;
     }
+
+    public function add(rule:IRule):void {
+        _availableRules.push(rule);
+    }
+
+    /*public function remove(rule:IRule):void {
+        throw new Error("NOT IMPLEMENTED remove")
+    }*/
 }
 }

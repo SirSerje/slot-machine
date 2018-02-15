@@ -75,14 +75,15 @@ public class Display extends AbstractDisplay {
                         currentLine.push(item)
                     }
                     all.push(currentLine);
-                    var m:int = 0
+                    var m:int = 0;
                     currentLine = [];
                     for (var i:int = 0; i < reels.length; i++) {
                         var b:Reel = reels[i];
+                        //noinspection LoopStatementThatDoesntLoopJS
                         for (var j:int = b.getDisplaySize() - 1; j >= 0; j--) {
                             var item:String = reels[i].getItemAt(j - m);
-                            currentLine.push(item)
-                            m++
+                            currentLine.push(item);
+                            m++;
                             break
                         }
                     }

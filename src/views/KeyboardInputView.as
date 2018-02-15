@@ -35,8 +35,8 @@ public class KeyboardInputView extends CompositeView {
 
 
     override public function update(event:Event = null):void {
-//        trace("getKey():",model.getKey());
 
+        model.makeSpin();
         var itemsReels:AbstractDisplay = model.getDisplay(); // отвечает айтемы при спине
         var matchedRules:Array = model.getMatchedRules();
 
@@ -51,7 +51,7 @@ public class KeyboardInputView extends CompositeView {
         testComponent = new ConcreteDecoratorMultiplier(testComponent);*/
 //
 //        trace(testComponent.getInformation())
-        super.update(event);
+        super.update(event); //Обновит всех дочерних
     }
 
     private function draw():void {
@@ -71,7 +71,7 @@ public class KeyboardInputView extends CompositeView {
         tF.border = true;
         addChild(tF);
 
-        update(); //TODO раскоментить потом
+        update();
     }
 }
 }

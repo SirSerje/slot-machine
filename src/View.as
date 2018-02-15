@@ -12,11 +12,12 @@ public class View extends ComponentView {
 
         super(aModel, oController);
         this.update();
-        trace("вызываем udpate из View");
+        trace("вызываем update из View");
 
     }
 
     override public function update(event:Event = null):void {
+
         trace(model.getKey());
         super.update(event);
     }
