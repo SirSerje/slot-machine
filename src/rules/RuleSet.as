@@ -25,6 +25,7 @@ public class RuleSet {
      * @return - массив правил, которые сыграли
      */
     public function matchByCurrentRules(itemOnLines:Array):Array {
+
         var winComboName:Array = [];
         for each(var line:Array in itemOnLines) {
             for each (var rule:IRule in _availableRules) {

@@ -7,16 +7,14 @@ public class Any3Rule extends AbstractRule implements IRule {
     public function checkWinOnLine(value:Array):Boolean {
         var exceptItem:String = "BLANK";
         var previous:String = "";
+        var total=1; //TODO обсуславливаемся что 1 совпал
+        for each(var m:String in value) {
 
-        var current:String;
-        var total=0;
-        for (var i:int = 0; i < value.length; i++) {
-            current = value[i];
-
-            if (current == previous && current != exceptItem) {
-                total++
+            if (m == previous && m != exceptItem && previous!="") {
+                total++;
             }
-            previous = current;
+            previous = m;
+
         }
 
         return total == value.length;

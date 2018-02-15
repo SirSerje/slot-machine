@@ -35,24 +35,27 @@ public class KeyboardInputView extends CompositeView {
 
 
     override public function update(event:Event = null):void {
-        trace("getKey():",model.getKey());
+//        trace("getKey():",model.getKey());
 
-        var a:AbstractDisplay = model.getItems(); // отвечает айтемы при спине
+        var itemsReels:AbstractDisplay = model.getDisplay(); // отвечает айтемы при спине
+        var matchedRules:Array = model.getMatchedRules();
 
 
-        var rules:Object = model.getMatchedRules();
+        trace("айтемы на дисплее:", itemsReels);
+        trace("win rules: ", matchedRules);
+        //getTotal
 
-        trace("айтемы на дисплее:", a);
-
-        //getTotalMultyplies
-
-//        var testComponent:AbstractComponent = new ConcreteComponent("SPIN");
-//        testComponent = new ConcreteDecoratorReels(testComponent, "S");
-//        testComponent = new ConcreteDecoratorRules(testComponent);
-//        testComponent = new ConcreteDecoratorMultiplier(testComponent);
+       /* var testComponent:AbstractComponent = new ConcreteComponent("SPIN");
+        testComponent = new ConcreteDecoratorReels(testComponent, "S");
+        testComponent = new ConcreteDecoratorRules(testComponent);
+        testComponent = new ConcreteDecoratorMultiplier(testComponent);*/
 //
 //        trace(testComponent.getInformation())
         super.update(event);
+    }
+
+    private function draw():void {
+
     }
 
     private function onAddedToStage(event:Event):void {

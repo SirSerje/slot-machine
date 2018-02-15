@@ -7,6 +7,7 @@ public interface IModel extends IEventDispatcher {
      * @param key
      */
     function setKey(key:uint):void
+    function makeRoll():void
     /**
      * Получаем текущую нажатую клавишу
      * @return
@@ -16,7 +17,7 @@ public interface IModel extends IEventDispatcher {
      * Получаем рандомные символы на барабанах
      * @return
      */
-    function getItems():AbstractDisplay
-    function getMatchedRules():String
+    function getDisplay():AbstractDisplay
+    function getMatchedRules():Array
 }
 }

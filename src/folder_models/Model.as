@@ -10,9 +10,9 @@ import rules.RuleSet;
 public class Model extends EventDispatcher implements IModel {
     private var lastKeyPressed:uint = 0;
 
-    private var reelWeights:Object = {};
+    private var reelWeights:Object;
     private var display:Display;
-    private var displaySize:int = 3;
+    private var displaySize:int = 3; //TODO выпилить это
     private var ruleSet:RuleSet;
 
     //TODO подумать, стоит ли напрямую добавлять классы правил или делать это внутри через возврат
@@ -23,55 +23,13 @@ public class Model extends EventDispatcher implements IModel {
     //TODO добавить остальные правила
 
     public function Model() {
-//        if(reelWeights == {})
-            initializeFromConfig();
-
-    }
-
-    public function setKey(key:uint):void {
-        this.lastKeyPressed = key;
-        dispatchEvent(new Event(Event.CHANGE));
-
-    }
-
-    public function getKey():uint {
-        return lastKeyPressed;
-    }
-
-    /**
-     * При клике
-     * @return
-     */
-    public function getItems():AbstractDisplay {
-        var itemsOnReel:Array = [];
-        for each(var a:Object in reelWeights) {
-            if( a.stop.length != a.weight.length) {
-                throw new Error("Таблица вероятностей не соотвествуют таблице символов на барабане at getItems ")
-            }
-            var randomPosOnReel:int = getRandomOnReel(a.weight);
-            var items:Array = getItemsOnReel(randomPosOnReel, a.stop)
-            itemsOnReel.push(items);
+        if(!reelWeights) {
+            init();
         }
-        display.updateReels(itemsOnReel);
-        return display;
-    }
-
-    /**
-     * метод, который проверит, есть ли линии
-     * @return
-     */
-    public function getMatchedRules():String {
-        trace("Available rules", ruleSet.availableRules());
-        trace(display.getAvailableLineTypes())
-        var  a = ruleSet.matchByCurrentRules(display.availableLines());
-        trace(a);
-
-        //------------------------------------------------------------
-        return ""
     }
 
     //TODO реализовать загрузку из Config
-    private function initializeFromConfig():void {
+    private function init():void {
         reelWeights = {
             a: {
                 weight: [1, 25, 10, 15, 30, 25, 30, 40, 15, 10, 8, 45, 3, 5, 3, 10, 30, 25, 30, 10, 1, 1],
@@ -95,11 +53,47 @@ public class Model extends EventDispatcher implements IModel {
 
         trace("Available rules:",ruleSet.availableRules());
 
+    }
 
+    public function setKey(key:uint):void {
+      //  this.lastKeyPressed = key;
+       // dispatchEvent(new Event(Event.CHANGE));
 
+    }
 
-        //trace(">>>", display.getReels());
+    public function makeRoll():void {
+        trace("ROLL WAS MADE")
+        dispatchEvent(new Event(Event.CHANGE));
+    }
 
+    public function getKey():uint {
+        return lastKeyPressed;
+    }
+
+    /**
+     * При клике
+     * @return
+     */
+    public function getDisplay():AbstractDisplay {
+        var itemsOnReel:Array = [];
+        for each(var a:Object in reelWeights) {
+            if( a.stop.length != a.weight.length) {
+                throw new Error("Таблица вероятностей не соотвествуют таблице символов на барабане at getItems ")
+            }
+            var randomPosOnReel:int = getRandomOnReel(a.weight);
+            var items:Array = getItemsOnReel(randomPosOnReel, a.stop)
+            itemsOnReel.push(items);
+        }
+        display.updateReels(itemsOnReel);
+        return display;
+    }
+
+    /**
+     * метод, который проверит, есть ли линии
+     * @return
+     */
+    public function getMatchedRules():Array {
+        return ruleSet.matchByCurrentRules(display.availableLines())
     }
 
     /**
@@ -132,11 +126,11 @@ public class Model extends EventDispatcher implements IModel {
             throw new Error("КОНФИГ ДЛЯ ВЕСОВ МЕНЬШЕ РАЗМЕРА ОТОБРАЖАЕМЫХ ЗНАЧЕНИЙ at getRandomOnReel");
         }
 
-        var sum:Number = 0;
+        var sum:Number = 1;
         for each(var currentArrayValue:int in weights) {
             sum += currentArrayValue;
         }
-        var rand:int = Math.floor(Math.random() * sum);
+        var rand:int = 0;Math.floor(Math.random() * sum);
         var all:int = 0;
         for (var i:int = 0; i <= weights.length; i++) {
             var currentValue:int = weights[i];
@@ -148,6 +142,7 @@ public class Model extends EventDispatcher implements IModel {
         }
         return null //TODO проверить, надо ли так, или можно красивее
     }
+
 
 
 }

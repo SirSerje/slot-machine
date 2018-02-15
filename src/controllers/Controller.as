@@ -11,8 +11,12 @@ public class Controller implements IKeyboardInputHandler {
     }
 
     public function keyPressHandler(event:KeyboardEvent):void {
-        model.setKey(event.charCode);
+//        model.setKey(event.charCode);
+        model.makeRoll()
+
     }
+
+
 
 }
 }
