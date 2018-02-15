@@ -6,7 +6,7 @@ public class CompositeView extends ComponentView {
 
     public function CompositeView(aModel:Object, aController:Object = null) {
         super(aModel, aController);
-        this.aChildren = new Array(); //TODO think about [] instead
+        this.aChildren = [];
     }
 
     override public function add(c:ComponentView):void {
@@ -20,5 +20,13 @@ public class CompositeView extends ComponentView {
     }
 
 
+    override public function getView():String {
+        var all:String = "";
+        for each(var c:ComponentView in aChildren) {
+            all+=(c.getView())+"\n";//TODO поменять += на феншуйное решение
+        }
+
+        return all;
+    }
 }
 }

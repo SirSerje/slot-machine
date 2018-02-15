@@ -1,15 +1,14 @@
 package folder_models {
-import folder_defauklts.LineType;
+import configuration.LineType;
 
 public class Display extends AbstractDisplay {
-    private var reels:Array = [];//TODO or private
+    private var reels:Array = [];
     private var reelsQuantity:int;
-    private var possibleLines:Array;
+    private var availableWinLines:Array;
     private var reelSize:int;
 
-    //TODO подумать над тем чтобы вынести создание линий "на потом"
-    public function Display(reelsQuantity:int, possibleLines:Array, reelSize:int = 3) {
-        this.possibleLines = possibleLines;
+    public function Display(reelsQuantity:int, reelSize:int, possibleLines:Array) {
+        this.availableWinLines = possibleLines;
         this.reelsQuantity = reelsQuantity;
         this.reelSize = reelSize;
     }
@@ -33,14 +32,6 @@ public class Display extends AbstractDisplay {
         }
     }
 
-    /** УДАЛИТЬ
-     * @Deprecated
-     * @return
-     */
-    public function currentPossibleLines():Array {
-        throw new Error("не надо вызывать currentPossibleLiens");
-        return [["BLANK", "BAR7", "BAR1"], ["BLANK", "BAR7", "BAR1"]]
-    }
 
     /**
      * выводим массив совпавших линий
@@ -50,7 +41,7 @@ public class Display extends AbstractDisplay {
     public function availableLines():Array {//может стоит вынести метод в интерфейс
         var all:Array = [];
         var currentLine:Array = [];
-        for each(var currentLineType:String in possibleLines) {
+        for each(var currentLineType:String in availableWinLines) {
             switch (currentLineType) {
 
 
@@ -99,8 +90,5 @@ public class Display extends AbstractDisplay {
         return all;
     }
 
-    public function getAvailableLineTypes():Array {
-        return possibleLines;
-    }
 }
 }

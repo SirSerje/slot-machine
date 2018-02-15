@@ -26,9 +26,13 @@ public class ComponentView extends Sprite {
 
     //ABSTRACT
     public function update(event:Event = null):void {
-
+        throw new IllegalOperationError("[ABSTRACT] : update");
     }
 
 
+    public function getView():String {
+        throw new Error("NEED TO OVERRIDE at getView");
+        return "X";
+    }
 }
 }

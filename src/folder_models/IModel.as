@@ -4,6 +4,7 @@ import flash.events.IEventDispatcher;
 public interface IModel extends IEventDispatcher {
     /**
      * Устанавливаем нажатую клавишу
+     * @Deprecated
      * @param key
      */
     function setKey(key:uint):void

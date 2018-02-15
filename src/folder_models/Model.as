@@ -4,27 +4,26 @@ import configuration.Config;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 
-import folder_defauklts.LineType;
-import folder_defauklts.RuleType;
+import configuration.LineType;
 
 import rules.Any3Rule;
 
 import rules.RuleSet;
+import rules.WildRule;
 
 public class Model extends EventDispatcher implements IModel {
     private var lastKeyPressed:uint = 0;
 
     private var reelWeights:Object;
     private var display:Display;
-    private var displaySize:int = 3; //TODO выпилить это
     private var ruleSet:RuleSet;
 
-    //TODO подумать, стоит ли напрямую добавлять классы правил или делать это внутри через возврат
-    private var possibleLines:Array = [LineType.ALL_HORIZONTAL, LineType.SQUARE_DIAGONAL]; //TODO добавить остальные линии
-    private var rules:Array = [RuleType.WILD, RuleType.ANY_3];
-    private const DISPLAY_REEL_SIZE:int = 3;
+    private var randomHistory:Array = [];
 
-    //TODO добавить остальные правила
+    //TODO 1) стоит ли представить в виде сущностей 2)добавить правила 3) добавить линии
+    private var possibleLines:Array = [LineType.ALL_HORIZONTAL, LineType.SQUARE_DIAGONAL];
+    private var displayReelSize:int;
+
 
     public function Model() {
         if(!reelWeights) {
@@ -33,17 +32,20 @@ public class Model extends EventDispatcher implements IModel {
     }
 
     private function init():void {
+        //Узнаем, сколько айтемов доступно к отобаржению пользователю на одном барабане
+        displayReelSize = Config.displayReelSize;
         //Получаем данные о том, что на каждой ленте и какая вероятность выпадения
-        reelWeights = Config.reelConfiguration;//TODO может органичнее?
+        reelWeights = Config.reelConfiguration;
         //Создаем дисплей
-        display = new Display(displaySize, possibleLines);
+        display = new Display(Config.reelQuantity, displayReelSize, possibleLines);
         //Создаем ленты и помещаем их в дисплей с заданым размером отоброажения
         for each(var a:Object in reelWeights) {
-            display.addReel(new Reel(Config.displayReelSize))
+            display.addReel(new Reel(displayReelSize))
         }
         //создаем набор правил
-        ruleSet = new RuleSet(rules);
-        ruleSet.add(new Any3Rule())
+        ruleSet = new RuleSet();
+        ruleSet.add(new Any3Rule());
+        ruleSet.add(new WildRule());
     }
 
     public function setKey(key:uint):void {
@@ -53,7 +55,6 @@ public class Model extends EventDispatcher implements IModel {
     }
 
     public function makeRoll():void {
-        trace("ROLL WAS MADE");
         dispatchEvent(new Event(Event.CHANGE));
     }
 
@@ -70,7 +71,7 @@ public class Model extends EventDispatcher implements IModel {
     }
 
     /**
-     * метод, который проверит, есть ли линии
+     * метод, который проверит, совпали ли правила по линиям, которые рабоают в дисплее
      * @return
      */
     public function getMatchedRules():Array {
@@ -85,7 +86,7 @@ public class Model extends EventDispatcher implements IModel {
      */
     private function getItemsOnReel(itemCounter:int, itemsOnReel:Array):Array {
         var result:Array = [];
-        for (var i:int = 0; i<itemsOnReel.length; i++) {
+        for (var i:int = 0; i < displayReelSize; i++) {
             if(itemsOnReel.length<=itemCounter) {
                 itemCounter=0;
             }
@@ -103,15 +104,16 @@ public class Model extends EventDispatcher implements IModel {
      * @return - случайное значение в массиве
      */
     private function getRandomOnReel(weights:Array):int {
-        if(weights.length < DISPLAY_REEL_SIZE) {
+        if(weights.length < displayReelSize) {
             throw new Error("КОНФИГ ДЛЯ ВЕСОВ МЕНЬШЕ РАЗМЕРА ОТОБРАЖАЕМЫХ ЗНАЧЕНИЙ at getRandomOnReel");
         }
-
         var sum:Number = 1;
         for each(var currentArrayValue:int in weights) {
             sum += currentArrayValue;
         }
         var rand:int = 0;Math.floor(Math.random() * sum);
+        //можно использовать для "возврата" предыдущего состояния, например
+        randomHistory.push(rand);
         var all:int = 0;
         for (var i:int = 0; i <= weights.length; i++) {
             var currentValue:int = weights[i];
@@ -121,7 +123,7 @@ public class Model extends EventDispatcher implements IModel {
             all += currentValue;
 
         }
-        return -1; //TODO проверить, надо ли так, или можно красивее
+        return -1;
     }
 
     /**

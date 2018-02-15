@@ -1,11 +1,9 @@
 package configuration {
 
-//TODO исходя из условий тестового задания, создаем конфиг на AS для того чтобы не реализовывать приход данных от сервера \ парсинг, etc
+//исходя из условий тестового задания, создаем конфиг на AS для того чтобы не реализовывать приход данных от сервера \ парсинг, etc
 public class Config {
-    private static const reelViewSize:int = 3;
-    public function Config() {
-    }
-
+    private static var _displayReelSize:int = 3;
+    private static var _reelQuantity:int = 3;
     private static var reelConfig:Object =
             {
                 a: {
@@ -24,13 +22,15 @@ public class Config {
 
 
     public static function get displayReelSize():int {
-        return reelViewSize;
+        return _displayReelSize;
     }
 
     public static function get reelConfiguration():Object {
         return reelConfig;
     }
 
-
+    public static function get reelQuantity():int {
+        return _reelQuantity;
+    }
 }
 }

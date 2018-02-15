@@ -21,17 +21,18 @@ public class Main extends Sprite {
         var model:IModel = new Model();
         var controller:IKeyboardInputHandler = new Controller(model);
 
-        var view:ComponentView = new View(model);
+        var reelView:ComponentView = new ReelsView(model);//Вьюшка барабанов
+        var matchingRulesView:ComponentView = new MatchingRulesView(model);//Вьюшка совпавших правил
+        var totalMultiplier:ComponentView = new totalMultiplierView(model); //Вьюшка выигрыша
 
         var kbInputView:CompositeView = new KeyboardInputView(model, controller, this.stage); //коллектит в себя все вьюшки
 
-//        addChild(view);
-
-        kbInputView.add(view);
+        kbInputView.add(reelView);
+        kbInputView.add(matchingRulesView);
+        kbInputView.add(totalMultiplier);
         addChild(kbInputView);
 
         model.addEventListener(Event.CHANGE, kbInputView.update);
-
     }
 
 }
