@@ -1,4 +1,4 @@
-package model {
+package folder_models {
 public class AbstractReel {
     //cost
 
@@ -7,6 +7,10 @@ public class AbstractReel {
 
     public function setItem():void {
 
+    }
+
+    public function getDisplaySize():int {
+        return -1;
     }
 }
 }

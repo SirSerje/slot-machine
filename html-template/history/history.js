@@ -13,7 +13,7 @@ BrowserHistoryUtils = {
             elm['on' + evType] = fn;
         }
     }
-}
+};
 
 BrowserHistory = (function() {
     // type of browser
@@ -199,7 +199,7 @@ BrowserHistory = (function() {
     function setHash(hash) {
        // It would be nice if we could use document.location.hash here,
        // but it's faulty sometimes.
-       if (hash == '') hash = '#'
+       if (hash == '') hash = '#';
        document.location.hash = hash;
     }
 
@@ -365,7 +365,7 @@ BrowserHistory = (function() {
                     back: false, 
                     forward: false, 
                     set: false
-                }
+                };
 
                 if ((window.location.hash == initialHash || window.location.href == initialHref) && (bsl == 1)) {
                     urlActions.back = true;
@@ -396,7 +396,7 @@ BrowserHistory = (function() {
                     var foundInStacks = {
                         back: -1, 
                         forward: -1
-                    }
+                    };
 
                     for (var i = 0; i < backStack.length; i++) {
                         if (backStack[i].flexAppUrl == getHash() && i != (bsl - 2)) {
@@ -490,7 +490,7 @@ BrowserHistory = (function() {
 
         if (browserHasHashChange)        
             document.body.onhashchange = hashChangeHandler;
-    }
+    };
 
     return {
         historyHash: historyHash, 
@@ -541,7 +541,7 @@ BrowserHistory = (function() {
                     getHistoryFrame().src = sourceToSet;
                     window.location.replace("#" + def);
                     setInterval(checkForUrlChange, 50);
-                }
+                };
                 try {
                     func();
                 } catch(e) {

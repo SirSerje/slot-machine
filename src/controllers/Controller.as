@@ -1,14 +1,14 @@
-package controller {
+package controllers {
 import flash.events.KeyboardEvent;
 
-import model.IModel;
+import folder_models.IModel;
 
 public class Controller implements IKeyboardInputHandler {
+    private var model:IModel;
 
     public function Controller(aModel:IModel) {
         this.model = aModel;
     }
-    private var model:IModel
 
     public function keyPressHandler(event:KeyboardEvent):void {
         model.setKey(event.charCode);

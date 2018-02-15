@@ -1,4 +1,4 @@
-package model {
+package folder_models {
 import flash.events.IEventDispatcher;
 
 public interface IModel extends IEventDispatcher {
@@ -17,6 +17,6 @@ public interface IModel extends IEventDispatcher {
      * @return
      */
     function getItems():AbstractDisplay
-    function getRules():String
+    function getMatchedRules():String
 }
 }

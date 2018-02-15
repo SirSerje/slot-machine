@@ -1,13 +1,16 @@
 package {
-
-import controller.IKeyboardInputHandler;
+import controllers.Controller;
+import controllers.IKeyboardInputHandler;
 
 import flash.display.Sprite;
 import flash.events.Event;
 
-import model.IModel;
+import folder_models.IModel;
+import folder_models.Model;
 
-import view.CompositeView;
+import views.CompositeView;
+import views.KeyboardInputView;
+
 
 public class Main extends Sprite {
 
@@ -19,7 +22,7 @@ public class Main extends Sprite {
         trace("создаем объект view:ComponentView");
       //  var view:ComponentView = new View(model);
 
-        trace("создаем общую вьюшку")
+        trace("создаем общую вьюшку");
         var kbInputView:CompositeView = new KeyboardInputView(model, controller, this.stage); //коллектит в себя все вьюшки
 
 //        addChild(view);

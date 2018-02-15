@@ -1,4 +1,4 @@
-package config {
+package configuration {
 import flash.utils.Dictionary;
 
 import items.BAR1;
@@ -37,14 +37,14 @@ public class Config {
             stops: [BLANK, BAR7, BLANK, BAR3, BLANK, BONUS, BLANK, BAR2, BLANK, H7, BLANK, BAR1, BLANK, WILD, BLANK, BAR3, BLANK, BONUS, BLANK, H7, BLANK, CHERRY],
             weights: [3, 25, 10, 25, 15, 20, 15, 40, 8, 10, 8, 25, 1, 2, 1, 15, 15, 20, 15, 10, 3, 3]
         }
-    }
+    };
 
     private static var slotParams:Object = {
         reelQuantity: 3,
         visibleQuality: 3
-    }
+    };
 
-    private static var  winLines:Object = {}
+    private static var  winLines:Object = {};
 
 
 

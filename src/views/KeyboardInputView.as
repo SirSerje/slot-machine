@@ -1,11 +1,11 @@
-package view {
-import Decorator.AbstractComponent;
-import Decorator.ConcreteComponent;
-import Decorator.ConcreteDecoratorRules;
-import Decorator.ConcreteDecoratorMultiplier;
-import Decorator.ConcreteDecoratorReels;
+package views {
+import decorations.AbstractComponent;
+import decorations.ConcreteComponent;
+import decorations.ConcreteDecoratorRules;
+import decorations.ConcreteDecoratorMultiplier;
+import decorations.ConcreteDecoratorReels;
 
-import controller.IKeyboardInputHandler;
+import controllers.IKeyboardInputHandler;
 
 import flash.display.ActionScriptVersion;
 import flash.display.Stage;
@@ -13,8 +13,8 @@ import flash.events.Event;
 import flash.events.KeyboardEvent;
 import flash.text.TextField;
 
-import model.AbstractDisplay;
-import model.IModel;
+import folder_models.AbstractDisplay;
+import folder_models.IModel;
 
 public class KeyboardInputView extends CompositeView {
     private var target:Stage;
@@ -35,10 +35,15 @@ public class KeyboardInputView extends CompositeView {
 
 
     override public function update(event:Event = null):void {
-        trace("ключ:",model.getKey());
-        var a:AbstractDisplay = model.getItems();
-        trace("вес:", a);
-        var rules:Object = model.getRules()
+        trace("getKey():",model.getKey());
+
+        var a:AbstractDisplay = model.getItems(); // отвечает айтемы при спине
+
+
+        var rules:Object = model.getMatchedRules();
+
+        trace("айтемы на дисплее:", a);
+
         //getTotalMultyplies
 
 //        var testComponent:AbstractComponent = new ConcreteComponent("SPIN");
@@ -60,10 +65,10 @@ public class KeyboardInputView extends CompositeView {
         tF.height = target.stageHeight * .5;
         //tF.type = TextFieldType.INPUT;
         tF.selectable = false;
-        tF.border = true
+        tF.border = true;
         addChild(tF);
 
-        //update(); //TODO раскоментить потом
+        update(); //TODO раскоментить потом
     }
 }
 }

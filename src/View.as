@@ -1,9 +1,9 @@
 package {
 import flash.events.Event;
 
-import model.IModel;
+import folder_models.IModel;
 
-import view.ComponentView;
+import views.ComponentView;
 
 public class View extends ComponentView {
 

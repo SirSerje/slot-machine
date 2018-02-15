@@ -1,4 +1,4 @@
-package view {
+package views {
 import flash.display.Sprite;
 import flash.errors.IllegalOperationError;
 import flash.events.Event;

@@ -1,4 +1,4 @@
-package Decorator {
+package decorations {
 public class ConcreteDecoratorReels extends AbstractDecorator{
     private var components:AbstractComponent;
     public function ConcreteDecoratorReels(components:AbstractComponent, i:String) {

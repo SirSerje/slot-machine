@@ -1,5 +1,5 @@
-package model {
-import model.AbstractReel;
+package folder_models {
+import folder_models.AbstractReel;
 
 public class AbstractDisplay {
     public function AbstractDisplay(reelsQuantity:int=0) {
@@ -15,7 +15,6 @@ public class AbstractDisplay {
     }
 
     public function updateReels(itemsOnReel:Array):void{
-        ;
     }
 }
 }
