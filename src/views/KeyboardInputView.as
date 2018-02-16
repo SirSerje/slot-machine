@@ -26,7 +26,7 @@ public class KeyboardInputView extends CompositeView {
 
     override public function update(event:Event = null):void {
         model.makeSpin();
-        super.update(event);
+        super.update(event);//TODO грязненько
         tF.text = getView();
     }
 

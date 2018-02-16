@@ -20,6 +20,7 @@ public interface IModel extends IEventDispatcher {
      */
     function getDisplay():AbstractDisplay;
     function getMatchedRules():Array;
+    function getPayment():int
     function makeSpin():void;
 }
 }

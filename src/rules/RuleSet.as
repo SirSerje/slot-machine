@@ -18,9 +18,10 @@ public class RuleSet {
         var winComboName:Array = [];
         for each(var line:Array in itemOnLines) {
             for each (var rule:IRule in _availableRules) {
-                trace("Проверяем", line, "по правилу", rule);
+                //trace("Проверяем", line, "по правилу", rule);
                 if (rule.checkWinOnLine(line)) {
-                    winComboName.push(rule.getName());
+                    winComboName.push(rule);
+                    trace("СОВПАВШЕЕ:", rule.getName())
                 }
             }
         }

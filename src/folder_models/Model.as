@@ -7,6 +7,7 @@ import flash.events.EventDispatcher;
 import configuration.LineType;
 
 import rules.Any3Rule;
+import rules.IRule;
 
 import rules.RuleSet;
 import rules.WildRule;
@@ -23,6 +24,9 @@ public class Model extends EventDispatcher implements IModel {
     //TODO 1) стоит ли представить в виде сущностей 2)добавить правила 3) добавить линии
     private var possibleLines:Array = [LineType.ALL_HORIZONTAL, LineType.SQUARE_DIAGONAL];
     private var displayReelSize:int;
+    private var payment:Payment;
+    private var wild:IRule;
+    private var any3:IRule;
 
 
     public function Model() {
@@ -44,8 +48,14 @@ public class Model extends EventDispatcher implements IModel {
         }
         //создаем набор правил
         ruleSet = new RuleSet();
-        ruleSet.add(new Any3Rule());
-        ruleSet.add(new WildRule());
+        any3 = new Any3Rule();
+        wild = new WildRule();
+
+        ruleSet.add(any3);
+        ruleSet.add(wild);
+        //Формируем объект выдачи наград
+        payment = new Payment();
+
     }
 
     public function setKey(key:uint):void {
@@ -63,6 +73,15 @@ public class Model extends EventDispatcher implements IModel {
     }
 
     /**
+     *
+     * @return суммарное количество
+     */
+    public function getPayment():int {
+        trace("getPayment")
+       return payment.paymentByMatchingRules(getMatchedRules())
+    }
+
+    /**
      * Возращаем набор айтемов которые доступны к отображению пользователю
      * @return
      */
@@ -76,6 +95,22 @@ public class Model extends EventDispatcher implements IModel {
      */
     public function getMatchedRules():Array {
         return ruleSet.matchByCurrentRules(display.availableLines())
+    }
+
+    /**
+     * Реализуем логику "крутки" лент
+     */
+    public function makeSpin():void {
+        var itemsOnReel:Array = [];
+        for each(var a:Object in reelWeights) {
+            if( a.stop.length != a.weight.length) {
+                throw new Error("Таблица вероятностей не соотвествуют таблице символов на барабане at getItems ")
+            }
+            var randomPosOnReel:int = getRandomOnReel(a.weight);
+            var items:Array = getItemsOnReel(randomPosOnReel, a.stop);
+            itemsOnReel.push(items);
+        }
+        display.updateReels(itemsOnReel);
     }
 
     /**
@@ -124,22 +159,6 @@ public class Model extends EventDispatcher implements IModel {
 
         }
         return -1;
-    }
-
-    /**
-     * Реализуем логику "крутки" лент
-     */
-    public function makeSpin():void {
-        var itemsOnReel:Array = [];
-        for each(var a:Object in reelWeights) {
-            if( a.stop.length != a.weight.length) {
-                throw new Error("Таблица вероятностей не соотвествуют таблице символов на барабане at getItems ")
-            }
-            var randomPosOnReel:int = getRandomOnReel(a.weight);
-            var items:Array = getItemsOnReel(randomPosOnReel, a.stop);
-            itemsOnReel.push(items);
-        }
-        display.updateReels(itemsOnReel);
     }
 }
 }

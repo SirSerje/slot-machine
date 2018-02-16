@@ -1,6 +1,6 @@
 package folder_models {
 
-public class Reel extends AbstractReel {
+public class Reel extends AbstractReel implements IReel{
     private var items:Array = [];
     private var reelDisplaySize:int;
 
@@ -20,6 +20,10 @@ public class Reel extends AbstractReel {
 
     public function getItemAt(value:int):String {
         return items[value];
+    }
+
+    public function getItems():Array {
+        return items;
     }
 
     override public function getDisplaySize():int {

@@ -12,6 +12,9 @@ import views.ComponentView;
 
 import views.CompositeView;
 import views.KeyboardInputView;
+import views.MatchingRulesView;
+import views.ReelsView;
+import views.TotalMultiplierView;
 
 
 public class Main extends Sprite {
@@ -23,7 +26,7 @@ public class Main extends Sprite {
 
         var reelView:ComponentView = new ReelsView(model);//Вьюшка барабанов
         var matchingRulesView:ComponentView = new MatchingRulesView(model);//Вьюшка совпавших правил
-        var totalMultiplier:ComponentView = new totalMultiplierView(model); //Вьюшка выигрыша
+        var totalMultiplier:ComponentView = new TotalMultiplierView(model); //Вьюшка выигрыша
 
         var kbInputView:CompositeView = new KeyboardInputView(model, controller, this.stage); //коллектит в себя все вьюшки
 
