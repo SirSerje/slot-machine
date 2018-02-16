@@ -1,34 +1,33 @@
 package views {
 import flash.events.Event;
 
-import folder_models.IModel;
+import models.IModel;
 
 public class CompositeView extends ComponentView {
-    private var aChildren:Array;
+    private var _children:Array;
 
     public function CompositeView(aModel:IModel, aController:Object = null) {
         super(aModel, aController);
-        this.aChildren = [];
+        _children = [];
     }
 
     override public function add(c:ComponentView):void {
-        aChildren.push(c);
+        _children.push(c);
     }
 
     override public function update(event:Event = null):void {
-        for each(var c:ComponentView in aChildren) {
+        for each(var c:ComponentView in _children) {
             c.update(event);
         }
     }
 
 
     override public function getView():String {
-        var all:String = "";
-        for each(var c:ComponentView in aChildren) {
-            all+=(c.getView())+"\n";//TODO поменять += на феншуйное решение
+        var allDataToShow:String = "";
+        for each(var c:ComponentView in _children) {
+            allDataToShow+=(c.getView())+"\n";
         }
-
-        return all;
+        return allDataToShow;
     }
 }
 }

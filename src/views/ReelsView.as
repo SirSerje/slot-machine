@@ -1,30 +1,25 @@
 package views {
 import flash.events.Event;
 
-import folder_models.AbstractDisplay;
-import folder_models.AbstractReel;
+import models.Display;
 
-import folder_models.IModel;
-import folder_models.IReel;
-import folder_models.Reel;
-
-import views.ComponentView;
+import models.IModel;
+import models.IReel;
 
 public class ReelsView extends ComponentView {
-    private var a:AbstractDisplay;
+    private var _display:Display;
 
     public function ReelsView(aModel:IModel, oController:Object = null) {
         super(aModel, oController);
     }
 
     override public function update(event:Event = null):void {
-        a = model.getDisplay();
-        //super.update(event);
+        _display = _model.getDisplay();
     }
 
     override public function getView():String {
         var str:String = "";
-        var b:Array = a.getReels();
+        var b:Array = _display.getReels();
         for each (var m:IReel in b) {
            str+=m.getItems() + "\n";
         }

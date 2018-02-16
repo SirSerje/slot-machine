@@ -1,7 +1,12 @@
-package folder_models {
+package models {
 import configuration.LineType;
 
-public class Display extends AbstractDisplay {
+/**
+ * Display class knows about reels and possible lines, which able to give win
+ */
+//Definitely, some slot machines have more than one display, so for this scalability class should be extends
+//from AbstractDisplay
+public class Display {
     private var reels:Array = [];
     private var reelsQuantity:int;
     private var availableWinLines:Array; //TODO rename possible lineTypes
@@ -13,19 +18,19 @@ public class Display extends AbstractDisplay {
         this.reelSize = reelSize;
     }
 
-    override public function addReel(reel:AbstractReel):void {
+    public function addReel(reel:IReel):void {
         if (reelSize != reel.getDisplaySize()) {
-            throw new Error("размер создаваемого рила не соотвествует конфигурации дисплея")
+            throw new Error("Reel doesn't match to display configuration");
         }
         reels.push(reel);
     }
 
-
-    override public function getReels():Array {
+    //TODO remove this
+    public function getReels():Array {
         return reels;
     }
 
-    override public function updateReels(itemsOnReel:Array):void {
+    public function updateReels(itemsOnReel:Array):void {
         for (var i:int = 0; i < itemsOnReel.length; i++) {
             var currentReel:Reel = reels[i];
             currentReel.updateReel(itemsOnReel[i]);
@@ -34,17 +39,16 @@ public class Display extends AbstractDisplay {
 
 
     /**
-     * выводим массив совпавших линий
-     * @return
-     */
-    //TODO подумать над тем, вынести ли линии в отдельную сущность, чтобы не было костыля в виде свича
-    public function availableLines():Array {//может стоит вынести метод в интерфейс
+    * Get all available lines for win combinations
+    * @return array of possible line win combinations
+    */
+    //For scalability, any line should be presented as some essence line Rule classes
+    public function availableLines():Array {
         var all:Array = [];
         var currentLine:Array = [];
         for each(var currentLineType:String in availableWinLines) {
+
             switch (currentLineType) {
-
-
                 case LineType.ALL_HORIZONTAL:
                     for (var i:int = 0; i < reels.length; i++) {
                         currentLine = [];
@@ -57,10 +61,8 @@ public class Display extends AbstractDisplay {
                     }
                     break;
 
-
                 case LineType.SQUARE_DIAGONAL:
                     currentLine = [];
-                    //TODO: add square validation somewhere upper
                     for (var i:int = 0; i < reels.length; i++) {
                         var item:String = reels[i].getItemAt(i);
                         currentLine.push(item)
@@ -79,11 +81,6 @@ public class Display extends AbstractDisplay {
                         }
                     }
                     all.push(currentLine);
-                    break;
-
-
-                default:
-                    throw new Error("NOT IMPLEMENTED DEFAULT LINE at avaliableLines");
                     break;
             }
         }

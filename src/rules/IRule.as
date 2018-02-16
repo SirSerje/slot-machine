@@ -1,7 +1,8 @@
 package rules {
 public interface IRule {
     function checkWinOnLine(value:Array):Boolean
-    function getName():String; //Представление должно быть тут
+    //TODO does we really need this ?
+    function getName():String; //Представление должно быть тут /
     function countPay():int;//
 }
 }

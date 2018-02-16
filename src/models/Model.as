@@ -1,4 +1,4 @@
-package folder_models {
+package models {
 import configuration.Config;
 
 import flash.events.Event;
@@ -10,20 +10,20 @@ import rules.Any3Rule;
 import rules.IRule;
 
 import rules.RuleSet;
-import rules.WildRule;
+import rules.BonusRule;
 
 public class Model extends EventDispatcher implements IModel {
     private var lastKeyPressed:uint = 0;
 
-    private var reelWeights:Object;
-    private var display:Display;
-    private var ruleSet:RuleSet;
+    private var _reelWeights:Object;
+    private var _display:Display;
+    private var _ruleSet:RuleSet;
 
     private var randomHistory:Array = [];
 
     //TODO 1) стоит ли представить в виде сущностей 2)добавить правила 3) добавить линии
-    private var possibleLines:Array = [LineType.ALL_HORIZONTAL, LineType.SQUARE_DIAGONAL];
-    private var displayReelSize:int;
+    private var _possibleLines:Array = [LineType.ALL_HORIZONTAL, LineType.SQUARE_DIAGONAL];
+    private var _displayReelSize:int;
     private var payment:Payment;
     private var wild:IRule;
     private var any3:IRule;
@@ -34,28 +34,27 @@ public class Model extends EventDispatcher implements IModel {
     }
 
     private function init():void {
-        //Узнаем, сколько айтемов доступно к отобаржению пользователю на одном барабане
-        displayReelSize = Config.displayReelSize;
-        //Получаем данные о том, что на каждой ленте и какая вероятность выпадения
-        reelWeights = Config.reelConfiguration;
-        //Создаем дисплей
-        display = new Display(Config.reelQuantity, displayReelSize, possibleLines);
-        //Создаем ленты и помещаем их в дисплей с заданым размером отоброажения
-        for each(var a:Object in reelWeights) {
-            display.addReel(new Reel(displayReelSize))
+        //Figuring out, how many items user can see on one reel
+        _displayReelSize = Config.displayReelSize;
+        //Taking data about reel weights
+        _reelWeights = Config.reelConfiguration;
+        //creating display object
+        _display = new Display(Config.reelQuantity, _displayReelSize, _possibleLines);
+        //creating reels and adding them to display
+        for each(var a:Object in _reelWeights) {
+            _display.addReel(new Reel(_displayReelSize))
         }
-        //создаем набор правил
-        ruleSet = new RuleSet();
+        //creating game rule types
+        _ruleSet = new RuleSet();
         any3 = new Any3Rule();
-        wild = new WildRule();
-
-        ruleSet.add(any3);
-        ruleSet.add(wild);
-        //Формируем объект выдачи наград
+        wild = new BonusRule();
+        _ruleSet.add(any3);
+        _ruleSet.add(wild);
+        //creating payment object
         payment = new Payment();
-
     }
 
+    //TODO remove
     public function setKey(key:uint):void {
       //  this.lastKeyPressed = key;
        // dispatchEvent(new Event(Event.CHANGE));
@@ -69,34 +68,34 @@ public class Model extends EventDispatcher implements IModel {
         dispatchEvent(new Event(Event.CHANGE));
     }
 
+    //TODO not needed
     public function getKey():uint {
         return lastKeyPressed;
     }
 
     /**
      *
-     * @return суммарное количество
+     * @return total win size
      */
     public function getPayment():int {
-        trace("getPayment")//TODO вынести в отдельную переменную а запускать это в makeRoll
+        trace("getPayment");//TODO вынести в отдельную переменную а запускать это в makeRoll
        return payment.paymentByMatchingRules(getMatchedRules())
     }
 
     /**
-     * Возращаем набор айтемов которые доступны к отображению пользователю
-     * @return
+     * @return items which user can see on every reel
      */
-    public function getDisplay():AbstractDisplay {
-        return display;
+    public function getDisplay():Display {
+        return _display;
     }
 
     /**
-     * метод, который проверит, совпали ли правила по линиям, которые рабоают в дисплее
+     * Method checks what rules
      * @return
      */
     public function getMatchedRules():Array {
         //TODO отдавать только переменную, логику перенести в makeRoll
-        return ruleSet.matchByCurrentRules(display.availableLines())
+        return _ruleSet.matchByCurrentRules(_display.availableLines())
     }
 
     /**
@@ -104,7 +103,7 @@ public class Model extends EventDispatcher implements IModel {
      */
     public function makeSpin():void {
         var itemsOnReel:Array = [];
-        for each(var a:Object in reelWeights) {
+        for each(var a:Object in _reelWeights) {
             if( a.stop.length != a.weight.length) {
                 throw new Error("Таблица вероятностей не соотвествуют таблице символов на барабане at getItems ")
             }
@@ -112,7 +111,7 @@ public class Model extends EventDispatcher implements IModel {
             var items:Array = getItemsOnReel(randomPosOnReel, a.stop);
             itemsOnReel.push(items);
         }
-        display.updateReels(itemsOnReel); //TODO display.updateReels(itemsOnReel) перенести в makeRoll ТОЛЬКО ЄТУ СТРОКУ
+        _display.updateReels(itemsOnReel); //TODO _display.updateReels(itemsOnReel) перенести в makeRoll ТОЛЬКО ЄТУ СТРОКУ
     }
 
     /**
@@ -123,7 +122,7 @@ public class Model extends EventDispatcher implements IModel {
      */
     private function getItemsOnReel(itemCounter:int, itemsOnReel:Array):Array {
         var result:Array = [];
-        for (var i:int = 0; i < displayReelSize; i++) {
+        for (var i:int = 0; i < _displayReelSize; i++) {
             if(itemsOnReel.length<=itemCounter) {
                 itemCounter=0;
             }
@@ -136,19 +135,19 @@ public class Model extends EventDispatcher implements IModel {
     }
 
     /**
-     * возвращаем рандомное число из массива
+     * returns certain item
      * @param weights - массив
      * @return - случайное значение в массиве
      */
     private function getRandomOnReel(weights:Array):int {
-        if(weights.length < displayReelSize) {
-            throw new Error("КОНФИГ ДЛЯ ВЕСОВ МЕНЬШЕ РАЗМЕРА ОТОБРАЖАЕМЫХ ЗНАЧЕНИЙ at getRandomOnReel");
+        if(weights.length != _displayReelSize) {
+            throw new Error("Weights configКОНФИГ ДЛЯ ВЕСОВ МЕНЬШЕ РАЗМЕРА ОТОБРАЖАЕМЫХ ЗНАЧЕНИЙ at getRandomOnReel");
         }
         var sum:Number = 1;
         for each(var currentArrayValue:int in weights) {
             sum += currentArrayValue;
         }
-        var rand:int = Math.floor(Math.random() * sum);
+        var rand:int = 0;Math.floor(Math.random() * sum);
         //можно использовать для "возврата" предыдущего состояния, например
         randomHistory.push(rand);
         var all:int = 0;

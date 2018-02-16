@@ -5,14 +5,14 @@ import controllers.IKeyboardInputHandler;
 import flash.display.Sprite;
 import flash.events.Event;
 
-import folder_models.IModel;
-import folder_models.Model;
+import models.IModel;
+import models.Model;
 
 import views.ComponentView;
 
 import views.CompositeView;
 import views.KeyboardInputView;
-import views.MatchingRulesView;
+import views.MatchedRules;
 import views.ReelsView;
 import views.TotalMultiplierView;
 
@@ -20,24 +20,27 @@ import views.TotalMultiplierView;
 public class Main extends Sprite {
 
     public function Main() {
-
         var model:IModel = new Model();
         var controller:IKeyboardInputHandler = new Controller(model);
+        //create reel view
+        var reelView:ComponentView = new ReelsView(model);
+        //create matched rules view
+        var matchingRulesView:ComponentView = new MatchedRules(model);
+        //total payment view
+        var totalMultiplier:ComponentView = new TotalMultiplierView(model);
+        //collects all components and their data to textfield
+        var compositeView:CompositeView = new KeyboardInputView(model, controller, this.stage);
 
-        var reelView:ComponentView = new ReelsView(model);//Вьюшка барабанов
-        var matchingRulesView:ComponentView = new MatchingRulesView(model);//Вьюшка совпавших правил
-        var totalMultiplier:ComponentView = new TotalMultiplierView(model); //Вьюшка выигрыша
-//TODO kbInputView - > compositeView
-        var kbInputView:CompositeView = new KeyboardInputView(model, controller, this.stage); //коллектит в себя все вьюшки
+        compositeView.add(reelView);
+        compositeView.add(matchingRulesView);
+        compositeView.add(totalMultiplier);
+        addChild(compositeView);
 
-        kbInputView.add(reelView);
-        kbInputView.add(matchingRulesView);
-        kbInputView.add(totalMultiplier);
-        addChild(kbInputView);
-
-        model.addEventListener(Event.CHANGE, kbInputView.update);
+        model.addEventListener(Event.CHANGE, compositeView.update);
     }
-//TODO убрать русские комменты
+
+    //TODO view knows about model
+    //TODO убрать русские комменты
     //TODO все приватные начать с _bulshit
     //TODO проверить все ворнинги
     //TODO проверить на двойные строки

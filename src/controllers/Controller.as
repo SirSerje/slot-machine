@@ -1,7 +1,7 @@
 package controllers {
 import flash.events.KeyboardEvent;
 
-import folder_models.IModel;
+import models.IModel;
 
 public class Controller implements IKeyboardInputHandler {
     private var model:IModel;
