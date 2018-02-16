@@ -4,7 +4,7 @@ import configuration.LineType;
 public class Display extends AbstractDisplay {
     private var reels:Array = [];
     private var reelsQuantity:int;
-    private var availableWinLines:Array;
+    private var availableWinLines:Array; //TODO rename possible lineTypes
     private var reelSize:int;
 
     public function Display(reelsQuantity:int, reelSize:int, possibleLines:Array) {

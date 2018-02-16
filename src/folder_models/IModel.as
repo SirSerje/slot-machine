@@ -2,12 +2,7 @@ package folder_models {
 import flash.events.IEventDispatcher;
 
 public interface IModel extends IEventDispatcher {
-    /**
-     * Устанавливаем нажатую клавишу
-     * @Deprecated
-     * @param key
-     */
-    function setKey(key:uint):void
+
     function makeRoll():void
     /**
      * Получаем текущую нажатую клавишу
@@ -21,6 +16,6 @@ public interface IModel extends IEventDispatcher {
     function getDisplay():AbstractDisplay;
     function getMatchedRules():Array;
     function getPayment():int
-    function makeSpin():void;
+    function makeSpin():void; //TODO makeSpin();
 }
 }

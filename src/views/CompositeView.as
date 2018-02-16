@@ -1,10 +1,12 @@
 package views {
 import flash.events.Event;
 
+import folder_models.IModel;
+
 public class CompositeView extends ComponentView {
     private var aChildren:Array;
 
-    public function CompositeView(aModel:Object, aController:Object = null) {
+    public function CompositeView(aModel:IModel, aController:Object = null) {
         super(aModel, aController);
         this.aChildren = [];
     }

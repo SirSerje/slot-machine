@@ -6,7 +6,7 @@ import folder_models.IModel;
 import views.ComponentView;
 
 public class MatchingRulesView extends ComponentView {
-    private var match:String;
+    private var match:Array;
     public function MatchingRulesView(model:IModel) {
         super(model);
     }

@@ -27,7 +27,7 @@ public class Main extends Sprite {
         var reelView:ComponentView = new ReelsView(model);//Вьюшка барабанов
         var matchingRulesView:ComponentView = new MatchingRulesView(model);//Вьюшка совпавших правил
         var totalMultiplier:ComponentView = new TotalMultiplierView(model); //Вьюшка выигрыша
-
+//TODO kbInputView - > compositeView
         var kbInputView:CompositeView = new KeyboardInputView(model, controller, this.stage); //коллектит в себя все вьюшки
 
         kbInputView.add(reelView);
@@ -37,6 +37,9 @@ public class Main extends Sprite {
 
         model.addEventListener(Event.CHANGE, kbInputView.update);
     }
-
+//TODO убрать русские комменты
+    //TODO все приватные начать с _bulshit
+    //TODO проверить все ворнинги
+    //TODO проверить на двойные строки
 }
 }

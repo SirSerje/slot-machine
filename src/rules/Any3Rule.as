@@ -26,23 +26,24 @@ public class Any3Rule extends AbstractRule implements IRule {
         return "Any3Rule";
     }
 
+    //TODO после рентерна не нужен брейк, выпилить его
     public function countPay():int {
         switch(itemName) {
             case "WILD":
                 return 1000;
-                break
+                break;
             case "H7":
                 return 100;
-                break
+                break;
             case "BAR7":
                 return 25;
-                break
+
             case "BAR3":
                 return 5;
-                break
+
             case "BAR2":
                 return 4;
-                break
+
             case "BAR1":
                 return 3;
                 break

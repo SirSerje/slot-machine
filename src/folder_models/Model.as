@@ -30,9 +30,7 @@ public class Model extends EventDispatcher implements IModel {
 
 
     public function Model() {
-        if(!reelWeights) {
             init();
-        }
     }
 
     private function init():void {
@@ -65,6 +63,9 @@ public class Model extends EventDispatcher implements IModel {
     }
 
     public function makeRoll():void {
+        //TODO add makeSpin()
+        //TODO сюда правила
+        //TODO add расчет пейментов и выдать переменную
         dispatchEvent(new Event(Event.CHANGE));
     }
 
@@ -77,7 +78,7 @@ public class Model extends EventDispatcher implements IModel {
      * @return суммарное количество
      */
     public function getPayment():int {
-        trace("getPayment")
+        trace("getPayment")//TODO вынести в отдельную переменную а запускать это в makeRoll
        return payment.paymentByMatchingRules(getMatchedRules())
     }
 
@@ -94,6 +95,7 @@ public class Model extends EventDispatcher implements IModel {
      * @return
      */
     public function getMatchedRules():Array {
+        //TODO отдавать только переменную, логику перенести в makeRoll
         return ruleSet.matchByCurrentRules(display.availableLines())
     }
 
@@ -110,7 +112,7 @@ public class Model extends EventDispatcher implements IModel {
             var items:Array = getItemsOnReel(randomPosOnReel, a.stop);
             itemsOnReel.push(items);
         }
-        display.updateReels(itemsOnReel);
+        display.updateReels(itemsOnReel); //TODO display.updateReels(itemsOnReel) перенести в makeRoll ТОЛЬКО ЄТУ СТРОКУ
     }
 
     /**
@@ -146,7 +148,7 @@ public class Model extends EventDispatcher implements IModel {
         for each(var currentArrayValue:int in weights) {
             sum += currentArrayValue;
         }
-        var rand:int = 0;Math.floor(Math.random() * sum);
+        var rand:int = Math.floor(Math.random() * sum);
         //можно использовать для "возврата" предыдущего состояния, например
         randomHistory.push(rand);
         var all:int = 0;

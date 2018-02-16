@@ -3,12 +3,14 @@ import flash.display.Sprite;
 import flash.errors.IllegalOperationError;
 import flash.events.Event;
 
+import folder_models.IModel;
+
 public class ComponentView extends Sprite {
-    public function ComponentView(aModel:Object, aController:Object = null) {
+    public function ComponentView(aModel:IModel, aController:Object = null) {
         this.model = aModel;
         this.controller = aController;
     }
-    protected var model:Object;
+    protected var model:IModel;
     protected var controller:Object;
 
     public function add(c:ComponentView):void {

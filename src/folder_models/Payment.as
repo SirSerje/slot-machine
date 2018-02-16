@@ -16,8 +16,8 @@ public class Payment {
     //Платежи должны знать о правилах
     //При этом правила не должны знать о платежах
     public function paymentByMatchingRules(matchedRules:Array):int {
-        this.matchedRules = matchedRules;
-        var totalPayment:int = 0;
+//      this.matchedRules = matchedRules;
+        var totalPayment:int = 0;//TODO подумать о представленнии бонуса
         for each(var rule:IRule in matchedRules) {
             var rulePayment:int = rule.countPay();
             totalPayment += rulePayment;

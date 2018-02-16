@@ -4,7 +4,7 @@ package configuration {
 public class Config {
     private static var _displayReelSize:int = 3;
     private static var _reelQuantity:int = 3;
-    private static var reelConfig:Object =
+    private static var _reelConfig:Object =
             {
                 a: {
                     weight: [1, 25, 10, 15, 30, 25, 30, 40, 15, 10, 8, 45, 3, 5, 3, 10, 30, 25, 30, 10, 1, 1],
@@ -26,7 +26,7 @@ public class Config {
     }
 
     public static function get reelConfiguration():Object {
-        return reelConfig;
+        return _reelConfig;
     }
 
     public static function get reelQuantity():int {
