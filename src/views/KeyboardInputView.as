@@ -27,24 +27,22 @@ public class KeyboardInputView extends CompositeView {
     //in this case, composite class knows about component classes and on update() it collect all data,
     //from components which need to be displayed
     override public function update(event:Event = null):void {
-        _model.makeSpin();
-        //TODO: remove makeSpin here
         super.update(event);
         tF.text = getView();
     }
 
     private function onAddedToStage(event:Event):void {
         removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
-        //creating textfield item
+
         tF = new TextField();
         tF.width = target.stageWidth - 1;
         tF.height = target.stageHeight * .5;
         tF.wordWrap = true;
         tF.selectable = false;
         tF.border = true;
-        addChild(tF);
+        tF.text = "WELCOME! PRESS ANY KEY TO MAKE SPIN";
 
-        update();
+        addChild(tF);
     }
 }
 }

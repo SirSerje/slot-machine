@@ -11,7 +11,7 @@ public class Controller implements IKeyboardInputHandler {
     }
 
     public function keyPressHandler(event:KeyboardEvent):void {
-        model.makeRoll();
+        model.roll();
     }
 
 }

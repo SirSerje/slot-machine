@@ -39,7 +39,7 @@ public class Main extends Sprite {
         model.addEventListener(Event.CHANGE, compositeView.update);
     }
 
-    //TODO view knows about model
+    //TODO view knows about model, BUT model DON'T KNOW ABOUT VIEW
     //TODO убрать русские комменты
     //TODO все приватные начать с _bulshit
     //TODO проверить все ворнинги
