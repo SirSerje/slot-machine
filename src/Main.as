@@ -39,7 +39,8 @@ public class Main extends Sprite {
         model.addEventListener(Event.CHANGE, compositeView.update);
     }
     //TODO make Any Abstract rule which includes Array with valid items
-
+    //TODO BONUS + BONUS + H7 = 3ofkin! ?!?!??!
+    //TODO WILD H7 WILD must be 3 of kind
     //TODO убрать русские комменты
     //TODO все приватные начать с _bullshit
     //TODO проверить все ворнинги

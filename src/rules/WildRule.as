@@ -1,7 +1,7 @@
 package rules {
-public class BonusRule extends AbstractRule implements IRule {
-    public function BonusRule() {
-        super();
+
+public class WildRule extends AbstractRule implements IRule {
+    public function WildRule() {
     }
 
     public function checkWinOnLine(value:Array):Boolean {
@@ -9,14 +9,11 @@ public class BonusRule extends AbstractRule implements IRule {
     }
 
     public function isRuleAvailableForLine():Boolean {
-        return true;
+        return false;
     }
 
     public function countPay(i:int):int {
-        if(i == 0) {
-            return 10;
-        }
-        return i * 1000;
+        return 0;
     }
 }
 }

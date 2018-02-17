@@ -10,12 +10,13 @@ import models.ReelHelper;
 
 import rules.ThreeOfKind;
 import rules.AnyBarRule;
-import rules.AnyH7Rule;
+import rules.Any7Rule;
 import rules.IRule;
 
 import rules.RuleSet;
 import rules.BonusRule;
 import rules.ScatterRule;
+import rules.WildRule;
 
 public class Model extends EventDispatcher implements IModel {
     private const _possibleLines:Array = [LineType.ALL_ITEMS, LineType.ALL_HORIZONTAL, LineType.SQUARE_DIAGONAL];
@@ -56,14 +57,14 @@ public class Model extends EventDispatcher implements IModel {
         //creating game rule types
         _ruleSet = new RuleSet();
         _any3 = new ThreeOfKind();
-        _wild = new BonusRule();
+        _wild = new WildRule();
         _scatter = new ScatterRule();
-        _anyH7 = new AnyH7Rule();
+        _anyH7 = new Any7Rule();
         _anyBar = new AnyBarRule();
         _bonus = new BonusRule();
         //adding rules to rule set
         _ruleSet.add(_scatter);
-        _ruleSet.add(_any3);
+        _ruleSet.add(_any3); //TODO сюда вайлд переедет
         _ruleSet.add(_wild);
         _ruleSet.add(_anyH7);
         _ruleSet.add(_anyBar);

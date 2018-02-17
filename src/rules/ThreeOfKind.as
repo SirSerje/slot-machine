@@ -12,14 +12,15 @@ public class ThreeOfKind extends AbstractRule implements IRule {
     //TODO WILD может заменить любой символ, кроме BONUS и CHERRY символа.
     //TODO checking for scatter is bad
     public function checkWinOnLine(value:Array):Boolean {
-        trace("CHECK WIN ON LINE")
-
         var previous:String = "";
         var total:int = 1;
+        _itemName = '"';
         for each(var m:String in value) {
-            if (m == previous || m == _wildItem && m != _exceptItem && m != _scatterItem && previous != "") {
+            if(m == _exceptItem) {
+                return false
+            }
+            if (m == previous || m == _wildItem && /*m != _exceptItem && */m != _scatterItem && previous != "") {
                 _itemName = m != _wildItem ? m : previous;
-                trace(">>", _itemName)
                 total++;
             }
             if (m != _wildItem) {
@@ -34,24 +35,23 @@ public class ThreeOfKind extends AbstractRule implements IRule {
     }
 
     //In case of real slot payments of any line should be initialized by configs
-    public function countPay():int {
+    public function countPay(i:int):int {
         switch (_itemName) {
             case "WILD":
-                return 1000;
+                return i + 1000;
             case "H7":
-                return 100;
-                break;
+                return i + 100;
             case "BAR7":
-                return 25;
+                return i + 25;
             case "BAR3":
-                return 5;
+                return i + 5;
             case "BAR2":
-                return 4;
+                return i + 4;
             case "BAR1":
-                return 3;
+                return i + 3;
         }
 
-        return 0;
+        return i + 0;
     }
 }
 }

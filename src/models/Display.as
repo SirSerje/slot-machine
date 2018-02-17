@@ -11,11 +11,12 @@ public class Display {
     private var _reelsQuantity:int;
     private var _availableWinLines:Array; //TODO rename possible lineTypes
     private var _reelSize:int;
+    private var _avaliableLines:Array = [];
 
     public function Display(reelsQuantity:int, reelSize:int, possibleLines:Array) {
-        this._availableWinLines = possibleLines;
-        this._reelsQuantity = reelsQuantity;
-        this._reelSize = reelSize;
+        _availableWinLines = possibleLines;
+        _reelsQuantity = reelsQuantity;
+        _reelSize = reelSize;
     }
 
     public function addReel(reel:IReel):void {
@@ -34,8 +35,8 @@ public class Display {
             var currentReel:Reel = _reels[i];
             currentReel.updateReel(itemsOnReel[i]);
         }
+        updateLines();
     }
-
 
     /**
     * Get all available lines for win combinations
@@ -45,12 +46,16 @@ public class Display {
     //TODO this shit can be fixed
     //TODO запилить линии и замутить rule.isAvailable(line.type())
     public function availableLines():Array {
+        return _avaliableLines;
+    }
+
+    private function updateLines():void {
         var all:Array = [];
         var currentLine:Array = [];
         for each(var currentLineType:String in _availableWinLines) {
 
             switch (currentLineType) {
-                case LineType.ALL_ITEMS:
+               case LineType.ALL_ITEMS:
                     //line for scatter check
                     for (var i:int = 0; i < _reels.length; i++) {
                         var b:Reel = _reels[i];
@@ -97,7 +102,7 @@ public class Display {
                     break;
             }
         }
-        return all;
+        _avaliableLines = all;
     }
 
 }
