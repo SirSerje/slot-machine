@@ -10,12 +10,12 @@ import flash.text.TextField;
 import models.IModel;
 
 public class KeyboardInputView extends CompositeView {
-    private var target:Stage;
-    private var tF:TextField;
+    private var _target:Stage;
+    private var _textField:TextField;
 
     public function KeyboardInputView(aModel:IModel, aController:IKeyboardInputHandler, target:Stage) {
         super(aModel, aController);
-        this.target = target;
+        this._target = target;
         target.addEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
         addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
     }
@@ -28,21 +28,21 @@ public class KeyboardInputView extends CompositeView {
     //from components which need to be displayed
     override public function update(event:Event = null):void {
         super.update(event);
-        tF.text = getView();
+        _textField.text = getView();
     }
 
     private function onAddedToStage(event:Event):void {
         removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 
-        tF = new TextField();
-        tF.width = target.stageWidth - 1;
-        tF.height = target.stageHeight * .5;
-        tF.wordWrap = true;
-        tF.selectable = false;
-        tF.border = true;
-        tF.text = "WELCOME! PRESS ANY KEY TO MAKE SPIN";
+        _textField = new TextField();
+        _textField.width = _target.stageWidth - 1;
+        _textField.height = _target.stageHeight * .5;
+        _textField.wordWrap = true;
+        _textField.selectable = false;
+        _textField.border = true;
+        _textField.text = "WELCOME! PRESS ANY KEY TO MAKE SPIN";
 
-        addChild(tF);
+        addChild(_textField);
     }
 }
 }

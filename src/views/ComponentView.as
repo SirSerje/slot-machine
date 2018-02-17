@@ -1,6 +1,5 @@
 package views {
 import flash.display.Sprite;
-import flash.errors.IllegalOperationError;
 import flash.events.Event;
 
 import models.IModel;
@@ -15,27 +14,26 @@ public class ComponentView extends Sprite {
     }
 
     public function add(c:ComponentView):void {
-        throw new IllegalOperationError("[ABSTRACT] : add");
+        trace("Method is abstract, override is needed");
     }
 
     public function remove(c:ComponentView):void {
-        throw new IllegalOperationError("[ABSTRACT] : remove");
+        trace("Method is abstract, override is needed");
     }
 
     public function getChild(n:int):ComponentView {
-        throw new IllegalOperationError("[ABSTRACT] : getChild");
+        trace("Method is abstract, override is needed");
         return null;
     }
 
-    //ABSTRACT
     public function update(event:Event = null):void {
-        throw new IllegalOperationError("[ABSTRACT] : update");
+        trace("Method is abstract, override is needed");
     }
 
 
     public function getView():String {
-        throw new Error("NEED TO OVERRIDE at getView");
-        return "X";
+        trace("Method is abstract, override is needed");
+        return "";
     }
 }
 }

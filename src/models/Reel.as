@@ -5,7 +5,7 @@ public class Reel implements IReel{
     private var _reelDisplaySize:int;
 
     public function Reel(reelDisplaySize:int = 0) {
-        this._reelDisplaySize = reelDisplaySize
+        _reelDisplaySize = reelDisplaySize
     }
 
     public function setItem():void { //TODO can we kill it?

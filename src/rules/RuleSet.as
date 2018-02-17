@@ -20,7 +20,9 @@ public class RuleSet {
         var winComboName:Array = [];
         for each(var line:Array in itemOnLines) {
             for each (var rule:IRule in _availableRules) {
-                if (rule.checkWinOnLine(line)) {
+                //TODO серьезная проблема: линия из 9 хавается остальными линиям
+                //TODO запилить линии и замутить rule.isAvailable(line.type())
+                if (/*rule.isRuleAvailableForLine() && */rule.checkWinOnLine(line)) {
                     winComboName.push(rule);
                 }
             }

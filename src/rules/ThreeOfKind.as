@@ -3,29 +3,34 @@ package rules {
 /**
  * Find win combination only in "3 of kind" items in line
  */
-public class Any3Rule extends AbstractRule implements IRule {
-    private var _itemName:String;
+public class ThreeOfKind extends AbstractRule implements IRule {
 
-    public function Any3Rule() {
+    public function ThreeOfKind() {
         super();
     }
 
+    //TODO WILD может заменить любой символ, кроме BONUS и CHERRY символа.
+    //TODO checking for scatter is bad
     public function checkWinOnLine(value:Array):Boolean {
+        trace("CHECK WIN ON LINE")
+
         var previous:String = "";
         var total:int = 1;
         for each(var m:String in value) {
-            if (m == previous && m != _exceptItem && previous!="") {
-                _itemName=m;
+            if (m == previous || m == _wildItem && m != _exceptItem && m != _scatterItem && previous != "") {
+                _itemName = m != _wildItem ? m : previous;
+                trace(">>", _itemName)
                 total++;
             }
-            previous = m;
+            if (m != _wildItem) {
+                previous = m;
+            }
         }
-
         return total == value.length;
     }
 
-    public function getName():String {
-        return "Any3Rule";
+    public function isRuleAvailableForLine():Boolean {
+        return true;
     }
 
     //In case of real slot payments of any line should be initialized by configs

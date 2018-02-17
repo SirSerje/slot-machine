@@ -20,8 +20,15 @@ public class ReelsView extends ComponentView {
     override public function getView():String {
         var str:String = "";
         var b:Array = _display.getReels();
-        for each (var m:IReel in b) {
-           str+=m.getItems() + "\n";
+        str += "REEL1: REEL2: REEL3:" + "\n"; //TODO dirty ?
+
+        for (var i:int = 0; i < b.length; i++) {
+            var m:IReel = b[i];
+            var items:Array = [];
+            for (var j:int = 0; j < m.getItems().length; j++) {
+                items.push((b[j] as IReel).getItems()[i]);
+            }
+            str += items + "\n";
         }
         return str;
     }

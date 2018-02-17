@@ -4,14 +4,14 @@ import flash.events.KeyboardEvent;
 import models.IModel;
 
 public class Controller implements IKeyboardInputHandler {
-    private var model:IModel;
+    private var _model:IModel;
 
     public function Controller(aModel:IModel) {
-        this.model = aModel;
+        _model = aModel;
     }
 
     public function keyPressHandler(event:KeyboardEvent):void {
-        model.roll();
+        _model.roll();
     }
 
 }

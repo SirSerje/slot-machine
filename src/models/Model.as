@@ -6,25 +6,36 @@ import flash.events.EventDispatcher;
 
 import configuration.LineType;
 
-import rules.Any3Rule;
+import models.ReelHelper;
+
+import rules.ThreeOfKind;
+import rules.AnyBarRule;
+import rules.AnyH7Rule;
 import rules.IRule;
 
 import rules.RuleSet;
 import rules.BonusRule;
+import rules.ScatterRule;
 
 public class Model extends EventDispatcher implements IModel {
-    private const _possibleLines:Array = [LineType.ALL_HORIZONTAL, LineType.SQUARE_DIAGONAL];
-    //TODO 1) стоит ли представить в виде сущностей 2)добавить правила 3) добавить линии
-    private var _reelWeights:Object;
+    private const _possibleLines:Array = [LineType.ALL_ITEMS, LineType.ALL_HORIZONTAL, LineType.SQUARE_DIAGONAL];
+    //TODO  добавить линии как сущности
     private var _display:Display;
-    private var _ruleSet:RuleSet;
-    private var _randomHistory:Array = [];
     private var _displayReelSize:int;
-    private var payment:Payment;
+    private var _reelWeights:Object;
+
+    private var _ruleSet:RuleSet;
     private var _wild:IRule;
     private var _any3:IRule;
-    private var _totalPayment:int = 0;
+    private var _scatter:IRule;
+    private var _anyH7:IRule;
+    private var _anyBar:IRule;
+    private var _bonus:IRule;
+
     private var _matchedRules:Array = [];
+
+    private var _payment:Payment;
+    private var _totalPayment:int = 0;
 
 
     public function Model() {
@@ -44,18 +55,27 @@ public class Model extends EventDispatcher implements IModel {
         }
         //creating game rule types
         _ruleSet = new RuleSet();
-        _any3 = new Any3Rule();
+        _any3 = new ThreeOfKind();
         _wild = new BonusRule();
+        _scatter = new ScatterRule();
+        _anyH7 = new AnyH7Rule();
+        _anyBar = new AnyBarRule();
+        _bonus = new BonusRule();
+        //adding rules to rule set
+        _ruleSet.add(_scatter);
         _ruleSet.add(_any3);
         _ruleSet.add(_wild);
+        _ruleSet.add(_anyH7);
+        _ruleSet.add(_anyBar);
+        _ruleSet.add(_bonus);
         //creating payment object
-        payment = new Payment();
+        _payment = new Payment();
     }
 
     public function roll():void {
         _display.updateReels(newAvailableItems());
         _matchedRules = _ruleSet.matchByCurrentRules(_display.availableLines());
-        _totalPayment = payment.paymentByMatchingRules(getMatchedRules());
+        _totalPayment = _payment.paymentByMatchingRules(_matchedRules);
 
         dispatchEvent(new Event(Event.CHANGE));
     }
@@ -73,63 +93,20 @@ public class Model extends EventDispatcher implements IModel {
         return _matchedRules;
     }
 
-    public function newAvailableItems():Array {
+    private function newAvailableItems():Array {
         var itemsOnReel:Array = [];
-        for each(var a:Object in _reelWeights) {
-            if( a.stop.length != a.weight.length) {
-                throw new Error("Probabilities config length doesn't match reels config");
+        for (var i:int = 0; i < _displayReelSize; i++) {
+            var r:Object = _reelWeights["reel" + (i + 1)];
+            if (r.stop.length != r.weight.length) {
+                trace("Probabilities config length doesn't match reels config");
             }
-            var randomPosOnReel:int = getRandomOnReel(a.weight);
-            var items:Array = getItemsOnReel(randomPosOnReel, a.stop);
+            var randomPosOnReel:int = ReelHelper.getRandomOnReel(r.weight);
+            var items:Array = ReelHelper.getItemsOnReel(randomPosOnReel, r.stop, _displayReelSize);
             itemsOnReel.push(items);
         }
-        return itemsOnReel
+        return itemsOnReel;
     }
 
-    /**
-     * Defines, what items on reel user sees.
-     * @param itemCounter - position on reel
-     * @param itemsOnReel - all available items, placed on reel
-     * @return items on reel available for show
-     */
-    private function getItemsOnReel(itemCounter:int, itemsOnReel:Array):Array {
-        var result:Array = [];
-        for (var i:int = 0; i < _displayReelSize; i++) {
-            if(itemsOnReel.length<=itemCounter) {
-                itemCounter=0;
-            }
-            var currentItem:String = itemsOnReel[itemCounter];
-            result.push(currentItem);
-            itemCounter += 1;
-        }
 
-        return result;
-    }
-
-    /**
-     * returns certain randomized item
-     * @param weights - probabilities array
-     * @return - random position
-     */
-    private function getRandomOnReel(weights:Array):int {
-        //TODO тут была проверочка на то, соотвествует ли weights == stops
-        var sum:Number = 1;
-        for each(var currentArrayValue:int in weights) {
-            sum += currentArrayValue;
-        }
-        var rand:int = 0;Math.floor(Math.random() * sum);
-        //allow to save history of all spins user made during session
-        _randomHistory.push(rand);
-        var all:int = 0;
-        for (var i:int = 0; i <= weights.length; i++) {
-            var currentValue:int = weights[i];
-            if (all >= rand) {
-                return i;
-            }
-            all += currentValue;
-
-        }
-        return -1;
-    }
 }
 }

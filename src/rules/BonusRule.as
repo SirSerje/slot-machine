@@ -8,8 +8,8 @@ public class BonusRule extends AbstractRule implements IRule {
         return false;
     }
 
-    public function getName():String {
-        return "BonusRule";
+    public function isRuleAvailableForLine():Boolean {
+        return true;
     }
 
     public function countPay():int {

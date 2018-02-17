@@ -17,7 +17,7 @@ public class TotalMultiplierView extends ComponentView {
     }
 
     override public function getView():String {
-        return "Total multiplier: ["+ _cash.toString() + " ]";
+        return "Total multiplier: ["+ _cash.toString() + "]";
     }
 }
 }

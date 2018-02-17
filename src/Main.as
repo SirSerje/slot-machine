@@ -38,10 +38,10 @@ public class Main extends Sprite {
 
         model.addEventListener(Event.CHANGE, compositeView.update);
     }
+    //TODO make Any Abstract rule which includes Array with valid items
 
-    //TODO view knows about model, BUT model DON'T KNOW ABOUT VIEW
     //TODO убрать русские комменты
-    //TODO все приватные начать с _bulshit
+    //TODO все приватные начать с _bullshit
     //TODO проверить все ворнинги
     //TODO проверить на двойные строки
 }
