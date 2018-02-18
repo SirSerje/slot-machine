@@ -1,30 +1,36 @@
 package rules {
+import configuration.Config;
+
+import models.ILine;
+import models.ScatterLine;
 
 public class Any7Rule extends AbstractRule implements IRule {
+    private var _itemName:String;
     public function Any7Rule() {
     }
 
-    public function checkWinOnLine(value:Array):Boolean {
+    public function checkWinOnLine(value:ILine):Boolean {
+        if(value is ScatterLine) return false;
         var total:int = 0;
         var containsItem:Boolean = false;//variable checks, has combo any item except wild
-        var similarItem:Boolean = false; //check, aren't this rule 3 of kind
+        var similarItem:int = 0;
         _itemName = "";
-        for each(var m:String in value) {
-            if (m == "H7" || m == "BAR7" || m == _wildItem) {
+        for each(var m:String in value.items) {
+            if (m == "BAR7" || m == "H7" || m == "BAR3" || m == _wildItem) {
                 if(m != _wildItem) {
-                    containsItem = true
+                    containsItem = true;
                 }
                 if(_itemName == m) {
-                    similarItem = true;
+                    similarItem ++;
                 }
                 _itemName = m;
                 total++;
             }
         }
-        return (total == value.length && containsItem && !similarItem);
+        return (total == value.length && containsItem && !similarItem < (Config.reelQuantity-1));
     }
 
-    public function isRuleAvailableForLine():Boolean {
+    public function isRuleAvailableForLine(line:ILine):Boolean {
         return true;
     }
 

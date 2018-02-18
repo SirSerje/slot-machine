@@ -1,14 +1,32 @@
 package rules {
+import configuration.Config;
+
+import models.ILine;
+import models.ScatterLine;
+
 public class BonusRule extends AbstractRule implements IRule {
+    private var _itemName:String;
     public function BonusRule() {
         super();
     }
 
-    public function checkWinOnLine(value:Array):Boolean {
-        return false;
+    public function checkWinOnLine(value:ILine):Boolean {
+        if(!(value is ScatterLine)) return false;
+        var total:int = 0;
+        _itemName = '"';
+        for each(var m:String in value.items) {
+            if(m==_bonusItem) {
+                total++
+            }
+        }
+
+        return total >= Config.reelQuantity;
     }
 
-    public function isRuleAvailableForLine():Boolean {
+    public function isRuleAvailableForLine(line:ILine):Boolean {
+
+
+
         return true;
     }
 

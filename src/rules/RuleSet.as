@@ -1,5 +1,5 @@
 package rules {
-import models.IReel;
+import models.ILine;
 
 /**
  * RuleSet class knows about all rule types in slot
@@ -21,19 +21,16 @@ public class RuleSet {
         //TODO серьезная проблема: линия из 9 хавается остальными линиям
         //TODO запилить линии и замутить rule.isAvailable(line.type())
         var winComboName:Array = [];
-        var line:Array;
+        var line:ILine;
         var rule:IRule;
         for(var i:int = 0; i< itemOnLines.length; i++) {
-            trace("LINE");
             line = itemOnLines[i];
             for (var  j:int = 0; j<_availableRules.length; j++) {
                 rule = _availableRules[j];
-                trace(rule, rule.checkWinOnLine(line));
-                if (/*rule.isRuleAvailableForLine() && */rule.checkWinOnLine(line)) {
-                    winComboName.push(rule);
-                    break;
-                }
-
+                    if (rule.checkWinOnLine(line)) {
+                        winComboName.push(rule);
+                        break;
+                    }
             }
         }
         return winComboName;

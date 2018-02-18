@@ -9,12 +9,12 @@ import configuration.LineType;
 public class Display {
     private var _reels:Array = [];
     private var _reelsQuantity:int;
-    private var _availableWinLines:Array; //TODO rename possible lineTypes
+    private var _possibleLineTypes:Array; //TODO rename possible lineTypes
     private var _reelSize:int;
-    private var _avaliableLines:Array = [];
+    private var _availableLines:Array = [];
 
-    public function Display(reelsQuantity:int, reelSize:int, possibleLines:Array) {
-        _availableWinLines = possibleLines;
+    public function Display(reelsQuantity:int, reelSize:int, possibleLineTypes:Array) {
+        _possibleLineTypes = possibleLineTypes;
         _reelsQuantity = reelsQuantity;
         _reelSize = reelSize;
     }
@@ -46,16 +46,15 @@ public class Display {
     //TODO this shit can be fixed
     //TODO запилить линии и замутить rule.isAvailable(line.type())
     public function availableLines():Array {
-        return _avaliableLines;
+        return _availableLines;
     }
 
     private function updateLines():void {
-        var all:Array = [];
         var currentLine:Array = [];
-        for each(var currentLineType:String in _availableWinLines) {
-
+        _availableLines = []; //clear lines
+        for each(var currentLineType:String in _possibleLineTypes) {
             switch (currentLineType) {
-               case LineType.ALL_ITEMS:
+                case LineType.SCATTER:
                     //line for scatter check
                     for (var i:int = 0; i < _reels.length; i++) {
                         var b:Reel = _reels[i];
@@ -64,9 +63,8 @@ public class Display {
                             currentLine.push(item);
                         }
                     }
-                    all.push(currentLine);
+                    _availableLines.push(new ScatterLine(currentLine));
                     break;
-
                 case LineType.ALL_HORIZONTAL:
                     for (var i:int = 0; i < _reels.length; i++) {
                         currentLine = [];
@@ -75,17 +73,16 @@ public class Display {
                             var item:String = _reels[j].getItemAt(i);
                             currentLine.push(item)
                         }
-                        all.push(currentLine);
+                        _availableLines.push(new StraightLine(currentLine));
                     }
                     break;
-
                 case LineType.SQUARE_DIAGONAL:
                     currentLine = [];
                     for (var i:int = 0; i < _reels.length; i++) {
                         var item:String = _reels[i].getItemAt(i);
                         currentLine.push(item)
                     }
-                    all.push(currentLine);
+                    _availableLines.push(new StraightLine(currentLine));
                     var m:int = 0;
                     currentLine = [];
                     for (var i:int = 0; i < _reels.length; i++) {
@@ -98,11 +95,10 @@ public class Display {
                             break
                         }
                     }
-                    all.push(currentLine);
+                    _availableLines.push(new StraightLine(currentLine));
                     break;
             }
         }
-        _avaliableLines = all;
     }
 
 }

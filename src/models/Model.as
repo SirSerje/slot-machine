@@ -19,19 +19,12 @@ import rules.ScatterRule;
 import rules.WildRule;
 
 public class Model extends EventDispatcher implements IModel {
-    private const _possibleLines:Array = [LineType.ALL_ITEMS, LineType.ALL_HORIZONTAL, LineType.SQUARE_DIAGONAL];
     //TODO  добавить линии как сущности
     private var _display:Display;
     private var _displayReelSize:int;
     private var _reelWeights:Object;
 
     private var _ruleSet:RuleSet;
-    private var _wild:IRule;
-    private var _any3:IRule;
-    private var _scatter:IRule;
-    private var _anyH7:IRule;
-    private var _anyBar:IRule;
-    private var _bonus:IRule;
 
     private var _matchedRules:Array = [];
 
@@ -49,26 +42,21 @@ public class Model extends EventDispatcher implements IModel {
         //Taking data about reel weights
         _reelWeights = Config.reelConfiguration;
         //creating display object
-        _display = new Display(Config.reelQuantity, _displayReelSize, _possibleLines);
+        _display = new Display(Config.reelQuantity, _displayReelSize, Config.possibleLines);
         //creating reels and adding them to display
         for each(var a:Object in _reelWeights) {
             _display.addReel(new Reel(_displayReelSize))
         }
         //creating game rule types
         _ruleSet = new RuleSet();
-        _any3 = new ThreeOfKind();
-        _wild = new WildRule();
-        _scatter = new ScatterRule();
-        _anyH7 = new Any7Rule();
-        _anyBar = new AnyBarRule();
-        _bonus = new BonusRule();
         //adding rules to rule set
-        _ruleSet.add(_scatter);
-        _ruleSet.add(_any3); //TODO сюда вайлд переедет
-        _ruleSet.add(_wild);
-        _ruleSet.add(_anyH7);
-        _ruleSet.add(_anyBar);
-        _ruleSet.add(_bonus);
+        _ruleSet.add(new ThreeOfKind());
+        _ruleSet.add(new ScatterRule()); //TODO сюда вайлд переедет ????
+        //_ruleSet.add(new WildRule());
+        _ruleSet.add(new Any7Rule());
+        _ruleSet.add(new AnyBarRule());
+        //added last, because relies on previous wins
+        _ruleSet.add(new BonusRule());
         //creating payment object
         _payment = new Payment();
     }
