@@ -45,5 +45,10 @@ public class Main extends Sprite {
     //TODO все приватные начать с _bullshit
     //TODO проверить все ворнинги
     //TODO проверить на двойные строки
+    //TODO case when CHERRY>3 not described in design document
+
+
+
+    //TODO (!!!!!!!!!!!) BONUS AND SCATTER USE ONE RULE SO WEE NEED TO FIX IT
 }
 }

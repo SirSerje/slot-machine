@@ -50,9 +50,8 @@ public class Model extends EventDispatcher implements IModel {
         //creating game rule types
         _ruleSet = new RuleSet();
         //adding rules to rule set
+        _ruleSet.add(new ScatterRule());
         _ruleSet.add(new ThreeOfKind());
-        _ruleSet.add(new ScatterRule()); //TODO сюда вайлд переедет ????
-        //_ruleSet.add(new WildRule());
         _ruleSet.add(new Any7Rule());
         _ruleSet.add(new AnyBarRule());
         //added last, because relies on previous wins

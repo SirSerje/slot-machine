@@ -27,17 +27,23 @@ public class ScatterRule extends AbstractRule implements IRule{
     }
 
     public function countPay(i:int):int {
+        var m:int = 0;
         switch (_winCount) {
             case 1:
-                return i + 2;
+                m += 2;
+                break
             case 2:
-                return i + 10;
+                m += 10;
+                break
             case 3:
-                return i + 25;
+                m += 25;
+                break
             case 0:
-                return i + 0;
+                m += 0;
+                break
         }
-        return i + 0;
+        _winCount=0;
+        return i + m;
     }
 }
 }

@@ -13,21 +13,31 @@ public class Any7Rule extends AbstractRule implements IRule {
         if(value is ScatterLine) return false;
         var total:int = 0;
         var containsItem:Boolean = false;//variable checks, has combo any item except wild
-        var similarItem:int = 0;
-        _itemName = "";
+        var similarItem:Boolean = false;
+        var previous:String = "";
+        var b:int = 0;
+//        _itemName = "";
         for each(var m:String in value.items) {
-            if (m == "BAR7" || m == "H7" || m == "BAR3" || m == _wildItem) {
-                if(m != _wildItem) {
-                    containsItem = true;
+            if (m == _wildItem) {
+                b++;
+                if ((b) == value.length) {
+                    return false;
                 }
-                if(_itemName == m) {
-                    similarItem ++;
+            }
+            if (m == _bonusItem && m == _scatterItem) {
+                return false;
+            }
+            if (m == "H7" || m == "BAR7" || m == _wildItem) {
+                if (previous != "" && m == previous) {
+                    similarItem = true;
                 }
-                _itemName = m;
-                total++;
+                if (m != _wildItem) {
+                    previous = m;
+                }
+                total++
             }
         }
-        return (total == value.length && containsItem && !similarItem < (Config.reelQuantity-1));
+        return (total == value.length && !similarItem);
     }
 
     public function isRuleAvailableForLine(line:ILine):Boolean {

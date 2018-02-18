@@ -5,33 +5,41 @@ import models.ILine;
 import models.ScatterLine;
 
 public class AnyBarRule extends AbstractRule implements IRule {
+    private var _itemName:String;
     public function AnyBarRule() {
     }
 
     //TODO заекстендить от аниРуле
     public function checkWinOnLine(value:ILine):Boolean {
-        return false;//TODO
+
         if(value is ScatterLine) return false;
         var total:int = 0;
         var containsItem:Boolean = false;//variable checks, has combo any item except wild
-        var similarItem:int = 0;
-        _itemName = "";
+        var similarItem:Boolean = false;
+        var previous:String = "";
+        var b:int = 0;
+//        _itemName = "";
         for each(var m:String in value.items) {
-            if (m == "BAR1" || m == "BAR2" || m == "BAR3" ) {
-                if(m != _wildItem) {
-                    containsItem = true;
+            if (m == _wildItem) {
+                b++;
+                if ((b) == value.length) {
+                    return false;
                 }
-                if(_itemName == m) {
-                    similarItem ++;
-                }
-                _itemName = m;
-                total++;
             }
-            if(m == _wildItem) {
-
+            if (m == _bonusItem && m == _scatterItem) {
+                return false;
+            }
+            if (m == "BAR1" || m == "BAR2" || m == "BAR3" || m == _wildItem) {
+                if (previous != "" && m == previous) {
+                    similarItem = true;
+                }
+                if (m != _wildItem) {
+                    previous = m;
+                }
+                total++
             }
         }
-        return (total == value.length && containsItem && similarItem < (Config.reelQuantity-1));
+        return (total == value.length && !similarItem);
     }
 
     public function isRuleAvailableForLine(line:ILine):Boolean {

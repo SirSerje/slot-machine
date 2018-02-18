@@ -7,6 +7,7 @@ import models.ScatterLine;
  */
 public class ThreeOfKind extends AbstractRule implements IRule {
     private var _itemName:String;
+    private var _winNames:Array = [];
 
     public function ThreeOfKind() {
         super();
@@ -20,55 +21,105 @@ public class ThreeOfKind extends AbstractRule implements IRule {
         var total:int = 0;
         var wild:int = 0;
         var m:String = "";
-
+        var first:String = "";
+        var itms:Array = []
         for (var i:int = 0; i < value.items.length; i++) {
             m = value.items[i];
-            if (m == _exceptItem) return false
-            if (((m == previous || previous == _wildItem || i==0) && m != _bonusItem && m != _scatterItem) || m == _wildItem) {
-                if (m == _wildItem) {
-                    wild++;
-                    if ((wild+1) == value.length) {
+            if (m == _exceptItem) return false;
 
-                        _itemName = _wildItem;
-
-                        return true;
-                    }
+            if (m == _wildItem) {
+                wild++;
+                if ((wild) == value.length) {
+                    _itemName = _wildItem;
+                    _winNames.push(_itemName);
+                    return true;
                 }
-
-                total++;
-
-                if (m != _wildItem) {
-                    _itemName = m;
-                }
-                previous = m;
             }
+
+            if (m == _bonusItem || m == _scatterItem) {
+                return false;
+            }
+
+            if (suits(itms, m)) {
+                itms.push(m);
+                total++;
+            }
+
+
+        }
+
+        if ((total) == value.length) {
+            _winNames.push(itemInLine(value));
         }
 
         return (total) == value.length;
     }
 
+
+
     public function isRuleAvailableForLine(line:ILine):Boolean {
         return true;
     }
 
-    //In case of real slot payments of any line should be initialized by configs
     public function countPay(i:int):int {
-        switch (_itemName) {
-            case "WILD":
-                return i + 1000;
-            case "H7":
-                return i + 100;
-            case "BAR7":
-                return i + 25;
-            case "BAR3":
-                return i + 5;
-            case "BAR2":
-                return i + 4;
-            case "BAR1":
-                return i + 3;
-        }
+        return countTotal() + i;
+    }
 
-        return i + 0;
+    private function suits(value:Array, check:String):Boolean {
+        var current:String;
+        if(value.length==0) {
+            return true
+        } else {
+            for(var i:int=0; i<value.length; i++) {
+                current = value[i];
+                if(current == check || current == _wildItem) {
+                    return true
+                }
+            }
+        }
+        return false;
+    }
+
+    private function itemInLine(value:ILine):String {
+        for each(var i:String in value.items) {
+            if (i == _wildItem) {
+                continue
+            } else {
+                return i
+            }
+        }
+        return null;
+    }
+
+    //In case of real slot payments of any line should be initialized by configs
+    private function countTotal():int {
+        var totalCount:int = 0;
+        var current:String;
+        for (var j:int = 0; j < _winNames.length; j++) {
+            current = _winNames[j];
+            switch (current) {
+                case "WILD":
+                    totalCount += 1000;
+                    continue
+                case "H7":
+                    totalCount += 100;
+                    continue
+                case "BAR7":
+                    totalCount += 25;
+                    continue
+                case "BAR3":
+                    totalCount += 5;
+                    continue
+                case "BAR2":
+                    totalCount += 4;
+                    continue
+                case "BAR1":
+                    totalCount += 3;
+                    continue
+            }
+        }
+        _winNames = []; //TODO check this
+        return totalCount;
     }
 }
 }
