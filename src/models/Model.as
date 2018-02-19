@@ -63,8 +63,11 @@ public class Model extends EventDispatcher implements IModel {
     }
 
     public function roll():void {
-        _randomNumbers.push(Math.random());
-        _display.updateReels(newAvailableItems(/*_randomNumbers[length-1]*/));
+        var random:Vector.<Number> = new Vector.<Number>(_displayReelSize,true);
+        for(var i:int=0; i<random.length;i++) random[i] = Math.random();
+
+        _randomNumbers.push(random);
+        _display.updateReels(newAvailableItems(random));
         _matchedRules = _ruleSet.matchByCurrentRules(_display.availableLines());
         _totalPayment = _payment.paymentByMatchingRules(_matchedRules);
 
@@ -84,14 +87,14 @@ public class Model extends EventDispatcher implements IModel {
         return _matchedRules;
     }
 
-    private function newAvailableItems(random:int = 0):Array {
+    private function newAvailableItems(random:Vector.<Number>):Array {
         var itemsOnReel:Array = [];
         for (var i:int = 0; i < _displayReelSize; i++) {
             var r:Object = _reelWeights["reel" + (i + 1)];
             if (r.stop.length != r.weight.length) {
                 trace("Probabilities config length doesn't match reels config");
             }
-            var randomPosOnReel:int = ReelHelper.getRandomOnReel(r.weight, random);
+            var randomPosOnReel:int = ReelHelper.getRandomOnReel(r.weight, random[i]);
             var items:Array = ReelHelper.getItemsOnReel(randomPosOnReel, r.stop, _displayReelSize);
             itemsOnReel.push(items);
         }

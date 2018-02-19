@@ -12,9 +12,13 @@ import rules.IRule;
 import rules.ScatterRule;
 import rules.ThreeOfKind;
 
-public class CircleTest {
-    var reel:Array = ["BLANK", "H7", "BLANK", "BAR3", "BLANK", "BONUS", "BLANK", "BAR2", "BLANK", "H7", "BLANK", "BAR1", "BLANK", "WILD", "BLANK", "BAR3", "BLANK", "BONUS", "BLANK", "H7", "BLANK", "CHERRY"];
-    var stops:Array = [1, 25, 10, 15, 30, 25, 30, 40, 15, 10, 8, 45, 3, 5, 3, 10, 30, 25, 30, 10, 1, 1];
+/**
+ * Check basic game mechanics like getting correct item reel with random, correct combinations on pay line,
+ * bonus combo
+ */
+public class MainTest {
+    private var reel:Array = ["BLANK", "H7", "BLANK", "BAR3", "BLANK", "BONUS", "BLANK", "BAR2", "BLANK", "H7", "BLANK", "BAR1", "BLANK", "WILD", "BLANK", "BAR3", "BLANK", "BONUS", "BLANK", "H7", "BLANK", "CHERRY"];
+    private var stops:Array = [1, 25, 10, 15, 30, 25, 30, 40, 15, 10, 8, 45, 3, 5, 3, 10, 30, 25, 30, 10, 1, 1];
 
     [Test]
     public function checkCombos():void {
@@ -38,7 +42,7 @@ public class CircleTest {
 
         var scatterRule:IRule = new ScatterRule();
         Assert.assertEquals(true, scatterRule.checkWinOnLine(new ScatterLine(["CHERRY"])));
-        Assert.assertEquals(true, scatterRule.checkWinOnLine(new ScatterLine(["WILD", "CHERRY",])));
+        Assert.assertEquals(true, scatterRule.checkWinOnLine(new ScatterLine(["WILD", "CHERRY"])));
         Assert.assertEquals(false, scatterRule.checkWinOnLine(new ScatterLine(["BAR1", "WILD", "BAR1"])));
     }
 
@@ -57,14 +61,24 @@ public class CircleTest {
 
     [Test]
     public function checkBonusPayments():void {
+        //Bonus + some other win
         var totalPayment:int = 0;
-        var matchedRules:Array = [new AnyBarRule(), new Any7Rule(), new BonusRule()]
+        var matchedRules:Array = [new AnyBarRule(), new Any7Rule(), new BonusRule()];
         var rule:IRule;
-        for(var i:int = 0; i < matchedRules.length; i++) {
+        for (var i:int = 0; i < matchedRules.length; i++) {
             rule = matchedRules[i];
             totalPayment = rule.countPay(totalPayment);
         }
         Assert.assertEquals(12000, totalPayment);
+
+        //Simply bonus
+        totalPayment = 0;
+        matchedRules = [new BonusRule()];
+        for (var j:int = 0; j < matchedRules.length; j++) {
+            rule = matchedRules[j];
+            totalPayment = rule.countPay(totalPayment);
+        }
+        Assert.assertEquals(10, totalPayment);
     }
 
 }
