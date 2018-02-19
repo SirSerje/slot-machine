@@ -26,20 +26,18 @@ public class ReelHelper {
      * @param weights - probabilities array
      * @return - random position
      */
-    public static function getRandomOnReel(weights:Array):int {
-        var sum:Number = 1;
-        for each(var currentArrayValue:int in weights) {
-            sum += currentArrayValue;
+    public static function getRandomOnReel(weights:Array, random:Number = 0):int {
+        var sum:int = 0;
+        for(var j:int = 0; j< weights.length; j++) {
+            sum += weights[j];
         }
-        var rand:int = Math.floor(Math.random() * sum);
+        var rand:Number = random * sum;
         var all:int = 0;
         for (var i:int = 0; i <= weights.length; i++) {
-            var currentValue:int = weights[i];
-            if (all >= rand) {
+            all +=  weights[i];
+            if (rand <= all) {
                 return i;
             }
-            all += currentValue;
-
         }
         return -1;
     }

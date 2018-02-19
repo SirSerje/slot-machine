@@ -3,8 +3,25 @@
   <component name="FlexBuildConfigurationManager" active="ssj_prj">
     <configurations>
       <configuration name="ssj_prj" pure-as="true" main-class="Main" output-file="Main.swf" output-folder="$MODULE_DIR$/out/production/ssj_prj" wrapper-template-path="$MODULE_DIR$/html-template">
-        <dependencies target-player="15.0">
-          <sdk name="4.6.0+air3-5_p4_sdk_asc2_win_112112" />
+        <dependencies target-player="11.1">
+          <entries>
+            <entry library-id="6b7132b6-c97a-47e5-aea9-65c9ee279abe">
+              <dependency linkage="Test" />
+            </entry>
+            <entry library-id="2c7c3fdd-bc98-4fb9-9340-e9e38414536c">
+              <dependency linkage="Test" />
+            </entry>
+            <entry library-name="AdobeAIRSDK" library-level="project">
+              <dependency linkage="Merged" />
+            </entry>
+            <entry library-id="052695ba-7b49-4c03-8de8-23526a049168">
+              <dependency linkage="Merged" />
+            </entry>
+            <entry library-id="3995ecfe-0133-4524-93fa-60e8f11b19b3">
+              <dependency linkage="Merged" />
+            </entry>
+          </entries>
+          <sdk name="flex_sdk_4.6" />
         </dependencies>
         <compiler-options />
         <packaging-air-desktop />
@@ -18,8 +35,50 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/tests" isTestSource="true" />
     </content>
-    <orderEntry type="jdk" jdkName="4.6.0+air3-5_p4_sdk_asc2_win_112112" jdkType="Flex SDK Type (new)" />
+    <orderEntry type="jdk" jdkName="flex_sdk_4.6" jdkType="Flex SDK Type (new)" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library" exported="">
+      <library type="flex">
+        <properties id="6b7132b6-c97a-47e5-aea9-65c9ee279abe" />
+        <CLASSES>
+          <root url="jar://D:/Work/flexunit-4.0.0.swc!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library type="flex">
+        <properties id="2c7c3fdd-bc98-4fb9-9340-e9e38414536c" />
+        <CLASSES>
+          <root url="jar://D:/Work/FlashCamo2.swc!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="library" exported="" name="AdobeAIRSDK" level="project" />
+    <orderEntry type="module-library" exported="">
+      <library type="flex">
+        <properties id="052695ba-7b49-4c03-8de8-23526a049168" />
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/flexunit-core-as3-4.1.0-RC1.61-sdk4.0.0.14159.swc!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library type="flex">
+        <properties id="3995ecfe-0133-4524-93fa-60e8f11b19b3" />
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/flexunit-uilistener-4.1.0-RC1.61-sdk4.0.0.14159.swc!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

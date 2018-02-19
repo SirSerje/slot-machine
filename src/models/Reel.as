@@ -21,5 +21,9 @@ public class Reel implements IReel{
     public function getDisplaySize():int {
         return _reelDisplaySize;
     }
+
+    public function getItemAt(value:int):String {
+        return _items[value];
+    }
 }
 }

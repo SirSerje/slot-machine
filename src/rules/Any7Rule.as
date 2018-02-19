@@ -10,34 +10,45 @@ public class Any7Rule extends AbstractRule implements IRule {
     }
 
     public function checkWinOnLine(value:ILine):Boolean {
-        if(value is ScatterLine) return false;
-        var total:int = 0;
-        var containsItem:Boolean = false;//variable checks, has combo any item except wild
-        var similarItem:Boolean = false;
-        var previous:String = "";
+        if (value is ScatterLine) return false;
         var b:int = 0;
-//        _itemName = "";
-        for each(var m:String in value.items) {
-            if (m == _wildItem) {
-                b++;
-                if ((b) == value.length) {
-                    return false;
-                }
-            }
-            if (m == _bonusItem && m == _scatterItem) {
+        var total:int = 0;
+        var m:String = "";
+        var items:Array = [];
+        for (var i:int = 0; i < value.items.length; i++) {
+            m = value.items[i];
+            if (m == _scatterItem || m == _exceptItem || m == _bonusItem) {
                 return false;
             }
             if (m == "H7" || m == "BAR7" || m == _wildItem) {
-                if (previous != "" && m == previous) {
-                    similarItem = true;
-                }
-                if (m != _wildItem) {
-                    previous = m;
-                }
+                items.push(m);
                 total++
             }
         }
-        return (total == value.length && !similarItem);
+
+        return total == value.items.length && suits(items);
+    }
+
+    private function suits(arr:Array):Boolean {
+        var current:String;
+        var previous:String;
+        var array:Array = [];
+        for each(var j:String in arr) {
+            if (j != _wildItem) {
+                array.push(j);
+            }
+        }
+        for (var i:int = 0; i < array.length; i++) {
+            current = array[i]
+            if (i > 0) {
+                previous = array[i - 1];
+                if (current != previous) {
+                    return true
+                }
+            }
+
+        }
+        return false;
     }
 
     public function countPay(i:int):int {

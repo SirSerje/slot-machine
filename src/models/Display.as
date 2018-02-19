@@ -55,8 +55,9 @@ public class Display {
                 case LineType.SCATTER:
                     //line for scatter check
                     for (var i:int = 0; i < _reels.length; i++) {
-                        var b:Reel = _reels[i];
+                        var b:IReel = _reels[i];
                         for (var j:int = 0; j < b.getDisplaySize(); j++) {
+
                             var item:String = _reels[j].getItemAt(i);
                             currentLine.push(item);
                         }
@@ -66,7 +67,7 @@ public class Display {
                 case LineType.ALL_HORIZONTAL:
                     for (var i:int = 0; i < _reels.length; i++) {
                         currentLine = [];
-                        var b:Reel = _reels[i];
+                        var b:IReel = _reels[i];
                         for (var j:int = 0; j < b.getDisplaySize(); j++) {
                             var item:String = _reels[j].getItemAt(i);
                             currentLine.push(item)
@@ -78,14 +79,13 @@ public class Display {
                     currentLine = [];
                     for (var i:int = 0; i < _reels.length; i++) {
                         var item:String = _reels[i].getItemAt(i);
-                        currentLine.push(item)
+                        currentLine.push(item);
                     }
                     _availableLines.push(new StraightLine(currentLine));
                     var m:int = 0;
                     currentLine = [];
                     for (var i:int = 0; i < _reels.length; i++) {
-                        var b:Reel = _reels[i];
-                        //noinspection LoopStatementThatDoesntLoopJS
+                        var b:IReel = _reels[i];
                         for (var j:int = b.getDisplaySize() - 1; j >= 0; j--) {
                             var item:String = _reels[i].getItemAt(j - m);
                             currentLine.push(item);

@@ -2,6 +2,8 @@ package rules {
 import models.ILine;
 import models.ScatterLine;
 
+import org.hamcrest.core.not;
+
 /**
  * Find win combination only in "3 of kind" items in line
  */
@@ -23,8 +25,7 @@ public class ThreeOfKind extends AbstractRule implements IRule {
         var items:Array = [];
         for (var i:int = 0; i < value.items.length; i++) {
             m = value.items[i];
-            if (m == _exceptItem) return false;
-
+            if (m == _bonusItem || m == _scatterItem || m == _exceptItem) return false;
             if (m == _wildItem) {
                 wild++;
                 if ((wild) == value.length) {
@@ -33,9 +34,7 @@ public class ThreeOfKind extends AbstractRule implements IRule {
                     return true;
                 }
             }
-            if (m == _bonusItem || m == _scatterItem) {
-                return false;
-            }
+
             if (suits(items, m)) {
                 items.push(m);
                 total++;
@@ -54,13 +53,17 @@ public class ThreeOfKind extends AbstractRule implements IRule {
     }
 
     private function suits(array:Array, check:String):Boolean {
-        var current:String;
+        var current:String = "";
+        var notWild:String = "";
         if(array.length==0) {
             return true
         } else {
             for(var i:int=0; i<array.length; i++) {
                 current = array[i];
-                if(current == check || check == _wildItem) {
+                if(current != _wildItem) {
+                    notWild = current;
+                }
+                if(check == current || check == _wildItem || notWild == "") {
                     return true
                 }
             }
