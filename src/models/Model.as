@@ -47,7 +47,7 @@ public class Model extends EventDispatcher implements IModel {
         _display = new Display(Config.reelQuantity, _displayReelSize, Config.possibleLines);
         //creating reels and adding them to display
         for each(var a:Object in _reelWeights) {
-            _display.addReel(new Reel(_displayReelSize))
+            _display.addReel(new Reel(_displayReelSize));
         }
         //creating game rule types
         _ruleSet = new RuleSet();

@@ -24,6 +24,7 @@ public class ReelHelper {
     /**
      * returns certain randomized item
      * @param weights - probabilities array
+     * @param random
      * @return - random position
      */
     public static function getRandomOnReel(weights:Array, random:Number = 0):int {

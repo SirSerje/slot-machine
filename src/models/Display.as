@@ -50,26 +50,28 @@ public class Display {
     private function updateLines():void {
         var currentLine:Array = [];
         _availableLines = []; //clear lines
+        var b:IReel;
+        var item:String;
         for each(var currentLineType:String in _possibleLineTypes) {
             switch (currentLineType) {
                 case LineType.SCATTER:
                     //line for scatter check
-                    for (var i:int = 0; i < _reels.length; i++) {
-                        var b:IReel = _reels[i];
-                        for (var j:int = 0; j < b.getDisplaySize(); j++) {
+                    for (var q:int = 0; q < _reels.length; q++) {
+                        b = _reels[q];
+                        for (var w:int = 0; w < b.getDisplaySize(); w++) {
 
-                            var item:String = _reels[j].getItemAt(i);
+                            item = _reels[w].getItemAt(q);
                             currentLine.push(item);
                         }
                     }
                     _availableLines.push(new ScatterLine(currentLine));
                     break;
                 case LineType.ALL_HORIZONTAL:
-                    for (var i:int = 0; i < _reels.length; i++) {
+                    for (var e:int = 0; e < _reels.length; e++) {
                         currentLine = [];
-                        var b:IReel = _reels[i];
-                        for (var j:int = 0; j < b.getDisplaySize(); j++) {
-                            var item:String = _reels[j].getItemAt(i);
+                        b = _reels[e];
+                        for (var r:int = 0; r < b.getDisplaySize(); r++) {
+                            item = _reels[r].getItemAt(e);
                             currentLine.push(item)
                         }
                         _availableLines.push(new StraightLine(currentLine));
@@ -77,17 +79,17 @@ public class Display {
                     break;
                 case LineType.SQUARE_DIAGONAL:
                     currentLine = [];
-                    for (var i:int = 0; i < _reels.length; i++) {
-                        var item:String = _reels[i].getItemAt(i);
+                    for (var t:int = 0; t < _reels.length; t++) {
+                        item = _reels[t].getItemAt(t);
                         currentLine.push(item);
                     }
                     _availableLines.push(new StraightLine(currentLine));
                     var m:int = 0;
                     currentLine = [];
-                    for (var i:int = 0; i < _reels.length; i++) {
-                        var b:IReel = _reels[i];
-                        for (var j:int = b.getDisplaySize() - 1; j >= 0; j--) {
-                            var item:String = _reels[i].getItemAt(j - m);
+                    for (var u:int = 0; u < _reels.length; u++) {
+                        b = _reels[u];
+                        for (var o:int = b.getDisplaySize() - 1; o >= 0; o--) {
+                            item = _reels[u].getItemAt(o - m);
                             currentLine.push(item);
                             m++;
                             break

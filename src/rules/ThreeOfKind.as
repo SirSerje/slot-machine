@@ -73,9 +73,7 @@ public class ThreeOfKind extends AbstractRule implements IRule {
 
     private function itemInLine(value:ILine):String {
         for each(var i:String in value.items) {
-            if (i == _wildItem) {
-                continue
-            } else {
+            if (i != _wildItem) {
                 return i
             }
         }

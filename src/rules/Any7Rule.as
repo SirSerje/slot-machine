@@ -1,17 +1,13 @@
 package rules {
-import configuration.Config;
-
 import models.ILine;
 import models.ScatterLine;
 
 public class Any7Rule extends AbstractRule implements IRule {
-    private var _itemName:String;
     public function Any7Rule() {
     }
 
     public function checkWinOnLine(value:ILine):Boolean {
         if (value is ScatterLine) return false;
-        var b:int = 0;
         var total:int = 0;
         var m:String = "";
         var items:Array = [];
@@ -39,7 +35,7 @@ public class Any7Rule extends AbstractRule implements IRule {
             }
         }
         for (var i:int = 0; i < array.length; i++) {
-            current = array[i]
+            current = array[i];
             if (i > 0) {
                 previous = array[i - 1];
                 if (current != previous) {
