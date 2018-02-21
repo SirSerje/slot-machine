@@ -63,9 +63,9 @@ public class ThreeOfKind extends AbstractRule implements IRule {
                 if(current != _wildItem) {
                     notWild = current;
                 }
-                if(check == current || check == _wildItem || notWild == "") {
-                    return true
-                }
+            }
+            if(check == notWild || check == _wildItem || notWild == "") {
+                return true
             }
         }
         return false;

@@ -1,5 +1,7 @@
 package rules {
 
+import configuration.Config;
+
 import models.ILine;
 import models.ScatterLine;
 
@@ -16,8 +18,7 @@ public class BonusRule extends AbstractRule implements IRule {
                 total++
             }
         }
-        var length:int = value.items.length;
-        return total == length;
+        return total == Config.reelQuantity;
     }
 
     public function countPay(i:int):int {

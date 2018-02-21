@@ -64,7 +64,7 @@ public class Model extends EventDispatcher implements IModel {
 
     public function roll():void {
         var random:Vector.<Number> = new Vector.<Number>(_displayReelSize,true);
-        for(var i:int=0; i<random.length;i++) random[i] = Math.random();
+        for(var i:int=0; i<random.length;i++) random[i] = 0;
 
         _randomNumbers.push(random);
         _display.updateReels(newAvailableItems(random));

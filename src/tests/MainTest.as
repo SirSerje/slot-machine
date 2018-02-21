@@ -23,12 +23,13 @@ public class MainTest {
     [Test]
     public function checkCombos():void {
         var threeOfKind:IRule = new ThreeOfKind();
-        Assert.assertEquals(false, threeOfKind.checkWinOnLine(new StraightLine(["BAR1", "BAR2", "BAR1"])));
         Assert.assertEquals(true, threeOfKind.checkWinOnLine(new StraightLine(["WILD", "WILD", "BAR1"])));
         Assert.assertEquals(true, threeOfKind.checkWinOnLine(new StraightLine(["WILD", "BAR1", "WILD"])));
         Assert.assertEquals(true, threeOfKind.checkWinOnLine(new StraightLine(["WILD", "WILD", "WILD"])));
         Assert.assertEquals(false, threeOfKind.checkWinOnLine(new StraightLine(["CHERRY", "WILD", "WILD"])));
         Assert.assertEquals(true, threeOfKind.checkWinOnLine(new StraightLine(["H7", "WILD", "H7"])));
+        Assert.assertEquals(false, threeOfKind.checkWinOnLine(new StraightLine(["WILD", "H7", "BAR2"])));
+        Assert.assertEquals(false, threeOfKind.checkWinOnLine(new StraightLine(["BAR1", "BAR2", "BAR1"])));
 
         var any7Rule:IRule = new Any7Rule();
         Assert.assertEquals(true, any7Rule.checkWinOnLine(new StraightLine(["H7", "BAR7", "BAR7"])));
@@ -37,6 +38,7 @@ public class MainTest {
 
         var anyBarRule:IRule = new AnyBarRule();
         Assert.assertEquals(true, anyBarRule.checkWinOnLine(new StraightLine(["BAR1", "BAR2", "BAR3"])));
+        Assert.assertEquals(true, anyBarRule.checkWinOnLine(new StraightLine(["BAR1", "BAR3", "BAR3"])));
         Assert.assertEquals(true, anyBarRule.checkWinOnLine(new StraightLine(["BAR3", "WILD", "BAR2"])));
         Assert.assertEquals(false, anyBarRule.checkWinOnLine(new StraightLine(["WILD", "WILD", "BAR1"])));
 
