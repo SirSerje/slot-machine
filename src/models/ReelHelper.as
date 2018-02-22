@@ -11,6 +11,7 @@ import items.ScatterItem;
 import items.WildItem;
 
 public class ReelHelper {
+
     /**
      * Defines, what items on reel user sees.
      * @param itemCounter - position on reel
@@ -32,38 +33,37 @@ public class ReelHelper {
         return result;
     }
 
-    //TODO вынести в какую то фабрику
     public static function createItem(value:String):IItem {
         var item:IItem;
         switch (value) {
             case "BONUS":
-                item = new BonusItem("BONUS");
+                item = new BonusItem(value);
                 break;
             case "WILD":
-                item = new WildItem("WILD");
+                item = new WildItem(value);
                 break;
             case "CHERRY":
-                item = new ScatterItem("SCATTER");
+                item = new ScatterItem(value);
                 break;
             case "BAR7":
-                item = new Bar7Item("BAR7");
+                item = new Bar7Item(value);
                 break;
             case "H7":
-                item = new H7Item("H7");
+                item = new H7Item(value);
                 break;
             case "BAR3":
-                item = new Bar3Item("BAR3");
+                item = new Bar3Item(value);
                 break;
             case "BAR2":
-                item = new Bar2Item("BAR2");
+                item = new Bar2Item(value);
                 break;
             case "BAR1":
-                item = new Bar1Item("BAR1");
+                item = new Bar1Item(value);
                 break;
             default:
-                item = new BlankItem("BLANK");
-
+                item = new BlankItem(value);
         }
+
         item.setPay(Config.payByValue(value));
         return item;
     }

@@ -28,7 +28,6 @@ public class AbstractRule {
     }
 
     protected function superCompare(a:IItem, b:IItem):Boolean {
-        trace(getSuperClass(a) , getClass(b));
         return getSuperClass(a) == getClass(b);
     }
 
