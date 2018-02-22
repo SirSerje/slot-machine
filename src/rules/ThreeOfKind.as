@@ -37,16 +37,13 @@ public class ThreeOfKind extends AbstractRule implements IRule {
                 return false;
             }
             if (suits(items, m)) {
-                trace(m)
                 items.push(m);
                 total++;
             }
         }
-
         if ((total) == value.length) {
             _winNames.push(itemInLine(value));
         }
-
         return (total) == value.length;
     }
 
@@ -115,6 +112,10 @@ public class ThreeOfKind extends AbstractRule implements IRule {
         }
         _winNames = []; //TODO check this
         return totalCount;
+    }
+
+    public function get name():String {
+        return "3 OF KIND";
     }
 }
 }

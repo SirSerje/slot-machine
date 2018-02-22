@@ -47,5 +47,9 @@ public class ScatterRule extends AbstractRule implements IRule{
         _winCount=0;
         return i + m;
     }
+
+    public function get name():String {
+        return "SCATTER";
+    }
 }
 }

@@ -37,9 +37,6 @@ public class Any7Rule extends AbstractRule implements IRule {
                 total++
             }
         }
-        if((total == value.length && !similarItem)){
-            trace(total)
-        }
         return (total == value.length && !similarItem);
     }
 
@@ -49,6 +46,10 @@ public class Any7Rule extends AbstractRule implements IRule {
 
     public function countPay(i:int):int {
         return i + 10;
+    }
+
+    public function get name():String {
+        return "ANY7";
     }
 }
 }

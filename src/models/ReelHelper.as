@@ -31,7 +31,7 @@ public class ReelHelper {
         for each(var currentArrayValue:int in weights) {
             sum += currentArrayValue;
         }
-        var rand:int = 0;Math.floor(Math.random() * sum);
+        var rand:int = Math.floor(Math.random() * sum);
         var all:int = 0;
         for (var i:int = 0; i <= weights.length; i++) {
             var currentValue:int = weights[i];

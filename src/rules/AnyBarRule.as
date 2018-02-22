@@ -49,5 +49,9 @@ public class AnyBarRule extends AbstractRule implements IRule {
     public function countPay(i:int):int {
         return i + 2;
     }
+
+    public function get name():String {
+        return "ANY BAR";
+    }
 }
 }

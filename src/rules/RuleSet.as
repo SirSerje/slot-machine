@@ -23,17 +23,18 @@ public class RuleSet {
         var line:ILine;
         var rule:IRule;
         var bonus:IRule;
+        var isWin:Boolean;
         for (var i:int = 0; i < itemOnLines.length; i++) {
             line = itemOnLines[i];
             for (var j:int = 0; j < _availableRules.length; j++) {
                 rule = _availableRules[j];
-                if (rule.checkWinOnLine(line) && !(rule is BonusRule)) {
-                    winComboName.push(rule);
-                   // break;
-                }
-                if (rule.checkWinOnLine(line) && rule is BonusRule) {
-                    bonus = rule;
-                 //   break;
+                isWin = rule.checkWinOnLine(line);
+                if (isWin) {
+                    if(!(rule is BonusRule)) {
+                        winComboName.push(rule);
+                    } else {
+                        bonus = rule;
+                    }
                 }
             }
         }

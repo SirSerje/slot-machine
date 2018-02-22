@@ -56,7 +56,6 @@ public class Model extends EventDispatcher implements IModel {
         _ruleSet.add(new AnyBarRule());
         //added last, because relies on previous wins
         _ruleSet.add(new BonusRule());
-        trace("FORMED:   ", _ruleSet)
         //creating payment object
         _payment = new Payment();
     }

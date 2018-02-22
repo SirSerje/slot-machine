@@ -3,6 +3,8 @@ import flash.events.Event;
 
 import models.IModel;
 
+import rules.IRule;
+
 public class MatchedRules extends ComponentView {
     private var _matchedRules:Array;
 
@@ -11,12 +13,17 @@ public class MatchedRules extends ComponentView {
     }
 
     override public function update(event:Event = null):void {
-         _matchedRules = _model.getMatchedRules();//берем у модели, что вышло
+        _matchedRules = []
+        var arr:Array = _model.getMatchedRules();
+        var current:IRule;
+        for (var i:int = 0; i<arr.length; i++) {
+            current = arr[i];
+            _matchedRules.push(current.name)
+        }
     }
 
     override public function getView():String {
-
-        return "Matching rules: [ " + _matchedRules + " ]";
+        return "Matching rules: " + _matchedRules;
     }
 }
 }

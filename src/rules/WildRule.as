@@ -16,5 +16,9 @@ public class WildRule extends AbstractRule implements IRule {
     public function countPay(i:int):int {
         return 0;
     }
+
+    public function get name():String {
+        return "WILD RULE";
+    }
 }
 }
