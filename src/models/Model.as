@@ -1,22 +1,19 @@
 package models {
-import configuration.Config;
 
 import flash.events.Event;
 import flash.events.EventDispatcher;
 
-import configuration.LineType;
+import items.BarItem;
+import items.BlankItem;
+import items.IItem;
+import items.SevenItem;
+import items.WildItem;
 
-import models.ReelHelper;
-
-import rules.ThreeOfKind;
-import rules.AnyBarRule;
 import rules.Any7Rule;
-import rules.IRule;
 
+import rules.IRule;
 import rules.RuleSet;
-import rules.BonusRule;
-import rules.ScatterRule;
-import rules.WildRule;
+import rules.ThreeOfKindRule;
 
 public class Model extends EventDispatcher implements IModel {
     //TODO  добавить линии как сущности
@@ -32,6 +29,8 @@ public class Model extends EventDispatcher implements IModel {
     private var _totalPayment:int = 0;
     //Hold spin history
     private var _randomNumbers:Array = [];
+    private var _tOK:IRule;
+    private var _any7:IRule;
 
 
     public function Model() {
@@ -52,12 +51,31 @@ public class Model extends EventDispatcher implements IModel {
         //creating game rule types
         _ruleSet = new RuleSet();
         //adding rules to rule set
-        _ruleSet.add(new ScatterRule());
-        _ruleSet.add(new ThreeOfKind());
-        _ruleSet.add(new Any7Rule());
-        _ruleSet.add(new AnyBarRule());
+//        _ruleSet.add(new ScatterRule());
+        _tOK = new ThreeOfKindRule(3);
+        _any7 = new Any7Rule(3);
+
+        var threeItems:Vector.<IItem> = new Vector.<IItem>();
+        threeItems.push(new BarItem(), new SevenItem(), new WildItem());
+        var anyItems:Vector.<IItem> = new Vector.<IItem>();
+        anyItems.push(new WildItem());
+        var exceptItems:Vector.<IItem> = new Vector.<IItem>();
+        exceptItems.push(new BlankItem());
+        var anyOfItems:Vector.<IItem> = new Vector.<IItem>();
+        anyOfItems.push(new SevenItem(), new BarItem());
+
+        var seventhItems:Vector.<IItem> = new Vector.<IItem>();
+        anyOfItems.push(new SevenItem()/*, new BarItem()*/);
+
+
+        _tOK.setItems(threeItems, anyItems, exceptItems)
+        _any7.setItems(seventhItems, anyItems, exceptItems)
+
+        _ruleSet.add(_tOK);
+        _ruleSet.add(_any7);
+//        _ruleSet.add(new AnyBarRule());
         //added last, because relies on previous wins
-        _ruleSet.add(new BonusRule());
+//        _ruleSet.add(new BonusRule());
         //creating payment object
         _payment = new Payment();
     }
@@ -95,7 +113,7 @@ public class Model extends EventDispatcher implements IModel {
                 trace("Probabilities config length doesn't match reels config");
             }
             var randomPosOnReel:int = ReelHelper.getRandomOnReel(r.weight, random[i]);
-            var items:Array = ReelHelper.getItemsOnReel(randomPosOnReel, r.stop, _displayReelSize);
+            var items:Vector.<IItem> = ReelHelper.getItemsOnReel(randomPosOnReel, r.stop, _displayReelSize);
             itemsOnReel.push(items);
         }
         return itemsOnReel;

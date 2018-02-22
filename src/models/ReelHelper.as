@@ -1,4 +1,12 @@
 package models {
+import items.BarItem;
+import items.BlankItem;
+import items.BonusItem;
+import items.IItem;
+import items.ScatterItem;
+import items.SevenItem;
+import items.WildItem;
+
 public class ReelHelper {
     /**
      * Defines, what items on reel user sees.
@@ -7,20 +15,71 @@ public class ReelHelper {
      * @param reelSize - quantity of items, presented on a single rule
      * @return items on reel available for show
      */
-    public static function getItemsOnReel(itemCounter:int, itemsOnReel:Array, reelSize:int):Array {
-        var result:Array = [];
+    public static function getItemsOnReel(itemCounter:int, itemsOnReel:Array, reelSize:int):Vector.<IItem> {
+        var result:Vector.<IItem> = new Vector.<IItem>();
         for (var i:int = 0; i < reelSize; i++) {
             if(itemsOnReel.length<=itemCounter) {
                 itemCounter=0;
             }
-            var currentItem:String = itemsOnReel[itemCounter];
-            result.push(currentItem);
+            
+            result[i] = createItem(itemsOnReel[itemCounter]);
             itemCounter += 1;
         }
 
         return result;
     }
 
+
+    private static function createItem(value:String):IItem {
+        var item:IItem;
+        switch (value) {
+            case "BONUS":
+                item = new BonusItem("BNS");
+                item.setPay(Config.payByValue(value));
+                return item;
+
+            case "WILD":
+                item = new WildItem("WLD");
+                item.setPay(Config.payByValue(value));
+                return item;
+
+            case "CHERRY":
+                item = new ScatterItem("SCT");
+                item.setPay(Config.payByValue(value));
+                return item;
+
+            case "BAR7":
+                item = new SevenItem("BR7");
+                item.setPay(Config.payByValue(value));
+                return item;
+
+            case "H7":
+                item = new SevenItem("H 7");
+                item.setPay(Config.payByValue(value));
+                return item;
+
+            case "BAR3":
+                item = new BarItem("BR3");
+                item.setPay(Config.payByValue(value));
+                return item;
+
+            case "BAR2":
+                item = new BarItem("BR2");
+                item.setPay(Config.payByValue(value));
+                return item;
+
+            case "BAR1":
+                item = new BarItem("BR1");
+                item.setPay(Config.payByValue(value));
+                return item;
+
+            default:
+                item = new BlankItem(" X ");
+                item.setPay(Config.payByValue(value));
+                return item;
+
+        }
+    }
     /**
      * returns certain randomized item
      * @param weights - probabilities array

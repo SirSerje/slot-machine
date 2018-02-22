@@ -1,13 +1,15 @@
 package rules {
 
-import configuration.Config;
+import Config;
+
+import items.IItem;
 
 import models.ILine;
 import models.ScatterLine;
 
 public class BonusRule extends AbstractRule implements IRule {
     public function BonusRule() {
-        super();
+        super(3);
     }
 
     public function checkWinOnLine(value:ILine):Boolean {
@@ -18,7 +20,7 @@ public class BonusRule extends AbstractRule implements IRule {
                 total++
             }
         }
-        return total == Config.reelQuantity;
+        return false;
     }
 
     public function countPay(i:int):int {
@@ -30,6 +32,9 @@ public class BonusRule extends AbstractRule implements IRule {
 
     public function get name():String {
         return "BONUS";
+    }
+
+    public function setItems(usingItems:Vector.<IItem>, anyItems:Vector.<IItem>, exceptItems:Vector.<IItem>):void {
     }
 }
 }

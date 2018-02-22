@@ -10,7 +10,7 @@ import rules.AnyBarRule;
 import rules.BonusRule;
 import rules.IRule;
 import rules.ScatterRule;
-import rules.ThreeOfKind;
+import rules.ThreeOfKindRule;
 
 /**
  * Check basic game mechanics like getting correct item reel with random, correct combinations on pay line,
@@ -22,7 +22,7 @@ public class MainTest {
 
     [Test]
     public function checkCombos():void {
-        var threeOfKind:IRule = new ThreeOfKind();
+        var threeOfKind:IRule = new ThreeOfKindRule();
         Assert.assertEquals(true, threeOfKind.checkWinOnLine(new StraightLine(["WILD", "WILD", "BAR1"])));
         Assert.assertEquals(true, threeOfKind.checkWinOnLine(new StraightLine(["WILD", "BAR1", "WILD"])));
         Assert.assertEquals(true, threeOfKind.checkWinOnLine(new StraightLine(["WILD", "WILD", "WILD"])));

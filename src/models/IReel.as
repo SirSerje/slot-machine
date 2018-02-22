@@ -1,7 +1,9 @@
 package models {
+import items.IItem;
+
 public interface IReel {
-    function getItems():Array;
+    function get items():Vector.<IItem>;
     function getDisplaySize():int;
-    function getItemAt(value:int):String
+    function getItemAt(value:int):IItem
 }
 }
