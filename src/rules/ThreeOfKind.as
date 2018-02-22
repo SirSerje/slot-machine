@@ -49,10 +49,6 @@ public class ThreeOfKind extends AbstractRule implements IRule {
 
 
 
-    public function isRuleAvailableForLine(line:ILine):Boolean {
-        return true;
-    }
-
     public function countPay(i:int):int {
         return countTotal() + i;
     }
@@ -92,22 +88,21 @@ public class ThreeOfKind extends AbstractRule implements IRule {
             switch (current) {
                 case "WILD":
                     totalCount += 1000;
-                    continue
+                    continue;
                 case "H7":
                     totalCount += 100;
-                    continue
+                    continue;
                 case "BAR7":
                     totalCount += 25;
-                    continue
+                    continue;
                 case "BAR3":
                     totalCount += 5;
-                    continue
+                    continue;
                 case "BAR2":
                     totalCount += 4;
-                    continue
+                    continue;
                 case "BAR1":
                     totalCount += 3;
-                    continue
             }
         }
         _winNames = []; //TODO check this

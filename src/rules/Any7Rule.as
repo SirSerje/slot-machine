@@ -40,10 +40,6 @@ public class Any7Rule extends AbstractRule implements IRule {
         return (total == value.length && !similarItem);
     }
 
-    public function isRuleAvailableForLine(line:ILine):Boolean {
-        return true;
-    }
-
     public function countPay(i:int):int {
         return i + 10;
     }

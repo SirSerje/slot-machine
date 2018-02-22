@@ -43,8 +43,6 @@ public class Display {
     * @return array of possible line win combinations
     */
     //For scalability, any line should be presented as some essence line Rule classes
-    //TODO this shit can be fixed
-    //TODO запилить линии и замутить rule.isAvailable(line.type())
     public function availableLines():Array {
         return _availableLines;
     }

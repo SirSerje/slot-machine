@@ -15,8 +15,8 @@ public class AbstractLine implements ILine{
         return _items;
     }
 
-    public function get type():String {
-        return "";
+    public function get lineType():String {
+        return "ABSTRACT TYPE";
     }
 }
 }

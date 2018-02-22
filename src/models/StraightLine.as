@@ -5,8 +5,7 @@ public class StraightLine extends AbstractLine implements ILine {
         super(items);
     }
 
-
-    override public function get type():String {
+    override public function get lineType():String {
         return "Straight";
     }
 }

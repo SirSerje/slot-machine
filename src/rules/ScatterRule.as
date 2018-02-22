@@ -10,7 +10,7 @@ public class ScatterRule extends AbstractRule implements IRule{
     }
     public function checkWinOnLine(value:ILine):Boolean {
         if (!(value is _expectLine))
-            return false
+            return false;
 
         _winCount = 0;
         for each(var m:String in value.items) {
@@ -21,25 +21,18 @@ public class ScatterRule extends AbstractRule implements IRule{
         return _winCount >= 1;
     }
 
-    public function isRuleAvailableForLine(line:ILine):Boolean {
-        for each(var i:String in _availableLineTypes) {
-
-        }
-        return true;
-    }
-
     public function countPay(i:int):int {
         var m:int = 0;
         switch (_winCount) {
             case 1:
                 m += 2;
-                break
+                break;
             case 2:
                 m += 10;
-                break
+                break;
             case 3:
                 m += 25;
-                break
+                break;
             case 0:
                 m += 0;
                 break

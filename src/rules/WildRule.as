@@ -9,10 +9,6 @@ public class WildRule extends AbstractRule implements IRule {
         return false;
     }
 
-    public function isRuleAvailableForLine(line:ILine):Boolean {
-        return false;
-    }
-
     public function countPay(i:int):int {
         return 0;
     }

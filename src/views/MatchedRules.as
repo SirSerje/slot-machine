@@ -13,7 +13,7 @@ public class MatchedRules extends ComponentView {
     }
 
     override public function update(event:Event = null):void {
-        _matchedRules = []
+        _matchedRules = [];
         var arr:Array = _model.getMatchedRules();
         var current:IRule;
         for (var i:int = 0; i<arr.length; i++) {

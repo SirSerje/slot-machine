@@ -14,11 +14,9 @@ public class AnyBarRule extends AbstractRule implements IRule {
 
         if(value is ScatterLine) return false;
         var total:int = 0;
-        var containsItem:Boolean = false;//variable checks, has combo any item except wild
         var similarItem:Boolean = false;
         var previous:String = "";
         var b:int = 0;
-//        _itemName = "";
         for each(var m:String in value.items) {
             if (m == _wildItem) {
                 b++;
@@ -40,10 +38,6 @@ public class AnyBarRule extends AbstractRule implements IRule {
             }
         }
         return (total == value.length && !similarItem);
-    }
-
-    public function isRuleAvailableForLine(line:ILine):Boolean {
-        return true;
     }
 
     public function countPay(i:int):int {

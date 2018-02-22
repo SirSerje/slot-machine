@@ -17,19 +17,9 @@ public class ComponentView extends Sprite {
         trace("Method is abstract, override is needed");
     }
 
-    public function remove(c:ComponentView):void {
-        trace("Method is abstract, override is needed");
-    }
-
-    public function getChild(n:int):ComponentView {
-        trace("Method is abstract, override is needed");
-        return null;
-    }
-
     public function update(event:Event = null):void {
         trace("Method is abstract, override is needed");
     }
-
 
     public function getView():String {
         trace("Method is abstract, override is needed");
