@@ -3,13 +3,11 @@ import items.Bar1Item;
 import items.Bar2Item;
 import items.Bar3Item;
 import items.Bar7Item;
-import items.BarItem;
 import items.BlankItem;
 import items.BonusItem;
 import items.H7Item;
 import items.IItem;
 import items.ScatterItem;
-import items.SevenItem;
 import items.WildItem;
 
 public class ReelHelper {
@@ -39,52 +37,37 @@ public class ReelHelper {
         var item:IItem;
         switch (value) {
             case "BONUS":
-                item = new BonusItem("BNS");
-                item.setPay(Config.payByValue(value));
-                return item;
-
+                item = new BonusItem("BONUS");
+                break;
             case "WILD":
-                item = new WildItem("WLD");
-                item.setPay(Config.payByValue(value));
-                return item;
-
+                item = new WildItem("WILD");
+                break;
             case "CHERRY":
-                item = new ScatterItem("SCT");
-                item.setPay(Config.payByValue(value));
-                return item;
-
+                item = new ScatterItem("SCATTER");
+                break;
             case "BAR7":
-                item = new Bar7Item("BR7");
-                item.setPay(Config.payByValue(value));
-                return item;
-
+                item = new Bar7Item("BAR7");
+                break;
             case "H7":
-                item = new H7Item("H 7");
-                item.setPay(Config.payByValue(value));
-                return item;
-
+                item = new H7Item("H7");
+                break;
             case "BAR3":
-                item = new Bar3Item("BR3");
-                item.setPay(Config.payByValue(value));
-                return item;
-
+                item = new Bar3Item("BAR3");
+                break;
             case "BAR2":
-                item = new Bar2Item("BR2");
-                item.setPay(Config.payByValue(value));
-                return item;
-
+                item = new Bar2Item("BAR2");
+                break;
             case "BAR1":
-                item = new Bar1Item("BR1");
-                item.setPay(Config.payByValue(value));
-                return item;
-
+                item = new Bar1Item("BAR1");
+                break;
             default:
-                item = new BlankItem(" BLANK ");
-                item.setPay(Config.payByValue(value));
-                return item;
+                item = new BlankItem("BLANK");
 
         }
+        item.setPay(Config.payByValue(value));
+        return item;
     }
+
     /**
      * returns certain randomized item
      * @param weights - probabilities array

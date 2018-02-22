@@ -18,9 +18,7 @@ import models.StraightLine;
 import org.flexunit.Assert;
 
 import rules.Any7Rule;
-
 import rules.AnyBarRule;
-
 import rules.IRule;
 import rules.ThreeOfKindRule;
 
@@ -51,7 +49,7 @@ public class MainTest {
 
         var threeOfKind:IRule = new ThreeOfKindRule(threeItems, anyItems, exceptItems, 3);
         var anyBar:IRule = new AnyBarRule(anyBarItems, anyItems, exceptItems, 3);
-        var any7:IRule = new Any7Rule(anySeven, anyItems, exceptItems,3);
+        var any7:IRule = new Any7Rule(anySeven, anyItems, exceptItems, 3);
 
         /* var any7Rule:IRule = new Any7Rule();
          Assert.assertEquals(true, any7Rule.checkWinOnLine(new StraightLine(["H7", "BAR7", "BAR7"]
@@ -79,9 +77,9 @@ public class MainTest {
             rule5: {items: ["WILD", "H7", "BAR2"], rule: threeOfKind, line: StraightLine, result: false, index: 5}, //5
             rule6: {items: ["BAR1", "BAR2", "BAR1"], rule: threeOfKind, line: StraightLine, result: false, index: 6},  //6
 
-            rule7:  {items: ["BAR1", "BAR2", "BAR3"], rule: anyBar, line: StraightLine, result: true, index: 7},  //7
-            rule8:  {items: ["BAR1", "BAR3", "BAR3"], rule: anyBar, line: StraightLine, result: true, index: 8},  //8
-            rule9:  {items: ["BAR3", "WILD", "BAR2"], rule: anyBar, line: StraightLine, result: true, index: 9},  //9
+            rule7: {items: ["BAR1", "BAR2", "BAR3"], rule: anyBar, line: StraightLine, result: true, index: 7},  //7
+            rule8: {items: ["BAR1", "BAR3", "BAR3"], rule: anyBar, line: StraightLine, result: true, index: 8},  //8
+            rule9: {items: ["BAR3", "WILD", "BAR2"], rule: anyBar, line: StraightLine, result: true, index: 9},  //9
             rule10: {items: ["WILD", "WILD", "BAR1"], rule: anyBar, line: StraightLine, result: false, index: 10},  //10
             rule11: {items: ["BAR1", "WILD", "BONUS"], rule: anyBar, line: StraightLine, result: false, index: 11},  //11
             rule12: {items: ["BAR1", "BAR2", "WILD"], rule: anyBar, line: StraightLine, result: true, index: 12},  //12
@@ -89,7 +87,7 @@ public class MainTest {
             rule13: {items: ["H7", "BAR7", "BAR7"], rule: any7, line: StraightLine, result: true, index: 13},  //13
             rule14: {items: ["WILD", "BAR7", "WILD"], rule: any7, line: StraightLine, result: false, index: 14},  //14
             rule15: {items: ["H7", "BAR7", "WILD"], rule: any7, line: StraightLine, result: true, index: 15}  //15
-    };
+        };
         for each(var item:Object in object) {
             tr(item);
             items[0] = ReelHelper.createItem(item.items[0]);
@@ -101,14 +99,10 @@ public class MainTest {
         }
 
 
-
-
-
-
-
     }
+
     private function tr(item:Object):void {
         trace("TEST:", item.index, item.items, item.rule, item.line, item.result);
     }
-    }
+}
 }

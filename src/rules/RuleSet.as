@@ -48,7 +48,6 @@ public class RuleSet {
         var bonusItem:Vector.<IItem> = new Vector.<IItem>();
         bonusItem.push(new BonusItem());
 
-
         var _threeOfKind:rules.IRule = new ThreeOfKindRule(threeItems, anyItems, exceptItems, 3);
         var _anySeven:rules.IRule = new Any7Rule(anySevenItems, anyItems, exceptItems, 3);
         var _anyBar:rules.IRule = new AnyBarRule(anyBarItems, anyItems, exceptItems, 3);
