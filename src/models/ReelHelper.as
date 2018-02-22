@@ -1,7 +1,12 @@
 package models {
+import items.Bar1Item;
+import items.Bar2Item;
+import items.Bar3Item;
+import items.Bar7Item;
 import items.BarItem;
 import items.BlankItem;
 import items.BonusItem;
+import items.H7Item;
 import items.IItem;
 import items.ScatterItem;
 import items.SevenItem;
@@ -49,27 +54,27 @@ public class ReelHelper {
                 return item;
 
             case "BAR7":
-                item = new SevenItem("BR7");
+                item = new Bar7Item("BR7");
                 item.setPay(Config.payByValue(value));
                 return item;
 
             case "H7":
-                item = new SevenItem("H 7");
+                item = new H7Item("H 7");
                 item.setPay(Config.payByValue(value));
                 return item;
 
             case "BAR3":
-                item = new BarItem("BR3");
+                item = new Bar3Item("BR3");
                 item.setPay(Config.payByValue(value));
                 return item;
 
             case "BAR2":
-                item = new BarItem("BR2");
+                item = new Bar2Item("BR2");
                 item.setPay(Config.payByValue(value));
                 return item;
 
             case "BAR1":
-                item = new BarItem("BR1");
+                item = new Bar1Item("BR1");
                 item.setPay(Config.payByValue(value));
                 return item;
 
