@@ -33,14 +33,14 @@ public class Model extends EventDispatcher implements IModel {
             _display.addReel(new Reel(_displayReelSize));
         }
         //creating game rule types
-        _ruleSet = new RuleSet();
+        _ruleSet = new RuleSet(_displayReelSize);
         //creating payment
         _payment = new Payment();
     }
 
     public function roll():void {
         var random:Vector.<Number> = new Vector.<Number>(_displayReelSize,true);
-        for(var i:int=0; i<random.length;i++) random[i] = 0;
+        for(var i:int=0; i<random.length;i++) random[i] = Math.random();
 
         _randomNumbers.push(random);
         _display.updateReels(newAvailableItems(random));

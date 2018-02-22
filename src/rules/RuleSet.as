@@ -21,11 +21,11 @@ public class RuleSet {
 
     private var _availableRules:Array = [];
 
-    public function RuleSet() {
-        init();
+    public function RuleSet(value:int) {
+        init(value);
     }
 
-    private function init():void {
+    private function init(value:int):void {
 
         var threeItems:Vector.<IItem> = new Vector.<IItem>();
         threeItems.push(new Bar1Item(), new Bar2Item(), new Bar3Item(), new H7Item(), new Bar7Item());
@@ -48,11 +48,11 @@ public class RuleSet {
         var bonusItem:Vector.<IItem> = new Vector.<IItem>();
         bonusItem.push(new BonusItem());
 
-        var _threeOfKind:rules.IRule = new ThreeOfKindRule(threeItems, anyItems, exceptItems, 3);
-        var _anySeven:rules.IRule = new Any7Rule(anySevenItems, anyItems, exceptItems, 3);
-        var _anyBar:rules.IRule = new AnyBarRule(anyBarItems, anyItems, exceptItems, 3);
+        var _threeOfKind:rules.IRule = new ThreeOfKindRule(threeItems, anyItems, exceptItems, value);
+        var _anySeven:rules.IRule = new Any7Rule(anySevenItems, anyItems, exceptItems, value);
+        var _anyBar:rules.IRule = new AnyBarRule(anyBarItems, anyItems, exceptItems, value);
         var _scatter:rules.IRule = new ScatterRule(scatterItems, null, null);
-        var _bonus:rules.IRule = new BonusRule(bonusItem, null, null, 3);
+        var _bonus:rules.IRule = new BonusRule(bonusItem, null, null, value);
 
         add(_threeOfKind);
         add(_anyBar);
