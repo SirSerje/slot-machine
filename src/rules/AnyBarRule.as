@@ -7,8 +7,8 @@ import models.ScatterLine;
 
 public class AnyBarRule extends AbstractRule implements IRule {
 
-    public function AnyBarRule(value:int) {
-        super(value);
+    public function AnyBarRule(usingItems:Vector.<IItem>, anyItems:Vector.<IItem>, exceptItems:Vector.<IItem>, itemNeedToWin:int=0) {
+        super(usingItems, anyItems, exceptItems, itemNeedToWin);
     }
 
     public function checkWinOnLine(value:ILine):Boolean {
@@ -20,7 +20,7 @@ public class AnyBarRule extends AbstractRule implements IRule {
         var firstItem:IItem;
         var total:int = 0;
         var any:int = 0;
-        var flag:Boolean = false;
+
         var currentPay:int = 0;
         for (var i:int = 0; i < value.items.length; i++) {
             currentItem = value.items[i];

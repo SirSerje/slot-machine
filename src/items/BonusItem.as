@@ -5,7 +5,7 @@ public class BonusItem extends AbstractItem implements IItem {
         super(name);
     }
 
-     public function setPay(value:Object) {
+     public function setPay(value:Object):void {
         _pay = value;
     }
 

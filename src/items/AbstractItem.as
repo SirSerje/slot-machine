@@ -1,6 +1,3 @@
-/**
- * Created by sirse on 21.02.2018.
- */
 package items {
 public class AbstractItem {
     protected var _pay:Object;

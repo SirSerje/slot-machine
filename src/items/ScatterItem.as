@@ -9,7 +9,7 @@ public class ScatterItem extends AbstractItem implements IItem {
         return _name;
     }
 
-    public function setPay(value:Object) {
+    public function setPay(value:Object):void {
         _pay = value;
     }
 

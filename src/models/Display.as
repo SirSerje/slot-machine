@@ -11,7 +11,7 @@ import items.IItem;
 public class Display {
     private var _reels:Array = [];
     private var _reelsQuantity:int;
-    private var _possibleLineTypes:Array; //TODO rename possible lineTypes
+    private var _possibleLineTypes:Array;
     private var _reelSize:int;
     private var _availableLines:Array = [];
 
@@ -60,8 +60,8 @@ public class Display {
                     currentLine =  new Vector.<IItem>();
                     for (var z:int = 0; z < _reels.length; z++) {
                         b = _reels[z];
-                        for (var w:int = 0; w < b.getDisplaySize(); w++) {
-                            item = _reels[w].getItemAt(z);
+                        for (var t:int = 0; t < b.getDisplaySize(); t++) {
+                            item = _reels[t].getItemAt(z);
                             currentLine.push(item);
                         }
                     }
@@ -71,8 +71,8 @@ public class Display {
                     currentLine =  new Vector.<IItem>();
                     for (var q:int = 0; q < _reels.length; q++) {
                         b = _reels[q];
-                        for (var w:int = 0; w < b.getDisplaySize(); w++) {
-                            item = _reels[w].getItemAt(q);
+                        for (var c:int = 0; c < b.getDisplaySize(); c++) {
+                            item = _reels[c].getItemAt(q);
                             currentLine.push(item);
                         }
                     }

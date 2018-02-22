@@ -1,29 +1,25 @@
 package rules {
 
-import Config;
-
 import items.IItem;
 
 import models.BonusLine;
-
 import models.ILine;
-import models.ScatterLine;
 
 public class BonusRule extends AbstractRule implements IRule {
     private var _winItem:IItem;
-    public function BonusRule(value:int) {
-        super(value);
+    public function BonusRule(usingItems:Vector.<IItem>, anyItems:Vector.<IItem>, exceptItems:Vector.<IItem>, itemNeedToWin:int=0) {
+        super(usingItems, anyItems, exceptItems, itemNeedToWin);
     }
 
     public function checkWinOnLine(value:ILine):Boolean {
         if(!(value is BonusLine)) {return false;}
         var currentItem:IItem;
-        var validItem:IItem;
-        var exceptItem:IItem;
+
+
         var anyItem:IItem;
         var firstItem:IItem;
         var total:int = 0;
-        var any:int = 0;
+
         var flag:Boolean = false;
         var currentPay:int = 0;
         for (var i:int = 0; i < value.items.length; i++) {

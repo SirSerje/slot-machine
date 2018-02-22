@@ -9,8 +9,8 @@ import models.ScatterLine;
  */
 public class ThreeOfKindRule extends AbstractRule implements IRule {
 
-    public function ThreeOfKindRule(itemsNeedToWin:int) {
-        super(itemsNeedToWin);
+    public function ThreeOfKindRule(usingItems:Vector.<IItem>, anyItems:Vector.<IItem>, exceptItems:Vector.<IItem>, itemNeedToWin:int=0) {
+        super(usingItems, anyItems, exceptItems, itemNeedToWin);
     }
 
     public function checkWinOnLine(value:ILine):Boolean {
@@ -44,7 +44,6 @@ public class ThreeOfKindRule extends AbstractRule implements IRule {
                     if(!flag) {
                     firstItem = currentItem;
                     flag = true;
-                    continue;
                     }
                 }
             }

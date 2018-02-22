@@ -7,14 +7,15 @@ import items.IItem;
 
 public class AbstractRule {
     protected var _winPay:int = 0;
+    protected var _itemsNeedToWin:int;
     protected var _exceptItems:Vector.<IItem>;
     protected var _anyItems:Vector.<IItem>;
     protected var _usingItems:Vector.<IItem>;
 
-
-    protected var _itemsNeedToWin:int;
-
-    public function AbstractRule(itemNeedToWin:int) {
+    public function AbstractRule(usingItems:Vector.<IItem>, anyItems:Vector.<IItem>, exceptItems:Vector.<IItem>, itemNeedToWin:int=0) {
+        _usingItems = usingItems;
+        _anyItems = anyItems;
+        _exceptItems = exceptItems;
         _itemsNeedToWin = itemNeedToWin;
     }
 
@@ -35,19 +36,11 @@ public class AbstractRule {
         return getDefinitionByName(getQualifiedSuperclassName(obj)) as Class;
     }
 
-    public function setItems(usingItems:Vector.<IItem>, anyItems:Vector.<IItem>, exceptItems:Vector.<IItem>):void {
-        _usingItems = usingItems;
-        _anyItems = anyItems;
-        _exceptItems = exceptItems;
-    }
-
-    //In case of real slot payments of any line should be initialized by configs
     protected function countTotal():int {
         var temp:int = _winPay;
         _winPay = 0;
         return temp;
     }
-
 
 }
 }

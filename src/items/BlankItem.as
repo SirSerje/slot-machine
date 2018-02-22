@@ -10,7 +10,7 @@ public class BlankItem extends AbstractItem implements IItem {
         return _name;
     }
 
-    public function setPay(value:Object) {
+    public function setPay(value:Object):void {
     }
 
     public function getPay():Object {

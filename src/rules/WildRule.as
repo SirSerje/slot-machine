@@ -4,8 +4,8 @@ import items.IItem;
 import models.ILine;
 
 public class WildRule extends AbstractRule implements IRule {
-    public function WildRule(itemNeedToWin:int) {
-        super(itemNeedToWin);
+    public function WildRule(usingItems:Vector.<IItem>, anyItems:Vector.<IItem>, exceptItems:Vector.<IItem>, itemNeedToWin:int=0) {
+        super(usingItems, anyItems, exceptItems, itemNeedToWin);
     }
 
     public function checkWinOnLine(value:ILine):Boolean {
