@@ -1,14 +1,16 @@
 package rules {
 import flash.utils.getDefinitionByName;
 import flash.utils.getQualifiedClassName;
+import flash.utils.getQualifiedSuperclassName;
 
 import items.IItem;
 
 public class AbstractRule {
-    protected var _exceptItem:String = "BLANK";
-    protected var _scatterItem:String = "CHERRY";
-    protected var _wildItem:String = "WILD";
-    protected var _bonusItem:String = "BONUS";
+    protected var _winPay:int = 0;
+    protected var _exceptItems:Vector.<IItem>;
+    protected var _anyItems:Vector.<IItem>;
+    protected var _usingItems:Vector.<IItem>;
+
 
     protected var _itemsNeedToWin:int;
 
@@ -23,5 +25,21 @@ public class AbstractRule {
     protected function getClass(obj:Object):Class {
         return getDefinitionByName(getQualifiedClassName(obj)) as Class;
     }
+
+    protected function superCompare(a:IItem, b:IItem):Boolean {
+        return a is getSuperClass(b);
+    }
+
+    protected function getSuperClass(obj:Object):Class {
+        return getDefinitionByName(getQualifiedSuperclassName(obj)) as Class;
+    }
+
+    public function setItems(usingItems:Vector.<IItem>, anyItems:Vector.<IItem>, exceptItems:Vector.<IItem>):void {
+        _usingItems = usingItems;
+        _anyItems = anyItems;
+        _exceptItems = exceptItems;
+    }
+
+
 }
 }

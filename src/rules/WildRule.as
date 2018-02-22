@@ -20,7 +20,6 @@ public class WildRule extends AbstractRule implements IRule {
         return "WILD RULE";
     }
 
-    public function setItems(usingItems:Vector.<IItem>, anyItems:Vector.<IItem>, exceptItems:Vector.<IItem>):void {
-    }
+
 }
 }

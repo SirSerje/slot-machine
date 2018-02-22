@@ -2,29 +2,19 @@ package rules {
 import items.IItem;
 
 import models.ILine;
+import models.ScatterLine;
 
 /**
  * Find win combination only in "3 of kind" items in line
  */
 public class ThreeOfKindRule extends AbstractRule implements IRule {
-    private var _winPay:int = 0;
-    private var _exceptItems:Vector.<IItem>;
-    private var _anyItems:Vector.<IItem>;
-    private var _usingItems:Vector.<IItem>;
-
-
 
     public function ThreeOfKindRule(itemsNeedToWin:int) {
         super(itemsNeedToWin);
     }
 
-    public function setItems(usingItems:Vector.<IItem>, anyItems:Vector.<IItem>, exceptItems:Vector.<IItem>):void {
-        _usingItems = usingItems
-        _anyItems = anyItems
-        _exceptItems = exceptItems
-    }
-
     public function checkWinOnLine(value:ILine):Boolean {
+        if(value is ScatterLine) {return false;}
         var currentItem:IItem;
         var exceptItem:IItem;
         var anyItem:IItem;

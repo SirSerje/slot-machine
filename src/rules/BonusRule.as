@@ -13,13 +13,13 @@ public class BonusRule extends AbstractRule implements IRule {
     }
 
     public function checkWinOnLine(value:ILine):Boolean {
-        if (!(value is ScatterLine)) return false;
+    /*    if (!(value is ScatterLine)) return false;
         var total:int = 0;
         for each(var m:String in value.items) {
             if(m==_bonusItem) {
                 total++
             }
-        }
+        }*/
         return false;
     }
 
@@ -34,7 +34,5 @@ public class BonusRule extends AbstractRule implements IRule {
         return "BONUS";
     }
 
-    public function setItems(usingItems:Vector.<IItem>, anyItems:Vector.<IItem>, exceptItems:Vector.<IItem>):void {
-    }
 }
 }

@@ -3,13 +3,20 @@ package models {
 import flash.events.Event;
 import flash.events.EventDispatcher;
 
+import items.Bar1Item;
+import items.Bar2Item;
+import items.Bar3Item;
+import items.Bar7Item;
+
 import items.BarItem;
 import items.BlankItem;
+import items.H7Item;
 import items.IItem;
 import items.SevenItem;
 import items.WildItem;
 
 import rules.Any7Rule;
+import rules.AnyBarRule;
 
 import rules.IRule;
 import rules.RuleSet;
@@ -31,6 +38,7 @@ public class Model extends EventDispatcher implements IModel {
     private var _randomNumbers:Array = [];
     private var _tOK:IRule;
     private var _any7:IRule;
+    private var _anyBar:IRule;
 
 
     public function Model() {
@@ -54,29 +62,36 @@ public class Model extends EventDispatcher implements IModel {
 //        _ruleSet.add(new ScatterRule());
         _tOK = new ThreeOfKindRule(3);
         _any7 = new Any7Rule(3);
+        _anyBar = new AnyBarRule(3);
 
-        var threeItems:Vector.<IItem> = new Vector.<IItem>();
-        threeItems.push(new BarItem(), new SevenItem(), new WildItem());
+
         var anyItems:Vector.<IItem> = new Vector.<IItem>();
-        anyItems.push(new WildItem());
         var exceptItems:Vector.<IItem> = new Vector.<IItem>();
+        var anyBarItems:Vector.<IItem> = new Vector.<IItem>();
+        var threeItems:Vector.<IItem> = new Vector.<IItem>();
+        var anySevenItems:Vector.<IItem> = new Vector.<IItem>();
+
+        threeItems.push(new Bar1Item(), new Bar2Item(), new Bar3Item(), new H7Item(), new Bar7Item());
         exceptItems.push(new BlankItem());
-        var anyOfItems:Vector.<IItem> = new Vector.<IItem>();
-        anyOfItems.push(new SevenItem(), new BarItem());
+        anyItems.push(new WildItem());
 
-        var seventhItems:Vector.<IItem> = new Vector.<IItem>();
-        anyOfItems.push(new SevenItem()/*, new BarItem()*/);
+        anySevenItems.push(new SevenItem()/*, new BarItem()*/);
+        anyBarItems.push(/*new SevenItem(),*/ new BarItem());
 
 
-        _tOK.setItems(threeItems, anyItems, exceptItems)
-        _any7.setItems(seventhItems, anyItems, exceptItems)
+        _tOK.setItems(threeItems, anyItems, exceptItems);
+     //   _any7.setItems(anySevenItems, anyItems, exceptItems);
+        _anyBar.setItems(anyBarItems, anyItems, exceptItems);
 
         _ruleSet.add(_tOK);
-        _ruleSet.add(_any7);
-//        _ruleSet.add(new AnyBarRule());
-        //added last, because relies on previous wins
-//        _ruleSet.add(new BonusRule());
-        //creating payment object
+//        _ruleSet.add(_any7);
+        _ruleSet.add(_anyBar);
+
+
+        //_ruleSet.add(new AnyBarRule());
+        //_ruleSet.add(new BonusRule());
+
+
         _payment = new Payment();
     }
 

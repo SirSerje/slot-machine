@@ -5,10 +5,6 @@ import models.ILine;
 import models.ScatterLine;
 
 public class Any7Rule extends AbstractRule implements IRule {
-    private var _winPay:int = 0;
-    private var _exceptItems:Vector.<IItem>;
-    private var _anyItems:Vector.<IItem>;
-    private var _usingItems:Vector.<IItem>;
 
     public function Any7Rule(itemNeedToWin) {
         super(itemNeedToWin);
@@ -20,13 +16,16 @@ public class Any7Rule extends AbstractRule implements IRule {
         var anyItem:IItem;
         var firstItem:IItem;
         var total:int = 0
+        var variety:int = 0
         var any:int = 0;
+        var flag:Boolean = false;
+        var currentPay:int = 0;
         for (var i:int = 0; i < value.items.length; i++) {
             currentItem = value.items[i];
+
             //check exception
             for (var j:int = 0; j < _exceptItems.length; j++) {
                 exceptItem = _exceptItems[j];
-
                 if (compare(currentItem, exceptItem)) {
                     return false
                 }
@@ -38,40 +37,42 @@ public class Any7Rule extends AbstractRule implements IRule {
                 anyItem = _anyItems[k];
                 if (compare(currentItem, anyItem)) {
                     any++;
+                } else {
+                    if (!flag) {
+                        firstItem = currentItem;
+                        flag = true;
+                        continue;
+                    }
                 }
             }
             //end check for wild
 
-            total+=1;
+
+            //if match to origin, add it
+            if (firstItem && compare(currentItem, firstItem)) { //TODO тут надо супер заюзать
+                total += 1;
+                if(!compare(currentItem, firstItem)) {
+                    variety+=1
+                }
+
+            }
+            //end of
 
         }
         if ((total + any) == _itemsNeedToWin) {
-            _winPay += currentItem.getPay()["cost_any"];
-        }
-        return ((any != _itemsNeedToWin) && ((total + any) == _itemsNeedToWin))
-    }
-
-    private function suits(arr:Array):Boolean {
-        var current:String;
-        var previous:String;
-        var array:Array = [];
-        for each(var j:String in arr) {
-            if (j != _wildItem) {
-                array.push(j);
-            }
-        }
-        for (var i:int = 0; i < array.length; i++) {
-            current = array[i];
-            if (i > 0) {
-                previous = array[i - 1];
-                if (current != previous) {
-                    return true
-                }
+            if (firstItem == null) {
+                firstItem = currentItem;
             }
 
+            if (firstItem.getPay()["cost"]) {
+                currentPay = firstItem.getPay()["cost"];
+                _winPay += currentPay;
+            }
         }
-        return false;
+        return (((total + any) == _itemsNeedToWin) && total > 1 && variety > 1) //because X Wild X = three of kind
     }
+
+
 
     public function countPay(i:int):int {
         return i + 10;
@@ -81,12 +82,7 @@ public class Any7Rule extends AbstractRule implements IRule {
         return "ANY7";
     }
 
-    public function setItems(usingItems:Vector.<IItem>, anyItems:Vector.<IItem>, exceptItems:Vector.<IItem>):void {
-        _usingItems = usingItems
-        _anyItems = anyItems
-        _exceptItems = exceptItems
 
-    }
 }
 }
 
