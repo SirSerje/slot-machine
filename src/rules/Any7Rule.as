@@ -37,6 +37,9 @@ public class Any7Rule extends AbstractRule implements IRule {
                 total++
             }
         }
+        if((total == value.length && !similarItem)){
+            trace(total)
+        }
         return (total == value.length && !similarItem);
     }
 

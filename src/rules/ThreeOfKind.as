@@ -17,12 +17,10 @@ public class ThreeOfKind extends AbstractRule implements IRule {
         if(value is ScatterLine) {
             return false;
         }
-        var previous:String = "";
         var total:int = 0;
         var wild:int = 0;
         var m:String = "";
-        var first:String = "";
-        var itms:Array = []
+        var items:Array = [];
         for (var i:int = 0; i < value.items.length; i++) {
             m = value.items[i];
             if (m == _exceptItem) return false;
@@ -35,17 +33,14 @@ public class ThreeOfKind extends AbstractRule implements IRule {
                     return true;
                 }
             }
-
             if (m == _bonusItem || m == _scatterItem) {
                 return false;
             }
-
-            if (suits(itms, m)) {
-                itms.push(m);
+            if (suits(items, m)) {
+                trace(m)
+                items.push(m);
                 total++;
             }
-
-
         }
 
         if ((total) == value.length) {
@@ -65,14 +60,14 @@ public class ThreeOfKind extends AbstractRule implements IRule {
         return countTotal() + i;
     }
 
-    private function suits(value:Array, check:String):Boolean {
+    private function suits(array:Array, check:String):Boolean {
         var current:String;
-        if(value.length==0) {
+        if(array.length==0) {
             return true
         } else {
-            for(var i:int=0; i<value.length; i++) {
-                current = value[i];
-                if(current == check || current == _wildItem) {
+            for(var i:int=0; i<array.length; i++) {
+                current = array[i];
+                if(current == check || check == _wildItem) {
                     return true
                 }
             }

@@ -11,6 +11,8 @@ public class ScatterRule extends AbstractRule implements IRule{
     public function checkWinOnLine(value:ILine):Boolean {
         if (!(value is _expectLine))
             return false
+
+        _winCount = 0;
         for each(var m:String in value.items) {
             if (m == _scatterItem) {
                 _winCount++;

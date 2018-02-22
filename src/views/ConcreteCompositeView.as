@@ -9,11 +9,11 @@ import flash.text.TextField;
 
 import models.IModel;
 
-public class KeyboardInputView extends CompositeView {
+public class ConcreteCompositeView extends CompositeView {
     private var _target:Stage;
     private var _textField:TextField;
 
-    public function KeyboardInputView(aModel:IModel, aController:IKeyboardInputHandler, target:Stage) {
+    public function ConcreteCompositeView(aModel:IModel, aController:IKeyboardInputHandler, target:Stage) {
         super(aModel, aController);
         this._target = target;
         target.addEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);

@@ -12,15 +12,20 @@ public class BonusRule extends AbstractRule implements IRule {
 
     public function checkWinOnLine(value:ILine):Boolean {
         if(!(value is ScatterLine)) return false;
+
         var total:int = 0;
-        _itemName = '"';
+        _itemName = "";
         for each(var m:String in value.items) {
             if(m==_bonusItem) {
                 total++
             }
         }
 
-        return total >= Config.reelQuantity;
+        var a = Config.reelQuantity;
+
+
+        trace(total == a)
+        return total == a;
     }
 
     public function isRuleAvailableForLine(line:ILine):Boolean {
@@ -31,6 +36,7 @@ public class BonusRule extends AbstractRule implements IRule {
     }
 
     public function countPay(i:int):int {
+
         if(i == 0) {
             return 10;
         }

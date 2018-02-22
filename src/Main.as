@@ -11,7 +11,7 @@ import models.Model;
 import views.ComponentView;
 
 import views.CompositeView;
-import views.KeyboardInputView;
+import views.ConcreteCompositeView;
 import views.MatchedRules;
 import views.ReelsView;
 import views.TotalMultiplierView;
@@ -29,7 +29,7 @@ public class Main extends Sprite {
         //total payment view
         var totalMultiplier:ComponentView = new TotalMultiplierView(model);
         //collects all components and their data to textfield
-        var compositeView:CompositeView = new KeyboardInputView(model, controller, this.stage);
+        var compositeView:CompositeView = new ConcreteCompositeView(model, controller, this.stage);
 
         compositeView.add(reelView);
         compositeView.add(matchingRulesView);
@@ -46,9 +46,5 @@ public class Main extends Sprite {
     //TODO проверить все ворнинги
     //TODO проверить на двойные строки
     //TODO case when CHERRY>3 not described in design document
-
-
-
-    //TODO (!!!!!!!!!!!) BONUS AND SCATTER USE ONE RULE SO WEE NEED TO FIX IT
 }
 }

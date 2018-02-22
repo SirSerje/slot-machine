@@ -18,21 +18,26 @@ public class RuleSet {
      *
      */
     public function matchByCurrentRules(itemOnLines:Array):Array {
-        //TODO серьезная проблема: линия из 9 хавается остальными линиям
-        //TODO запилить линии и замутить rule.isAvailable(line.type())
+        //TODO проверить с бонусом
         var winComboName:Array = [];
         var line:ILine;
         var rule:IRule;
-        for(var i:int = 0; i< itemOnLines.length; i++) {
+        var bonus:IRule;
+        for (var i:int = 0; i < itemOnLines.length; i++) {
             line = itemOnLines[i];
-            for (var  j:int = 0; j<_availableRules.length; j++) {
+            for (var j:int = 0; j < _availableRules.length; j++) {
                 rule = _availableRules[j];
-                    if (rule.checkWinOnLine(line)) {
-                        winComboName.push(rule);
-                        break;
-                    }
+                if (rule.checkWinOnLine(line) && !(rule is BonusRule)) {
+                    winComboName.push(rule);
+                   // break;
+                }
+                if (rule.checkWinOnLine(line) && rule is BonusRule) {
+                    bonus = rule;
+                 //   break;
+                }
             }
         }
+        bonus && winComboName.push(bonus);
         return winComboName;
     }
 
