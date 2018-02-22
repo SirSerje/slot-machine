@@ -24,7 +24,6 @@ public class AnyBarRule extends AbstractRule implements IRule {
         var currentPay:int = 0;
         for (var i:int = 0; i < value.items.length; i++) {
             currentItem = value.items[i];
-
             //check exception
             for (var j:int = 0; j < _exceptItems.length; j++) {
                 exceptItem = _exceptItems[j];
@@ -39,11 +38,8 @@ public class AnyBarRule extends AbstractRule implements IRule {
                 anyItem = _anyItems[k];
                 if (compare(currentItem, anyItem)) {
                     any++;
-                } else {
-                    if(!flag) {
-                        firstItem = currentItem;
-                        flag = true;
-                        continue;
+                    if(any == value.length) {
+                        return false;
                     }
                 }
             }
@@ -53,22 +49,23 @@ public class AnyBarRule extends AbstractRule implements IRule {
             //if match to origin, add it
             for (var m:int = 0; m <_usingItems.length; m++) {
                 validItem = _usingItems[m];
-                if (compare(currentItem, validItem)) {
+                if (superCompare(currentItem, validItem)) {
                     total += 1;
                 }
             }
             //end of
 
         }
-        if((total - any) == 3) return false
 
+
+        //
         if ((total + any) == _itemsNeedToWin) {
             if (firstItem == null) {
                 firstItem = currentItem;
             }
 
-            if (firstItem.getPay()["cost"]) {
-                currentPay = firstItem.getPay()["cost"];
+            if (firstItem.getPay()["cost_any"]) {
+                currentPay = firstItem.getPay()["cost_any"];
                 _winPay += currentPay;
             }
         }

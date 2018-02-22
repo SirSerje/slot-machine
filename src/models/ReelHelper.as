@@ -34,8 +34,8 @@ public class ReelHelper {
         return result;
     }
 
-
-    private static function createItem(value:String):IItem {
+    //TODO вынести в какую то фабрику
+    public static function createItem(value:String):IItem {
         var item:IItem;
         switch (value) {
             case "BONUS":

@@ -12,6 +12,7 @@ import items.BarItem;
 import items.BlankItem;
 import items.H7Item;
 import items.IItem;
+import items.ScatterItem;
 import items.SevenItem;
 import items.WildItem;
 
@@ -36,6 +37,8 @@ public class Model extends EventDispatcher implements IModel {
     private var _totalPayment:int = 0;
     //Hold spin history
     private var _randomNumbers:Array = [];
+
+
     private var _tOK:IRule;
     private var _any7:IRule;
     private var _anyBar:IRule;
@@ -58,8 +61,7 @@ public class Model extends EventDispatcher implements IModel {
         }
         //creating game rule types
         _ruleSet = new RuleSet();
-        //adding rules to rule set
-//        _ruleSet.add(new ScatterRule());
+
         _tOK = new ThreeOfKindRule(3);
         _any7 = new Any7Rule(3);
         _anyBar = new AnyBarRule(3);
@@ -68,24 +70,25 @@ public class Model extends EventDispatcher implements IModel {
         var anyItems:Vector.<IItem> = new Vector.<IItem>();
         var exceptItems:Vector.<IItem> = new Vector.<IItem>();
         var anyBarItems:Vector.<IItem> = new Vector.<IItem>();
+
         var threeItems:Vector.<IItem> = new Vector.<IItem>();
         var anySevenItems:Vector.<IItem> = new Vector.<IItem>();
 
         threeItems.push(new Bar1Item(), new Bar2Item(), new Bar3Item(), new H7Item(), new Bar7Item());
-        exceptItems.push(new BlankItem());
+        exceptItems.push(new BlankItem(), new ScatterItem());
         anyItems.push(new WildItem());
 
-        anySevenItems.push(new SevenItem()/*, new BarItem()*/);
-        anyBarItems.push(/*new SevenItem(),*/ new BarItem());
+        anySevenItems.push(new SevenItem());
+        anyBarItems.push(new BarItem());
 
 
         _tOK.setItems(threeItems, anyItems, exceptItems);
-     //   _any7.setItems(anySevenItems, anyItems, exceptItems);
         _anyBar.setItems(anyBarItems, anyItems, exceptItems);
+        _any7.setItems(anySevenItems, anyItems, exceptItems);
 
         _ruleSet.add(_tOK);
-//        _ruleSet.add(_any7);
         _ruleSet.add(_anyBar);
+        _ruleSet.add(_any7);
 
 
         //_ruleSet.add(new AnyBarRule());

@@ -27,6 +27,8 @@ public class RuleSet {
         for (var i:int = 0; i < itemOnLines.length; i++) {
             line = itemOnLines[i];
             for (var j:int = 0; j < _availableRules.length; j++) {
+
+
                 rule = _availableRules[j];
                 isWin = rule.checkWinOnLine(line);
                 if (isWin) {
@@ -35,7 +37,12 @@ public class RuleSet {
                     } else {
                         bonus = rule;
                     }
+                    break; //TODO надо не забыть за него
                 }
+
+
+
+
             }
         }
         bonus && winComboName.push(bonus);

@@ -1,7 +1,7 @@
 package items {
 
 public class ScatterItem extends AbstractItem implements IItem {
-    public function ScatterItem(name:String) {
+    public function ScatterItem(name:String = "") {
         super(name);
     }
 
