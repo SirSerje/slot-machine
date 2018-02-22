@@ -11,11 +11,9 @@ public class BlankItem extends AbstractItem implements IItem {
     }
 
     public function setPay(value:Object) {
-       trace("BLANK");
     }
 
     public function getPay():Object {
-        trace("BLANK")
         return null;
     }
 }

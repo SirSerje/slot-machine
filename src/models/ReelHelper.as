@@ -79,7 +79,7 @@ public class ReelHelper {
                 return item;
 
             default:
-                item = new BlankItem(" X ");
+                item = new BlankItem(" BLANK ");
                 item.setPay(Config.payByValue(value));
                 return item;
 

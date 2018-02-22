@@ -38,7 +38,7 @@ public class MainTest {
     public function checkCombos():void {
         var threeOfKind:IRule = new ThreeOfKindRule(3);
         var anyBar:IRule = new AnyBarRule(3);
-        var any7:IRule = new Any7Rule(3)
+        var any7:IRule = new Any7Rule(3);
 
 
         var anyItems:Vector.<IItem> = new Vector.<IItem>();
@@ -55,10 +55,10 @@ public class MainTest {
 
         threeOfKind.setItems(threeItems, anyItems, exceptItems);
         anyBar.setItems(anyBarItems, anyItems, exceptItems);
-        any7.setItems(anySeven, anyItems, exceptItems)
+        any7.setItems(anySeven, anyItems, exceptItems);
 
         var items:Vector.<IItem> = new Vector.<IItem>(3);
-        var line:ILine = new StraightLine(items)
+        var line:ILine = new StraightLine(items);
 
         var object:Object = {
           /*  rule1: {items: ["BAR2", "BAR2", "BAR2"], rule: threeOfKind, line: StraightLine, result: true, index: 1},  //1
@@ -78,9 +78,9 @@ public class MainTest {
             rule13: {items: ["H7", "BAR7", "BAR7"], rule: any7, line: StraightLine, result: true, index: 13},  //13
             rule14: {items: ["WILD", "BAR7", "WILD"], rule: any7, line: StraightLine, result: false, index: 14},  //14
             rule15: {items: ["H7", "BAR7", "WILD"], rule: any7, line: StraightLine, result: true, index: 15}  //15
-    }
+    };
         for each(var item in object) {
-            tr(item)
+            tr(item);
             items[0] = ReelHelper.createItem(item.items[0]);
             items[1] = ReelHelper.createItem(item.items[1]);
             items[2] = ReelHelper.createItem(item.items[2]);

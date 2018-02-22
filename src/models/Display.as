@@ -56,12 +56,22 @@ public class Display {
         var item:IItem;
         for each(var currentLineType:String in _possibleLineTypes) {
             switch (currentLineType) {
+                case LineType.BONUS:
+                    currentLine =  new Vector.<IItem>();
+                    for (var z:int = 0; z < _reels.length; z++) {
+                        b = _reels[z];
+                        for (var w:int = 0; w < b.getDisplaySize(); w++) {
+                            item = _reels[w].getItemAt(z);
+                            currentLine.push(item);
+                        }
+                    }
+                    _availableLines.push(new BonusLine(currentLine));
+                    break;
                 case LineType.SCATTER:
-                    //line for scatter check
+                    currentLine =  new Vector.<IItem>();
                     for (var q:int = 0; q < _reels.length; q++) {
                         b = _reels[q];
                         for (var w:int = 0; w < b.getDisplaySize(); w++) {
-
                             item = _reels[w].getItemAt(q);
                             currentLine.push(item);
                         }

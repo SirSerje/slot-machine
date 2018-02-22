@@ -18,7 +18,7 @@ public class AnyBarRule extends AbstractRule implements IRule {
         var exceptItem:IItem;
         var anyItem:IItem;
         var firstItem:IItem;
-        var total:int = 0
+        var total:int = 0;
         var any:int = 0;
         var flag:Boolean = false;
         var currentPay:int = 0;
@@ -74,7 +74,7 @@ public class AnyBarRule extends AbstractRule implements IRule {
 
 
     public function countPay(i:int):int {
-        return i + 2;
+        return countTotal() + i;
     }
 
     public function get name():String {

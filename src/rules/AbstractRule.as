@@ -27,7 +27,7 @@ public class AbstractRule {
     }
 
     protected function superCompare(a:IItem, b:IItem):Boolean {
-        trace(getSuperClass(a) , getClass(b))
+        trace(getSuperClass(a) , getClass(b));
         return getSuperClass(a) == getClass(b);
     }
 
@@ -39,6 +39,13 @@ public class AbstractRule {
         _usingItems = usingItems;
         _anyItems = anyItems;
         _exceptItems = exceptItems;
+    }
+
+    //In case of real slot payments of any line should be initialized by configs
+    protected function countTotal():int {
+        var temp:int = _winPay;
+        _winPay = 0;
+        return temp;
     }
 
 

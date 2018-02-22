@@ -19,7 +19,7 @@ public class ThreeOfKindRule extends AbstractRule implements IRule {
         var exceptItem:IItem;
         var anyItem:IItem;
         var firstItem:IItem;
-        var total:int = 0
+        var total:int = 0;
         var any:int = 0;
         var flag:Boolean = false;
         var currentPay:int = 0;
@@ -76,12 +76,7 @@ public class ThreeOfKindRule extends AbstractRule implements IRule {
         return countTotal() + i;
     }
 
-    //In case of real slot payments of any line should be initialized by configs
-    private function countTotal():int {
-        var temp:int = _winPay;
-        _winPay = 0;
-        return temp;
-    }
+
 
     public function get name():String {
         return "3 OF KIND";

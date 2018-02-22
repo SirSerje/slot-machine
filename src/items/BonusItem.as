@@ -1,17 +1,20 @@
 package items {
-import items.IItem;
 
-public class BonusItem extends ScatterItem implements IItem {
-    public function BonusItem(name:String) {
+public class BonusItem extends AbstractItem implements IItem {
+    public function BonusItem(name:String = "") {
         super(name);
     }
 
-    override public function setPay(value:Object) {
+     public function setPay(value:Object) {
         _pay = value;
     }
 
-    override public function getPay():Object {
+     public function getPay():Object {
         return _pay;
+    }
+
+    public function get name():String {
+        return "BONUS";
     }
 }
 }
