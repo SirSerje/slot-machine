@@ -69,7 +69,7 @@ public class MainTest {
          }*/
 
 
-        var object:Object = {
+      /*  var object:Object = {
             rule1: {items: ["BAR2", "BAR2", "BAR2"], rule: threeOfKind, line: StraightLine, result: true, index: 1},  //1
             rule2: {items: ["WILD", "WILD", "WILD"], rule: threeOfKind, line: StraightLine, result: true, index: 2},  //2
             rule3: {items: ["CHERRY", "WILD", "WILD"], rule: threeOfKind, line: StraightLine, result: false, index: 3}, //3
@@ -96,7 +96,7 @@ public class MainTest {
 
             Assert.assertEquals(item.result, (item.rule as IRule).checkWinOnLine(line));
             trace("DONE")
-        }
+        }*/
 
 
     }

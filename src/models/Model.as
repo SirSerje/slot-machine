@@ -2,6 +2,10 @@ package models {
 
 import configuration.Config;
 
+import creator.ICreator;
+
+import creator.ItemCreator;
+
 import flash.events.Event;
 import flash.events.EventDispatcher;
 
@@ -18,12 +22,16 @@ public class Model extends EventDispatcher implements IModel {
     private var _payment:Payment;
     private var _totalPayment:int = 0;
     private var _randomNumbers:Array = [];
+    private var _reelHelper:ReelHelper;
+    private var _creator:ICreator;
 
     public function Model() {
         init();
     }
 
     private function init():void {
+        _creator = new ItemCreator();
+        _reelHelper = new ReelHelper(_creator);
         //Figuring out, how many items user can see on one reel
         _displayReelSize = Config.displayReelSize;
         //Taking data about reel weights
@@ -35,7 +43,8 @@ public class Model extends EventDispatcher implements IModel {
             _display.addReel(new Reel(_displayReelSize));
         }
         //creating game rule types
-        _ruleSet = new RuleSet(_displayReelSize);
+        _ruleSet = new RuleSet();
+        _ruleSet.initRules(Config.reelQuantity);
         //creating payment
         _payment = new Payment();
     }
@@ -72,8 +81,8 @@ public class Model extends EventDispatcher implements IModel {
             if (r.stop.length != r.weight.length) {
                 trace("Probabilities config length doesn't match reels config");
             }
-            var randomPosOnReel:int = ReelHelper.getRandomOnReel(r.weight, random[i]);
-            var items:Vector.<IItem> = ReelHelper.getItemsOnReel(randomPosOnReel, r.stop, _displayReelSize);
+            var randomPosOnReel:int = _reelHelper.getRandomOnReel(r.weight, random[i]);
+            var items:Vector.<IItem> = _reelHelper.getItemsOnReel(randomPosOnReel, r.stop, _displayReelSize);
             itemsOnReel.push(items);
         }
         return itemsOnReel;

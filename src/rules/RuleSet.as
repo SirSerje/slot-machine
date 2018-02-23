@@ -17,10 +17,10 @@ import models.ILine;
 /**
  * RuleSet class knows about all rule types in slot
  */
-public class RuleSet {
+public class RuleSet implements IRuleSet{
 
-    public function RuleSet(value:int) {
-        init(value);
+    public function RuleSet() {
+
     }
     private var _availableRules:Array = [];
 
@@ -55,7 +55,7 @@ public class RuleSet {
         return winComboName;
     }
 
-    private function init(value:int):void {
+    public function initRules(itemsToWin:int):void {
 
         var threeItems:Vector.<IItem> = new Vector.<IItem>();
         threeItems.push(new Bar1Item(), new Bar2Item(), new Bar3Item(), new H7Item(), new Bar7Item());
@@ -64,7 +64,7 @@ public class RuleSet {
         anyItems.push(new WildItem());
 
         var exceptItems:Vector.<IItem> = new Vector.<IItem>();
-        exceptItems.push(new BlankItem(), new ScatterItem());
+        exceptItems.push(new BlankItem(), new ScatterItem(), new BonusItem());
 
         var anyBarItems:Vector.<IItem> = new Vector.<IItem>();
         anyBarItems.push(new BarItem());
@@ -78,11 +78,11 @@ public class RuleSet {
         var bonusItem:Vector.<IItem> = new Vector.<IItem>();
         bonusItem.push(new BonusItem());
 
-        var _threeOfKind:IRule = new ThreeOfKindRule(threeItems, anyItems, exceptItems, value);
-        var _anySeven:IRule = new Any7Rule(anySevenItems, anyItems, exceptItems, value);
-        var _anyBar:IRule = new AnyBarRule(anyBarItems, anyItems, exceptItems, value);
+        var _threeOfKind:IRule = new ThreeOfKindRule(threeItems, anyItems, exceptItems, itemsToWin);
+        var _anySeven:IRule = new Any7Rule(anySevenItems, anyItems, exceptItems, itemsToWin);
+        var _anyBar:IRule = new AnyBarRule(anyBarItems, anyItems, exceptItems, itemsToWin);
         var _scatter:IRule = new ScatterRule(scatterItems, null, null);
-        var _bonus:IRule = new BonusRule(bonusItem, null, null, value);
+        var _bonus:IRule = new BonusRule(bonusItem, null, null, itemsToWin);
 
         add(_threeOfKind);
         add(_anyBar);
