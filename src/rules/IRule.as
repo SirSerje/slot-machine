@@ -1,4 +1,6 @@
 package rules {
+import items.IItem;
+
 import models.ILine;
 
 public interface IRule {

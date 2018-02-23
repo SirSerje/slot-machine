@@ -1,6 +1,8 @@
 package models {
 import configuration.LineType;
 
+import items.IItem;
+
 /**
  * Display class knows about reels and possible lines, which able to give win
  */
@@ -9,7 +11,7 @@ import configuration.LineType;
 public class Display {
     private var _reels:Array = [];
     private var _reelsQuantity:int;
-    private var _possibleLineTypes:Array; //TODO rename possible lineTypes
+    private var _possibleLineTypes:Array;
     private var _reelSize:int;
     private var _availableLines:Array = [];
 
@@ -48,19 +50,29 @@ public class Display {
     }
 
     private function updateLines():void {
-        var currentLine:Array = [];
+        var currentLine:Vector.<IItem> = new Vector.<IItem>();
         _availableLines = []; //clear lines
         var b:IReel;
-        var item:String;
+        var item:IItem;
         for each(var currentLineType:String in _possibleLineTypes) {
             switch (currentLineType) {
+                case LineType.BONUS:
+                    currentLine =  new Vector.<IItem>();
+                    for (var z:int = 0; z < _reels.length; z++) {
+                        b = _reels[z];
+                        for (var t:int = 0; t < b.getDisplaySize(); t++) {
+                            item = _reels[t].getItemAt(z);
+                            currentLine.push(item);
+                        }
+                    }
+                    _availableLines.push(new BonusLine(currentLine));
+                    break;
                 case LineType.SCATTER:
-                    //line for scatter check
+                    currentLine =  new Vector.<IItem>();
                     for (var q:int = 0; q < _reels.length; q++) {
                         b = _reels[q];
-                        for (var w:int = 0; w < b.getDisplaySize(); w++) {
-
-                            item = _reels[w].getItemAt(q);
+                        for (var c:int = 0; c < b.getDisplaySize(); c++) {
+                            item = _reels[c].getItemAt(q);
                             currentLine.push(item);
                         }
                     }
@@ -68,7 +80,7 @@ public class Display {
                     break;
                 case LineType.ALL_HORIZONTAL:
                     for (var e:int = 0; e < _reels.length; e++) {
-                        currentLine = [];
+                        currentLine =  new Vector.<IItem>();
                         b = _reels[e];
                         for (var r:int = 0; r < b.getDisplaySize(); r++) {
                             item = _reels[r].getItemAt(e);
@@ -78,14 +90,14 @@ public class Display {
                     }
                     break;
                 case LineType.SQUARE_DIAGONAL:
-                    currentLine = [];
+                    currentLine =  new Vector.<IItem>();
                     for (var t:int = 0; t < _reels.length; t++) {
                         item = _reels[t].getItemAt(t);
                         currentLine.push(item);
                     }
                     _availableLines.push(new StraightLine(currentLine));
                     var m:int = 0;
-                    currentLine = [];
+                    currentLine =  new Vector.<IItem>();
                     for (var u:int = 0; u < _reels.length; u++) {
                         b = _reels[u];
                         for (var o:int = b.getDisplaySize() - 1; o >= 0; o--) {

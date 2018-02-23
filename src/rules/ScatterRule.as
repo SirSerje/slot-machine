@@ -1,48 +1,60 @@
 package rules {
+import items.IItem;
+
 import models.ILine;
 import models.ScatterLine;
 
 public class ScatterRule extends AbstractRule implements IRule{
-    private var _winCount:int = 0;
-    private var _expectLine:Class = ScatterLine;
 
-    public function ScatterRule() {
-    }
-    public function checkWinOnLine(value:ILine):Boolean {
-        if (!(value is _expectLine))
-            return false;
 
-        _winCount = 0;
-        for each(var m:String in value.items) {
-            if (m == _scatterItem) {
-                _winCount++;
-            }
-        }
-        return _winCount >= 1;
-    }
 
-    public function countPay(i:int):int {
-        var m:int = 0;
-        switch (_winCount) {
-            case 1:
-                m += 2;
-                break;
-            case 2:
-                m += 10;
-                break;
-            case 3:
-                m += 25;
-                break;
-            case 0:
-                m += 0;
-                break
-        }
-        _winCount=0;
-        return i + m;
+    public function ScatterRule(usingItems:Vector.<IItem>, anyItems:Vector.<IItem>, exceptItems:Vector.<IItem>, itemNeedToWin:int=0) {
+        super(usingItems, anyItems, exceptItems, itemNeedToWin);
     }
 
     public function get name():String {
         return "SCATTER";
+    }
+
+    public function checkWinOnLine(value:ILine):Boolean {
+        if(!(value is ScatterLine)) {return false;}
+        var currentItem:IItem;
+
+
+        var anyItem:IItem;
+        var firstItem:IItem;
+        var total:int = 0;
+
+        var flag:Boolean = false;
+        var currentPay:int = 0;
+        for (var i:int = 0; i < value.items.length; i++) {
+            currentItem = value.items[i];
+
+            //check exception
+            for (var j:int = 0; j < _usingItems.length; j++) {
+                if(flag) break;
+                anyItem = _usingItems[j];
+                if (compare(currentItem, anyItem)) {
+                    firstItem = currentItem;
+                    total++;
+                    if(total == _itemsNeedToWin) {
+                        flag = true;
+                    }
+                }
+            }
+            //end of check exception
+        }
+        if(total >= 1) {
+            if (firstItem.getPay()["cost"+total]) {
+                currentPay = firstItem.getPay()["cost"+total];
+                _winPay += currentPay;
+            }
+        }
+        return (total >= 1)
+    }
+
+    public function countPay(i:int):int {
+        return countTotal() + i;
     }
 }
 }

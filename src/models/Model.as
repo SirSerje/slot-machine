@@ -1,38 +1,21 @@
 package models {
-import configuration.Config;
 
 import flash.events.Event;
 import flash.events.EventDispatcher;
 
-import configuration.LineType;
-
-import models.ReelHelper;
-
-import rules.ThreeOfKind;
-import rules.AnyBarRule;
-import rules.Any7Rule;
-import rules.IRule;
+import items.IItem;
 
 import rules.RuleSet;
-import rules.BonusRule;
-import rules.ScatterRule;
-import rules.WildRule;
 
 public class Model extends EventDispatcher implements IModel {
-    //TODO  добавить линии как сущности
     private var _display:Display;
     private var _displayReelSize:int;
     private var _reelWeights:Object;
-
     private var _ruleSet:RuleSet;
-
     private var _matchedRules:Array = [];
-
     private var _payment:Payment;
     private var _totalPayment:int = 0;
-    //Hold spin history
     private var _randomNumbers:Array = [];
-
 
     public function Model() {
         init();
@@ -50,21 +33,14 @@ public class Model extends EventDispatcher implements IModel {
             _display.addReel(new Reel(_displayReelSize));
         }
         //creating game rule types
-        _ruleSet = new RuleSet();
-        //adding rules to rule set
-        _ruleSet.add(new ScatterRule());
-        _ruleSet.add(new ThreeOfKind());
-        _ruleSet.add(new Any7Rule());
-        _ruleSet.add(new AnyBarRule());
-        //added last, because relies on previous wins
-        _ruleSet.add(new BonusRule());
-        //creating payment object
+        _ruleSet = new RuleSet(_displayReelSize);
+        //creating payment
         _payment = new Payment();
     }
 
     public function roll():void {
         var random:Vector.<Number> = new Vector.<Number>(_displayReelSize,true);
-        for(var i:int=0; i<random.length;i++) random[i] = 0;
+        for(var i:int=0; i<random.length;i++) random[i] = Math.random();
 
         _randomNumbers.push(random);
         _display.updateReels(newAvailableItems(random));
@@ -95,12 +71,10 @@ public class Model extends EventDispatcher implements IModel {
                 trace("Probabilities config length doesn't match reels config");
             }
             var randomPosOnReel:int = ReelHelper.getRandomOnReel(r.weight, random[i]);
-            var items:Array = ReelHelper.getItemsOnReel(randomPosOnReel, r.stop, _displayReelSize);
+            var items:Vector.<IItem> = ReelHelper.getItemsOnReel(randomPosOnReel, r.stop, _displayReelSize);
             itemsOnReel.push(items);
         }
         return itemsOnReel;
     }
-
-
 }
 }

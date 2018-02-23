@@ -1,20 +1,21 @@
 package models {
+import items.IItem;
 
 public class Reel implements IReel{
-    private var _items:Array = [];
+    private var _items:Vector.<IItem> = new Vector.<IItem>();
     private var _reelDisplaySize:int;
 
     public function Reel(reelDisplaySize:int = 0) {
         _reelDisplaySize = reelDisplaySize
     }
 
-    public function updateReel(itemsOnReel:Array):void {
+    public function updateReel(itemsOnReel:Vector.<IItem>):void {
         for(var i:int = 0; i<itemsOnReel.length; i++) {
             _items[i] = itemsOnReel[i];
         }
     }
 
-    public function getItems():Array {
+    public function getItems():Vector.<IItem> {
         return _items;
     }
 
@@ -22,8 +23,12 @@ public class Reel implements IReel{
         return _reelDisplaySize;
     }
 
-    public function getItemAt(value:int):String {
+    public function getItemAt(value:int):IItem {
         return _items[value];
+    }
+
+    public function get items():Vector.<IItem> {
+        return _items;
     }
 }
 }

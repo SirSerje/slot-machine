@@ -1,9 +1,10 @@
-package configuration {
+package {
+import configuration.LineType;
 
 //Based on the conditions of assignment, configuration file realized in *as file, because there is no need to implement
 //server features
 public class Config {
-    private static var _possibleLines:Array = [LineType.SCATTER, LineType.ALL_HORIZONTAL, LineType.SQUARE_DIAGONAL];
+    private static var _possibleLines:Array = [LineType.BONUS, LineType.SCATTER, LineType.ALL_HORIZONTAL, LineType.SQUARE_DIAGONAL];
     private static var _displayReelSize:int = 3;
     private static var _reelQuantity:int = 3;
     private static var _reelConfig:Object =
@@ -22,6 +23,40 @@ public class Config {
                 }
             };
 
+    private static var _payments:Object = {
+        WILD : {
+            cost:1000
+        },
+        CHERRY : {
+            cost1:2,
+            cost2:10,
+            cost3:25
+        },
+        BONUS: {
+            cost:10,
+            costBonus:1000
+        },
+        H7: {
+            cost:100,
+            cost_any:10
+        },
+        BAR7: {
+            cost:25,
+            cost_any:10
+        },
+        BAR3: {
+            cost:5,
+            cost_any:2
+        },
+        BAR2: {
+            cost:4,
+            cost_any:2
+        },
+        BAR1: {
+            cost:3,
+            cost_any:2
+        }
+    };
 
     public static function get displayReelSize():int {
         return _displayReelSize;
@@ -37,6 +72,10 @@ public class Config {
 
     public static function get possibleLines():Array {
         return _possibleLines;
+    }
+
+    public static function payByValue(value:String):Object {
+        return _payments[value];
     }
 }
 }
