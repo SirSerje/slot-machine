@@ -19,47 +19,10 @@ import models.ILine;
  */
 public class RuleSet {
 
-    private var _availableRules:Array = [];
-
     public function RuleSet(value:int) {
         init(value);
     }
-
-    private function init(value:int):void {
-
-        var threeItems:Vector.<IItem> = new Vector.<IItem>();
-        threeItems.push(new Bar1Item(), new Bar2Item(), new Bar3Item(), new H7Item(), new Bar7Item());
-
-        var anyItems:Vector.<IItem> = new Vector.<IItem>();
-        anyItems.push(new WildItem());
-
-        var exceptItems:Vector.<IItem> = new Vector.<IItem>();
-        exceptItems.push(new BlankItem(), new ScatterItem());
-
-        var anyBarItems:Vector.<IItem> = new Vector.<IItem>();
-        anyBarItems.push(new BarItem());
-
-        var scatterItems:Vector.<IItem> = new Vector.<IItem>();
-        scatterItems.push(new ScatterItem());
-
-        var anySevenItems:Vector.<IItem> = new Vector.<IItem>();
-        anySevenItems.push(new SevenItem());
-
-        var bonusItem:Vector.<IItem> = new Vector.<IItem>();
-        bonusItem.push(new BonusItem());
-
-        var _threeOfKind:rules.IRule = new ThreeOfKindRule(threeItems, anyItems, exceptItems, value);
-        var _anySeven:rules.IRule = new Any7Rule(anySevenItems, anyItems, exceptItems, value);
-        var _anyBar:rules.IRule = new AnyBarRule(anyBarItems, anyItems, exceptItems, value);
-        var _scatter:rules.IRule = new ScatterRule(scatterItems, null, null);
-        var _bonus:rules.IRule = new BonusRule(bonusItem, null, null, value);
-
-        add(_threeOfKind);
-        add(_anyBar);
-        add(_anySeven);
-        add(_scatter);
-        add(_bonus);
-    }
+    private var _availableRules:Array = [];
 
     /**
      * Method check, what kind of lines have prize combinations
@@ -90,6 +53,42 @@ public class RuleSet {
         }
         bonus && winComboName.push(bonus);
         return winComboName;
+    }
+
+    private function init(value:int):void {
+
+        var threeItems:Vector.<IItem> = new Vector.<IItem>();
+        threeItems.push(new Bar1Item(), new Bar2Item(), new Bar3Item(), new H7Item(), new Bar7Item());
+
+        var anyItems:Vector.<IItem> = new Vector.<IItem>();
+        anyItems.push(new WildItem());
+
+        var exceptItems:Vector.<IItem> = new Vector.<IItem>();
+        exceptItems.push(new BlankItem(), new ScatterItem());
+
+        var anyBarItems:Vector.<IItem> = new Vector.<IItem>();
+        anyBarItems.push(new BarItem());
+
+        var scatterItems:Vector.<IItem> = new Vector.<IItem>();
+        scatterItems.push(new ScatterItem());
+
+        var anySevenItems:Vector.<IItem> = new Vector.<IItem>();
+        anySevenItems.push(new SevenItem());
+
+        var bonusItem:Vector.<IItem> = new Vector.<IItem>();
+        bonusItem.push(new BonusItem());
+
+        var _threeOfKind:IRule = new ThreeOfKindRule(threeItems, anyItems, exceptItems, value);
+        var _anySeven:IRule = new Any7Rule(anySevenItems, anyItems, exceptItems, value);
+        var _anyBar:IRule = new AnyBarRule(anyBarItems, anyItems, exceptItems, value);
+        var _scatter:IRule = new ScatterRule(scatterItems, null, null);
+        var _bonus:IRule = new BonusRule(bonusItem, null, null, value);
+
+        add(_threeOfKind);
+        add(_anyBar);
+        add(_anySeven);
+        add(_scatter);
+        add(_bonus);
     }
 
     private function add(rule:IRule):void {

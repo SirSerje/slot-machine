@@ -1,4 +1,6 @@
 package models {
+import configuration.Config;
+
 import items.Bar1Item;
 import items.Bar2Item;
 import items.Bar3Item;

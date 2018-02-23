@@ -9,13 +9,11 @@ import models.IModel;
 import models.Model;
 
 import views.ComponentView;
-
 import views.CompositeView;
 import views.ConcreteCompositeView;
 import views.MatchedRules;
 import views.ReelsView;
 import views.TotalMultiplierView;
-
 
 public class Main extends Sprite {
 

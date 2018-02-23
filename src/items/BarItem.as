@@ -1,6 +1,4 @@
 package items {
-import items.AbstractItem;
-
 public class BarItem extends AbstractItem implements IItem {
     public function BarItem(name:String = "") {
         super(name);

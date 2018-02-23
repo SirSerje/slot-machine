@@ -6,13 +6,19 @@ import models.BonusLine;
 import models.ILine;
 
 public class BonusRule extends AbstractRule implements IRule {
-    private var _winItem:IItem;
-    public function BonusRule(usingItems:Vector.<IItem>, anyItems:Vector.<IItem>, exceptItems:Vector.<IItem>, itemNeedToWin:int=0) {
+    public function BonusRule(usingItems:Vector.<IItem>, anyItems:Vector.<IItem>, exceptItems:Vector.<IItem>, itemNeedToWin:int = 0) {
         super(usingItems, anyItems, exceptItems, itemNeedToWin);
+    }
+    private var _winItem:IItem;
+
+    public function get name():String {
+        return "BONUS";
     }
 
     public function checkWinOnLine(value:ILine):Boolean {
-        if(!(value is BonusLine)) {return false;}
+        if (!(value is BonusLine)) {
+            return false;
+        }
         var currentItem:IItem;
 
 
@@ -26,19 +32,19 @@ public class BonusRule extends AbstractRule implements IRule {
             currentItem = value.items[i];
             //check exception
             for (var j:int = 0; j < _usingItems.length; j++) {
-                if(flag) break;
+                if (flag) break;
                 anyItem = _usingItems[j];
                 if (compare(currentItem, anyItem)) {
                     firstItem = currentItem;
                     total++;
-                    if(total == _itemsNeedToWin) {
+                    if (total == _itemsNeedToWin) {
                         flag = true;
                     }
                 }
             }
             //end of check exception
         }
-        if(total == _itemsNeedToWin) {
+        if (total == _itemsNeedToWin) {
             if (firstItem.getPay()["cost"]) {
                 currentPay = firstItem.getPay()["cost"];
                 _winItem = firstItem;
@@ -49,14 +55,10 @@ public class BonusRule extends AbstractRule implements IRule {
     }
 
     public function countPay(i:int):int {
-        if(i == 0) {
+        if (i == 0) {
             return countTotal();
         }
         return i * _winItem.getPay()["costBonus"];
-    }
-
-    public function get name():String {
-        return "BONUS";
     }
 
 }

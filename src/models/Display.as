@@ -9,17 +9,16 @@ import items.IItem;
 //Definitely, some slot machines have more than one display, so for this scalability class should be extends
 //from AbstractDisplay
 public class Display {
-    private var _reels:Array = [];
-    private var _reelsQuantity:int;
-    private var _possibleLineTypes:Array;
-    private var _reelSize:int;
-    private var _availableLines:Array = [];
-
     public function Display(reelsQuantity:int, reelSize:int, possibleLineTypes:Array) {
         _possibleLineTypes = possibleLineTypes;
         _reelsQuantity = reelsQuantity;
         _reelSize = reelSize;
     }
+    private var _reels:Array = [];
+    private var _reelsQuantity:int;
+    private var _possibleLineTypes:Array;
+    private var _reelSize:int;
+    private var _availableLines:Array = [];
 
     public function addReel(reel:IReel):void {
         if (_reelSize != reel.getDisplaySize()) {
@@ -41,9 +40,9 @@ public class Display {
     }
 
     /**
-    * Get all available lines for win combinations
-    * @return array of possible line win combinations
-    */
+     * Get all available lines for win combinations
+     * @return array of possible line win combinations
+     */
     //For scalability, any line should be presented as some essence line Rule classes
     public function availableLines():Array {
         return _availableLines;
@@ -57,7 +56,7 @@ public class Display {
         for each(var currentLineType:String in _possibleLineTypes) {
             switch (currentLineType) {
                 case LineType.BONUS:
-                    currentLine =  new Vector.<IItem>();
+                    currentLine = new Vector.<IItem>();
                     for (var z:int = 0; z < _reels.length; z++) {
                         b = _reels[z];
                         for (var t:int = 0; t < b.getDisplaySize(); t++) {
@@ -68,7 +67,7 @@ public class Display {
                     _availableLines.push(new BonusLine(currentLine));
                     break;
                 case LineType.SCATTER:
-                    currentLine =  new Vector.<IItem>();
+                    currentLine = new Vector.<IItem>();
                     for (var q:int = 0; q < _reels.length; q++) {
                         b = _reels[q];
                         for (var c:int = 0; c < b.getDisplaySize(); c++) {
@@ -80,7 +79,7 @@ public class Display {
                     break;
                 case LineType.ALL_HORIZONTAL:
                     for (var e:int = 0; e < _reels.length; e++) {
-                        currentLine =  new Vector.<IItem>();
+                        currentLine = new Vector.<IItem>();
                         b = _reels[e];
                         for (var r:int = 0; r < b.getDisplaySize(); r++) {
                             item = _reels[r].getItemAt(e);
@@ -90,14 +89,14 @@ public class Display {
                     }
                     break;
                 case LineType.SQUARE_DIAGONAL:
-                    currentLine =  new Vector.<IItem>();
+                    currentLine = new Vector.<IItem>();
                     for (var t:int = 0; t < _reels.length; t++) {
                         item = _reels[t].getItemAt(t);
                         currentLine.push(item);
                     }
                     _availableLines.push(new StraightLine(currentLine));
                     var m:int = 0;
-                    currentLine =  new Vector.<IItem>();
+                    currentLine = new Vector.<IItem>();
                     for (var u:int = 0; u < _reels.length; u++) {
                         b = _reels[u];
                         for (var o:int = b.getDisplaySize() - 1; o >= 0; o--) {

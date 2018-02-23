@@ -1,7 +1,4 @@
 package items {
-import items.AbstractItem;
-import items.IItem;
-
 public class WildItem extends AbstractItem implements IItem {
     public function WildItem(name:String = "") {
         super(name);
