@@ -64,7 +64,10 @@ public class RuleSet implements IRuleSet{
         anyItems.push(new WildItem());
 
         var exceptItems:Vector.<IItem> = new Vector.<IItem>();
-        exceptItems.push(new BlankItem(), new ScatterItem(), new BonusItem());
+        exceptItems.push(new BlankItem(), new ScatterItem());
+
+        var exceptItemsOfKind:Vector.<IItem> = new Vector.<IItem>();
+        exceptItemsOfKind.push(new BlankItem(), new ScatterItem(), new BonusItem());
 
         var anyBarItems:Vector.<IItem> = new Vector.<IItem>();
         anyBarItems.push(new BarItem());
@@ -78,7 +81,7 @@ public class RuleSet implements IRuleSet{
         var bonusItem:Vector.<IItem> = new Vector.<IItem>();
         bonusItem.push(new BonusItem());
 
-        var _threeOfKind:IRule = new ThreeOfKindRule(threeItems, anyItems, exceptItems, itemsToWin);
+        var _threeOfKind:IRule = new ThreeOfKindRule(threeItems, anyItems, exceptItemsOfKind, itemsToWin);
         var _anySeven:IRule = new Any7Rule(anySevenItems, anyItems, exceptItems, itemsToWin);
         var _anyBar:IRule = new AnyBarRule(anyBarItems, anyItems, exceptItems, itemsToWin);
         var _scatter:IRule = new ScatterRule(scatterItems, null, null);
