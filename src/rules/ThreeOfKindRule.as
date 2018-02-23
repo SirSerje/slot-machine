@@ -9,12 +9,18 @@ import models.ScatterLine;
  */
 public class ThreeOfKindRule extends AbstractRule implements IRule {
 
-    public function ThreeOfKindRule(usingItems:Vector.<IItem>, anyItems:Vector.<IItem>, exceptItems:Vector.<IItem>, itemNeedToWin:int=0) {
+    public function ThreeOfKindRule(usingItems:Vector.<IItem>, anyItems:Vector.<IItem>, exceptItems:Vector.<IItem>, itemNeedToWin:int = 0) {
         super(usingItems, anyItems, exceptItems, itemNeedToWin);
     }
 
+    public function get name():String {
+        return "3 OF KIND";
+    }
+
     public function checkWinOnLine(value:ILine):Boolean {
-        if(value is ScatterLine) {return false;}
+        if (value is ScatterLine) {
+            return false;
+        }
         var currentItem:IItem;
         var exceptItem:IItem;
         var anyItem:IItem;
@@ -41,9 +47,9 @@ public class ThreeOfKindRule extends AbstractRule implements IRule {
                 if (compare(currentItem, anyItem)) {
                     any++;
                 } else {
-                    if(!flag) {
-                    firstItem = currentItem;
-                    flag = true;
+                    if (!flag) {
+                        firstItem = currentItem;
+                        flag = true;
                     }
                 }
             }
@@ -63,22 +69,15 @@ public class ThreeOfKindRule extends AbstractRule implements IRule {
             }
 
             if (firstItem.getPay()["cost"]) {
-                    currentPay = firstItem.getPay()["cost"];
-                    _winPay += currentPay;
-                }
+                currentPay = firstItem.getPay()["cost"];
+                _winPay += currentPay;
+            }
         }
         return (/*(any != _itemsNeedToWin) &&*/ ((total + any) == _itemsNeedToWin))
     }
 
-
     public function countPay(i:int):int {
         return countTotal() + i;
-    }
-
-
-
-    public function get name():String {
-        return "3 OF KIND";
     }
 }
 }

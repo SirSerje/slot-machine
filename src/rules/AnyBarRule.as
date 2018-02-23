@@ -7,12 +7,18 @@ import models.ScatterLine;
 
 public class AnyBarRule extends AbstractRule implements IRule {
 
-    public function AnyBarRule(usingItems:Vector.<IItem>, anyItems:Vector.<IItem>, exceptItems:Vector.<IItem>, itemNeedToWin:int=0) {
+    public function AnyBarRule(usingItems:Vector.<IItem>, anyItems:Vector.<IItem>, exceptItems:Vector.<IItem>, itemNeedToWin:int = 0) {
         super(usingItems, anyItems, exceptItems, itemNeedToWin);
     }
 
+    public function get name():String {
+        return "ANY BAR";
+    }
+
     public function checkWinOnLine(value:ILine):Boolean {
-        if(value is ScatterLine) {return false;}
+        if (value is ScatterLine) {
+            return false;
+        }
         var currentItem:IItem;
         var validItem:IItem;
         var exceptItem:IItem;
@@ -38,7 +44,7 @@ public class AnyBarRule extends AbstractRule implements IRule {
                 anyItem = _anyItems[k];
                 if (compare(currentItem, anyItem)) {
                     any++;
-                    if(any == value.length) {
+                    if (any == value.length) {
                         return false;
                     }
                 }
@@ -47,7 +53,7 @@ public class AnyBarRule extends AbstractRule implements IRule {
 
 
             //if match to origin, add it
-            for (var m:int = 0; m <_usingItems.length; m++) {
+            for (var m:int = 0; m < _usingItems.length; m++) {
                 validItem = _usingItems[m];
                 if (superCompare(currentItem, validItem)) {
                     total += 1;
@@ -72,13 +78,8 @@ public class AnyBarRule extends AbstractRule implements IRule {
         return (((total + any) == _itemsNeedToWin) && total > 1)
     }
 
-
     public function countPay(i:int):int {
         return countTotal() + i;
-    }
-
-    public function get name():String {
-        return "ANY BAR";
     }
 }
 }

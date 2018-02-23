@@ -1,4 +1,7 @@
 package {
+import creator.ICreator;
+import creator.ItemCreator;
+
 import items.Bar1Item;
 import items.Bar2Item;
 import items.Bar3Item;
@@ -31,6 +34,7 @@ public class MainTest {
 
     [Test]
     public function checkCombos():void {
+        var creator:ICreator = new ItemCreator()
         var anyItems:Vector.<IItem> = new Vector.<IItem>();
         var exceptItems:Vector.<IItem> = new Vector.<IItem>();
         var threeItems:Vector.<IItem> = new Vector.<IItem>();
@@ -69,7 +73,7 @@ public class MainTest {
          }*/
 
 
-        var object:Object = {
+        /*var object:Object = {
             rule1: {items: ["BAR2", "BAR2", "BAR2"], rule: threeOfKind, line: StraightLine, result: true, index: 1},  //1
             rule2: {items: ["WILD", "WILD", "WILD"], rule: threeOfKind, line: StraightLine, result: true, index: 2},  //2
             rule3: {items: ["CHERRY", "WILD", "WILD"], rule: threeOfKind, line: StraightLine, result: false, index: 3}, //3
@@ -90,13 +94,13 @@ public class MainTest {
         };
         for each(var item:Object in object) {
             tr(item);
-            items[0] = ReelHelper.createItem(item.items[0]);
-            items[1] = ReelHelper.createItem(item.items[1]);
-            items[2] = ReelHelper.createItem(item.items[2]);
+            items[0] = creator.createItem(item.items[0]);
+            items[1] = creator.createItem(item.items[1]);
+            items[2] = creator.createItem(item.items[2]);
 
             Assert.assertEquals(item.result, (item.rule as IRule).checkWinOnLine(line));
             trace("DONE")
-        }
+        }*/
 
 
     }

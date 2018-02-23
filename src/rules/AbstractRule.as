@@ -6,18 +6,17 @@ import flash.utils.getQualifiedSuperclassName;
 import items.IItem;
 
 public class AbstractRule {
-    protected var _winPay:int = 0;
-    protected var _itemsNeedToWin:int;
-    protected var _exceptItems:Vector.<IItem>;
-    protected var _anyItems:Vector.<IItem>;
-    protected var _usingItems:Vector.<IItem>;
-
-    public function AbstractRule(usingItems:Vector.<IItem>, anyItems:Vector.<IItem>, exceptItems:Vector.<IItem>, itemNeedToWin:int=0) {
+    public function AbstractRule(usingItems:Vector.<IItem>, anyItems:Vector.<IItem>, exceptItems:Vector.<IItem>, itemNeedToWin:int = 0) {
         _usingItems = usingItems;
         _anyItems = anyItems;
         _exceptItems = exceptItems;
         _itemsNeedToWin = itemNeedToWin;
     }
+    protected var _winPay:int = 0;
+    protected var _itemsNeedToWin:int;
+    protected var _exceptItems:Vector.<IItem>;
+    protected var _anyItems:Vector.<IItem>;
+    protected var _usingItems:Vector.<IItem>;
 
     protected function compare(a:IItem, b:IItem):Boolean {
         return a is getClass(b);

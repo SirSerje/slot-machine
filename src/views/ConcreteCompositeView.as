@@ -10,25 +10,25 @@ import flash.text.TextField;
 import models.IModel;
 
 public class ConcreteCompositeView extends CompositeView {
-    private var _target:Stage;
-    private var _textField:TextField;
-
     public function ConcreteCompositeView(aModel:IModel, aController:IKeyboardInputHandler, target:Stage) {
         super(aModel, aController);
         this._target = target;
         target.addEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
         addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
     }
+    private var _target:Stage;
+    private var _textField:TextField;
 
-    private function onKeyPress(event:KeyboardEvent):void {
-        (_controller as IKeyboardInputHandler).keyPressHandler(event);
+    override public function update(event:Event = null):void {
+        super.update(event);
+        _textField.text = getView();
     }
 
     //in this case, composite class knows about component classes and on update() it collect all data,
     //from components which need to be displayed
-    override public function update(event:Event = null):void {
-        super.update(event);
-        _textField.text = getView();
+
+    private function onKeyPress(event:KeyboardEvent):void {
+        (_controller as IKeyboardInputHandler).keyPressHandler(event);
     }
 
     private function onAddedToStage(event:Event):void {

@@ -2,20 +2,14 @@ package views {
 import flash.events.Event;
 
 import models.Display;
-
 import models.IModel;
 import models.IReel;
 
 public class ReelsView extends ComponentView {
-    private var _display:Display;
-
     public function ReelsView(aModel:IModel, oController:Object = null) {
         super(aModel, oController);
     }
-
-    override public function update(event:Event = null):void {
-        _display = _model.getDisplay();
-    }
+    private var _display:Display;
 
     override public function getView():String {
         var str:String = "";
@@ -31,6 +25,10 @@ public class ReelsView extends ComponentView {
             str += items + "\n";
         }
         return str;
+    }
+
+    override public function update(event:Event = null):void {
+        _display = _model.getDisplay();
     }
 }
 }

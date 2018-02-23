@@ -12,6 +12,7 @@ public interface IModel extends IEventDispatcher {
      * @return Object Display
      */
     function getDisplay():Display;
+
     /**
      *
      * @return array of rule which have win combination

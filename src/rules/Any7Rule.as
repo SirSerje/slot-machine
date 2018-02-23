@@ -1,12 +1,9 @@
 package rules {
 import items.IItem;
 
-import models.ILine;
-import models.ScatterLine;
-
 public class Any7Rule extends AnyBarRule implements IRule {
 
-    public function Any7Rule(usingItems:Vector.<IItem>, anyItems:Vector.<IItem>, exceptItems:Vector.<IItem>, itemNeedToWin:int=0) {
+    public function Any7Rule(usingItems:Vector.<IItem>, anyItems:Vector.<IItem>, exceptItems:Vector.<IItem>, itemNeedToWin:int = 0) {
         super(usingItems, anyItems, exceptItems, itemNeedToWin);
     }
 
